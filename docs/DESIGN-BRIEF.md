@@ -9,9 +9,8 @@
 ## 1. The business
 
 - **What:** Premium car detailing studio, **Lisbon, Portugal**.
-- **Working name:** "Detail Department" (repo name). ⚠️ The client's notes also refer to
-  the brand as **"Frotapower"** — need to confirm the real brand name before it goes on
-  the page. (See Open Questions.)
+- **Brand name:** **Detail Department** (confirmed by client, 2026-09-13). The word
+  "Frotapower" that appeared in the client's inspiration notes was not the brand — ignore it.
 - **Positioning (the core idea):** We do **not** sell "washes." We sell
   **protection, preservation, value enhancement, technology, and quality** — a premium
   **workshop experience**. The goal is to read as a *benchmark in the premium segment
@@ -170,7 +169,7 @@ ui-ux-pro-max validators.
 - **shadcn** + **gsap-*** — components + motion (if we build in React/Next).
 
 ## 8. Open questions / decisions needed before building
-1. **Brand name:** "Detail Department" or "Frotapower" (or both)? Is there a logo?
+1. ~~Brand name~~ — **RESOLVED: Detail Department.** Still need: is there an existing logo/wordmark, or do we design one?
 2. **Language:** Portuguese, English, or bilingual (PT/EN)? (Lisbon audience + intl.)
 3. **Tech stack:** recommend **Next.js + Tailwind + shadcn/ui + GSAP** (uses our skills,
    easy to host, room for the cinematic hero). OK, or prefer plain static HTML/CSS/JS?
