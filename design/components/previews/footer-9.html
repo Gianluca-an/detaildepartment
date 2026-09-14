@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Footer 9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0A09;--ink:#F3F1EC;--muted:#8C867C;--soft:#cfc9bf;--bronze:#B8935A;--bronze-lite:#CBAE7E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#121110;color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  /* filler above so the footer sits at a real page foot */
+  .filler{height:22vh;display:flex;align-items:flex-end;justify-content:center;padding-bottom:26px;color:var(--muted);font-size:.7rem;letter-spacing:.28em;text-transform:uppercase}
+  footer{position:relative;overflow:hidden;background:var(--bg)}
+  .hair{height:1px;width:100%}
+  .hair-bronze{background:linear-gradient(90deg,transparent,rgba(184,147,90,.4),transparent)}
+  .hair-dim{background:rgba(184,147,90,.15)}
+  .wrap{max-width:72rem;margin:0 auto;padding-left:24px;padding-right:24px}
+  .eyebrow{font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.34em;color:var(--bronze-lite)}
+  /* CTA band */
+  .cta{display:flex;flex-direction:column;align-items:flex-start;gap:24px;padding:56px 0}
+  .cta p.lead{margin-top:12px;max-width:28rem;font-weight:300;color:var(--soft)}
+  .btn{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--bronze);border-radius:2px;padding:14px 28px;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--ink);text-decoration:none;transition:.25s}
+  .btn .dot{width:6px;height:6px;border-radius:50%;background:var(--bronze);transition:.25s}
+  .btn:hover{background:var(--bronze);color:#100f0e}
+  .btn:hover .dot{transform:translateX(4px);background:#100f0e}
+  @media(min-width:768px){.cta{flex-direction:row;align-items:center;justify-content:space-between}}
+  /* columns */
+  .cols{display:grid;grid-template-columns:1fr;gap:40px;padding:56px 0}
+  @media(min-width:768px){.cols{grid-template-columns:1.4fr 1fr 1fr}}
+  h3.lbl{font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.34em;color:var(--muted)}
+  .svc{margin-top:20px;list-style:none;display:flex;flex-direction:column;gap:12px}
+  .svc a{font-family:Sora,sans-serif;font-size:1.125rem;font-weight:600;letter-spacing:-.02em;color:var(--ink);text-decoration:none;transition:.2s}
+  .svc a:hover{color:var(--bronze-lite)}
+  .svc .note{margin-left:8px;font-size:.75rem;font-weight:300;color:var(--muted)}
+  .contact{margin-top:20px;list-style:none;display:flex;flex-direction:column;gap:16px;font-size:.875rem;font-weight:300;color:var(--soft)}
+  .contact a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:.2s}
+  .contact a:hover{color:var(--bronze-lite)}
+  .ico{width:16px;height:16px;color:var(--bronze);flex-shrink:0}
+  .contact .addr{display:inline-flex;align-items:flex-start;gap:10px}
+  .hours{margin-top:20px;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:.875rem;font-weight:300;color:var(--soft)}
+  .hours li{display:flex;justify-content:space-between;gap:16px}
+  .hours span.v{color:var(--muted)}
+  .social{margin-top:24px;display:inline-flex;align-items:center;gap:10px;font-size:.875rem;font-weight:300;color:var(--soft);text-decoration:none;transition:.2s}
+  .social:hover{color:var(--bronze-lite)}
+  /* wordmark */
+  .mark-wrap{position:relative;overflow:hidden;padding:0 24px 24px;user-select:none}
+  .mark{text-align:center;font-family:Sora,sans-serif;font-weight:800;text-transform:uppercase;line-height:.9;letter-spacing:-.02em;font-size:clamp(2.5rem,13vw,12rem);
+    background:linear-gradient(180deg,rgba(243,241,236,.06),rgba(243,241,236,.02));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .mark-fade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,var(--bg),transparent,var(--bg))}
+  /* legal */
+  .legal{display:flex;flex-direction:column;gap:12px;padding:32px 0;font-size:.75rem;font-weight:300;color:var(--muted)}
+  .legal nav{display:flex;flex-wrap:wrap;gap:8px 24px}
+  .legal a{color:inherit;text-decoration:none;transition:.2s}
+  .legal a:hover{color:var(--bronze-lite)}
+  @media(min-width:768px){.legal{flex-direction:row;align-items:center;justify-content:space-between}}
+  .tag{position:fixed;left:14px;bottom:14px;z-index:9;background:var(--bronze);color:#100f0e;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:7px 12px;font-weight:700;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="tag">Footer 9 · Direção B</div>
+<div class="filler">Conteúdo da página acima ↑</div>
+
+<footer>
+  <div class="hair hair-bronze"></div>
+
+  <!-- CTA band -->
+  <div class="wrap cta">
+    <div>
+      <p class="eyebrow">/ Grande Lisboa</p>
+      <p class="lead">Marque uma avaliação presencial. Vemos o carro, ouvimos o objetivo e propomos o tratamento certo.</p>
+    </div>
+    <a class="btn" href="#marcar">Marcar avaliação <span class="dot"></span></a>
+  </div>
+
+  <div class="hair hair-dim"></div>
+
+  <!-- columns -->
+  <div class="wrap cols">
+    <div>
+      <h3 class="lbl">Serviços</h3>
+      <ul class="svc">
+        <li><a href="#detalhe">Detalhe Automóvel</a></li>
+        <li><a href="#ceramica">Proteção Cerâmica</a></li>
+        <li><a href="#restauro">Restauro</a><span class="note">faróis · chapa e pintura</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="lbl">Contacto</h3>
+      <ul class="contact">
+        <li><a href="https://wa.me/351000000000"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>WhatsApp</a></li>
+        <li><a href="tel:+351000000000"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+351 000 000 000</a></li>
+        <li class="addr"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>Morada do estúdio<br>Grande Lisboa</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="lbl">Horário</h3>
+      <ul class="hours">
+        <li><span>Seg – Sex</span><span class="v">09h – 19h</span></li>
+        <li><span>Sábado</span><span class="v">Por marcação</span></li>
+        <li><span>Domingo</span><span class="v">Fechado</span></li>
+      </ul>
+      <a class="social" href="https://instagram.com/"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@detaildepartment</a>
+    </div>
+  </div>
+
+  <!-- oversized wordmark -->
+  <div class="mark-wrap">
+    <div class="mark">Detail Department</div>
+    <div class="mark-fade"></div>
+  </div>
+
+  <div class="hair hair-dim"></div>
+
+  <!-- legal -->
+  <div class="wrap legal">
+    <p>© <span id="yr"></span> Detail Department · NIF 000 000 000</p>
+    <nav>
+      <a href="#privacidade">Política de Privacidade</a>
+      <a href="#cookies">Cookies</a>
+      <a href="https://www.livroreclamacoes.pt/">Livro de Reclamações</a>
+    </nav>
+  </div>
+</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
