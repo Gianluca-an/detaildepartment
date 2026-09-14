@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Header 1 (Parallax Hero)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#121110; --bg-2:#0B0A09; --card:#191715; --ink:#F3F1EC;
+    --bronze:#B8935A; --bronze-lite:#CBAE7E; --muted:#8C867C;
+    --line:rgba(184,147,90,.22); --line-soft:rgba(243,241,236,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .disp{font-family:Sora,system-ui,sans-serif}
+  a,button{font-family:inherit;cursor:pointer}
+
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;perspective:1000px}
+  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 80% at 78% 12%,rgba(184,147,90,.10),transparent 55%);z-index:0}
+
+  .layer{position:absolute;inset:0;will-change:transform}
+  .l1{opacity:.5}
+  .ring{position:absolute;border:1px solid var(--line);border-radius:50%}
+  .ring.a{top:22%;left:20%;width:min(34vw,420px);aspect-ratio:1}
+  .ring.b{bottom:16%;right:18%;width:min(24vw,300px);aspect-ratio:1}
+  .l2{opacity:.9}
+  .glow{position:absolute;filter:blur(60px);border-radius:8px}
+  .glow.a{top:26%;right:26%;width:min(20vw,240px);aspect-ratio:1;background:rgba(184,147,90,.14);transform:rotate(12deg)}
+  .glow.b{bottom:24%;left:24%;width:min(24vw,300px);aspect-ratio:1;background:rgba(184,147,90,.10);transform:rotate(-12deg)}
+  .l3 .dot{position:absolute;border-radius:50%;background:var(--bronze)}
+  .l3 .d1{top:16%;left:14%;width:7px;height:7px;opacity:.7}
+  .l3 .d2{bottom:24%;right:20%;width:6px;height:6px;opacity:.5}
+  .l3 .d3{top:50%;right:24%;width:5px;height:5px;opacity:.6}
+  .l3 .d4{top:30%;left:38%;width:4px;height:4px;opacity:.4}
+
+  .content{position:relative;z-index:2;max-width:1040px;margin:0 auto;padding:0 clamp(20px,5vw,40px);text-align:center;will-change:transform}
+  .chip{display:inline-flex;align-items:center;gap:.6em;border:1px solid var(--line);
+    background:rgba(25,23,21,.6);backdrop-filter:blur(6px);padding:.55em 1.1em;border-radius:2px}
+  .chip .d{width:6px;height:6px;background:var(--bronze);border-radius:50%}
+  .chip span{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--bronze-lite);font-weight:600}
+
+  h1{font-family:Sora;font-weight:700;letter-spacing:-.04em;line-height:.94;
+    font-size:clamp(3.4rem,13vw,10rem);margin:30px 0 0}
+  h1 .b{display:block;background:linear-gradient(100deg,var(--bronze-lite),var(--bronze) 55%,#8a6c40);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{margin:30px auto 0;max-width:52ch;font-size:clamp(1rem,1.7vw,1.24rem);color:var(--muted);font-weight:300}
+
+  .actions{margin-top:40px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;
+    font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+    padding:1.05em 2em;border-radius:2px;border:1px solid transparent;overflow:hidden;transition:.25s}
+  .btn.primary{background:var(--bronze);color:#100f0e;border-color:var(--bronze)}
+  .btn.primary:hover{box-shadow:0 20px 50px -12px rgba(184,147,90,.45)}
+  .btn.primary .sheen{position:absolute;inset:0;transform:translateX(-120%);
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent)}
+  .btn.primary:hover .sheen{transform:translateX(120%);transition:transform 1s ease}
+  .btn.primary span{position:relative;z-index:1}
+  .btn.ghost{background:rgba(25,23,21,.5);backdrop-filter:blur(6px);border-color:var(--line-soft);color:var(--ink)}
+  .btn.ghost:hover{border-color:var(--bronze);color:var(--bronze-lite)}
+
+  .cards{margin:64px auto 0;max-width:860px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;transform-style:preserve-3d}
+  .c{padding:26px 22px;border:1px solid var(--line-soft);background:rgba(25,23,21,.55);
+    backdrop-filter:blur(6px);border-radius:2px;text-align:left;transition:.3s}
+  .c:hover{background:rgba(25,23,21,.85);border-color:var(--line)}
+  .c .n{font-family:Sora;font-size:.72rem;letter-spacing:.1em;color:var(--bronze)}
+  .c h3{font-family:Sora;font-weight:500;font-size:1.12rem;margin:12px 0 6px}
+  .c p{font-size:.86rem;color:var(--muted);font-weight:300;line-height:1.5}
+  @media(max-width:680px){.cards{grid-template-columns:1fr;max-width:360px}}
+
+  @media(prefers-reduced-motion:reduce){.layer,.content{transform:none!important}}
+  .tag{position:fixed;left:14px;bottom:14px;z-index:99;background:var(--bronze);color:#100f0e;
+    font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:7px 12px;font-weight:700;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="tag">Header 1 · Parallax Hero · Direção B</div>
+<section class="hero" id="hero">
+  <div class="layer l1" data-depth="30">
+    <div class="ring a"></div><div class="ring b"></div>
+  </div>
+  <div class="layer l2" data-depth="20">
+    <div class="glow a"></div><div class="glow b"></div>
+  </div>
+  <div class="layer l3" data-depth="10">
+    <div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div><div class="dot d4"></div>
+  </div>
+
+  <div class="content" data-depth="-6">
+    <div class="chip"><span class="d"></span><span>Lisboa · Estúdio de Detalhe Automóvel</span></div>
+    <h1 class="disp">O detalhe<span class="b">é tudo.</span></h1>
+    <p class="lead">Detalhe, proteção cerâmica e restauro ao mais alto nível. Preservamos o valor, o brilho e o carácter do seu automóvel — do colecionador exigente a quem simplesmente estima o que é seu.</p>
+    <div class="actions">
+      <button class="btn primary"><span>Marcar avaliação</span><i class="sheen"></i></button>
+      <button class="btn ghost">Ver serviços</button>
+    </div>
+    <div class="cards">
+      <div class="c"><div class="n">01</div><h3>Detalhe Automóvel</h3><p>Lavagem técnica, correção de pintura e higienização interior profunda.</p></div>
+      <div class="c"><div class="n">02</div><h3>Proteção Cerâmica</h3><p>Sela a pintura, aprofunda o brilho e protege durante anos.</p></div>
+      <div class="c"><div class="n">03</div><h3>Restauro</h3><p>Faróis, chapa e pintura — superfícies castigadas ao seu melhor.</p></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const hero=document.getElementById('hero');
+  const layers=[...document.querySelectorAll('[data-depth]')];
+  let raf=null,tx=0,ty=0;
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!reduce){
+    hero.addEventListener('mousemove',(e)=>{
+      const r=hero.getBoundingClientRect();
+      tx=(e.clientX-r.left-r.width/2)/r.width;
+      ty=(e.clientY-r.top-r.height/2)/r.height;
+      if(!raf)raf=requestAnimationFrame(apply);
+    });
+    hero.addEventListener('mouseleave',()=>{tx=0;ty=0;if(!raf)raf=requestAnimationFrame(apply)});
+  }
+  function apply(){
+    layers.forEach(l=>{
+      const d=parseFloat(l.dataset.depth);
+      l.style.transform=`translate3d(${tx*-d}px,${ty*-d}px,0)`;
+      l.style.transition='transform .25s ease-out';
+    });
+    raf=null;
+  }
+</script>
+</body>
+</html>
