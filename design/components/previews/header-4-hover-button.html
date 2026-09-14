@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Header 4 (Interactive Hover Button)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#121110;--card:#191715;--paper:#EDEBE7;--ink:#F3F1EC;
+    --bronze:#B8935A;--bronze-lite:#CBAE7E;--muted:#8C867C;--line:rgba(184,147,90,.30);--line-soft:rgba(243,241,236,.12)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .sec{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:44px;padding:70px 20px}
+  .eyebrow{font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:var(--bronze);font-weight:600}
+  .row{display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:center}
+  .panel{padding:44px;border:1px solid var(--line-soft);border-radius:2px;display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+  .panel.light{background:var(--paper)}
+  .lbl{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);width:100%;text-align:center;margin-bottom:4px}
+  .panel.light .lbl{color:#6b645a}
+
+  /* interactive hover button */
+  .ihb{position:relative;cursor:pointer;overflow:hidden;border-radius:2px;border:1px solid var(--bronze);
+    background:transparent;color:var(--ink);padding:.95em 1.7em;font-family:Inter;font-weight:600;
+    font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;min-width:210px}
+  .ihb .base{display:flex;align-items:center;gap:.7em;justify-content:center;position:relative;z-index:2}
+  .ihb .dot{width:9px;height:9px;border-radius:50%;background:var(--bronze);
+    transition:transform .4s cubic-bezier(.2,.7,.2,1);flex:none}
+  .ihb .base .t{transition:transform .35s ease,opacity .35s ease}
+  .ihb .over{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;gap:.6em;
+    color:#100f0e;transform:translateX(38px);opacity:0;transition:transform .35s ease,opacity .35s ease}
+  .ihb .over svg{width:16px;height:16px;stroke:#100f0e;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .ihb:hover .dot{transform:scale(46)}
+  .ihb:hover .base .t{transform:translateX(38px);opacity:0}
+  .ihb:hover .over{transform:translateX(0);opacity:1}
+  .ihb:focus-visible{outline:2px solid var(--bronze-lite);outline-offset:2px}
+
+  /* solid variant (starts bronze) */
+  .ihb.solid{background:var(--bronze);border-color:var(--bronze);color:#100f0e}
+  .ihb.solid .dot{background:#100f0e}
+  .ihb.solid .over{color:var(--bronze-lite)}
+  .ihb.solid .over svg{stroke:var(--bronze-lite)}
+  .ihb.solid:hover{ }
+  .ihb.solid .fill{position:absolute;inset:0;background:#100f0e;transform:scaleX(0);transform-origin:left;
+    transition:transform .4s cubic-bezier(.2,.7,.2,1);z-index:1}
+  .ihb.solid:hover .fill{transform:scaleX(1)}
+  .ihb.solid:hover .dot{transform:scale(0);opacity:0}
+
+  .tag{position:fixed;left:14px;bottom:14px;z-index:99;background:var(--bronze);color:#100f0e;
+    font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:7px 12px;font-weight:700;border-radius:2px}
+  .hint{color:var(--muted);font-size:.85rem;font-weight:300}
+</style>
+</head>
+<body>
+<div class="tag">Header 4 · Interactive Hover Button · Direção B</div>
+<section class="sec">
+  <p class="eyebrow">Botão interativo</p>
+  <p class="hint">Passe o rato por cima de cada botão.</p>
+
+  <div class="panel">
+    <span class="lbl">Sobre fundo escuro (outline &amp; solid)</span>
+    <button class="ihb">
+      <span class="base"><span class="dot"></span><span class="t">Marcar avaliação</span></span>
+      <span class="over">Marcar avaliação <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </button>
+    <button class="ihb solid">
+      <span class="fill"></span>
+      <span class="base"><span class="dot"></span><span class="t">WhatsApp</span></span>
+      <span class="over">WhatsApp <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </button>
+  </div>
+
+  <div class="panel light">
+    <span class="lbl">Sobre fundo claro</span>
+    <button class="ihb" style="border-color:#9A7B4F;color:#141210">
+      <span class="base"><span class="dot" style="background:#9A7B4F"></span><span class="t">Ver serviços</span></span>
+      <span class="over" style="color:#fff">Ver serviços <svg viewBox="0 0 24 24" style="stroke:#fff"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </button>
+  </div>
+</section>
+<script>
+  // On the outline buttons, tint the sliding-in overlay text dark (over bronze fill).
+  // Pure CSS handles the interaction; JS not required.
+</script>
+</body>
+</html>
