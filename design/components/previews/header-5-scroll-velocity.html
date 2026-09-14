@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Header 5 (Scroll Velocity Marquee)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#121110;--ink:#F3F1EC;--bronze:#B8935A;--bronze-lite:#CBAE7E;--muted:#8C867C;--line-soft:rgba(243,241,236,.10)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .spacer{height:70vh;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.85rem;font-weight:300;letter-spacing:.05em}
+  .spacer .hint{border:1px solid var(--line-soft);border-radius:2px;padding:.7em 1.2em}
+  .marquee{position:relative;padding:clamp(40px,7vw,90px) 0;border-block:1px solid var(--line-soft);overflow:hidden}
+  .row{display:flex;white-space:nowrap;will-change:transform}
+  .row .seg{font-family:Sora;font-weight:800;letter-spacing:-.02em;font-size:clamp(2.2rem,7vw,5.2rem);
+    padding-right:.5em;display:inline-flex;align-items:center}
+  .row .seg .s{color:var(--bronze);margin:0 .45em;font-weight:600}
+  .row.dim .seg{color:transparent;-webkit-text-stroke:1px rgba(243,241,236,.35)}
+  .fade{pointer-events:none;position:absolute;inset-block:0;width:22%;z-index:2}
+  .fade.l{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+  .fade.r{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+  .tag{position:fixed;left:14px;bottom:14px;z-index:99;background:var(--bronze);color:#100f0e;
+    font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:7px 12px;font-weight:700;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="tag">Header 5 · Scroll Velocity · Direção B</div>
+<div class="spacer"><span class="hint">↓ Faça scroll para acelerar o movimento ↓</span></div>
+
+<section class="marquee">
+  <div class="fade l"></div><div class="fade r"></div>
+  <div class="row" data-dir="1" id="r1"></div>
+  <div class="row dim" data-dir="-1" id="r2" style="margin-top:.1em"></div>
+</section>
+
+<div class="spacer"><span class="hint">↑ Faça scroll nos dois sentidos ↑</span></div>
+
+<script>
+  const SEG1='<span class="seg">Detalhe Automóvel <span class="s">/</span> Proteção Cerâmica <span class="s">/</span> Restauro <span class="s">/</span> </span>';
+  const SEG2='<span class="seg">Preservar <span class="s">/</span> Proteger <span class="s">/</span> Valorizar <span class="s">/</span> Detail Department <span class="s">/</span> </span>';
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  function setup(el,seg){
+    el.innerHTML=seg.repeat(2);            // start with 2 copies
+    while(el.scrollWidth < window.innerWidth*2){ el.innerHTML+=seg; } // ensure enough width
+    return el.scrollWidth/ (el.innerHTML.match(/class="seg"/g).length); // approx seg width (unused)
+  }
+  const r1=document.getElementById('r1'), r2=document.getElementById('r2');
+  setup(r1,SEG1); setup(r2,SEG2);
+  const half1=r1.scrollWidth/2, half2=r2.scrollWidth/2;
+
+  let pos1=0,pos2=-half2/2, vel=0, lastY=scrollY, last=performance.now();
+  addEventListener('scroll',()=>{ vel += (scrollY-lastY); lastY=scrollY; },{passive:true});
+
+  function frame(now){
+    const dt=Math.min(0.05,(now-last)/1000); last=now;
+    vel*=0.9;                              // decay scroll influence
+    const base=60;                          // px/sec baseline drift
+    const boost=vel*6;                      // scroll adds/subtracts speed
+    if(!reduce){
+      pos1 -= (base+Math.abs(boost))*dt * 1 - 0; // dir +1 → move left
+      pos1 -= (boost)*dt;
+      pos2 += (base+Math.abs(boost))*dt;         // dir -1 → move right
+      pos2 += (boost)*dt;
+    }
+    if(pos1<=-half1)pos1+=half1; if(pos1>0)pos1-=half1;
+    if(pos2<=-half2)pos2+=half2; if(pos2>0)pos2-=half2;
+    r1.style.transform='translateX('+pos1+'px)';
+    r2.style.transform='translateX('+pos2+'px)';
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>
+</body>
+</html>
