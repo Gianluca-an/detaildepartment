@@ -1,0 +1,9 @@
+{
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "BorderGlow-JS-CSS",
+	"title": "BorderGlow",
+	"description": "Glowing mesh-gradient border that follows cursor direction and intensifies near edges.",
+	"type": "registry:component",
+	"_source": "https://reactbits.dev/r/BorderGlow-JS-CSS.json (fetched 2026-09-14). Install upstream: npx shadcn@latest add @react-bits/BorderGlow-JS-CSS",
+	"_note": "Raw registry item preserved for fidelity. The unescaped BorderGlow.css and BorderGlow.jsx live beside this file. registryDependencies: [] · dependencies: []"
+}

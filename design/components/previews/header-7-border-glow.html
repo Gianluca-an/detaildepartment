@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Header 7 (Border Glow)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0E0C0A;--ink:#F3F1EC;--bronze:#B8935A;--bronze-lite:#CBAE7E;--muted:#8C867C}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding:70px 24px;text-align:center}
+  .eyebrow{font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:var(--bronze);font-weight:600}
+  .hint{color:var(--muted);font-weight:300;font-size:.9rem}
+  .stage{display:flex;gap:34px;flex-wrap:wrap;justify-content:center;max-width:920px}
+
+  /* ── React Bits BorderGlow CSS (verbatim) ── */
+  .border-glow-card{--edge-proximity:0;--cursor-angle:45deg;--edge-sensitivity:30;--color-sensitivity:calc(var(--edge-sensitivity) + 20);--border-radius:28px;--glow-padding:40px;--cone-spread:25;position:relative;border-radius:var(--border-radius);isolation:isolate;transform:translate3d(0,0,.01px);display:grid;border:1px solid rgb(255 255 255 / 15%);background:var(--card-bg,#120F17);overflow:visible;box-shadow:rgba(0,0,0,.1) 0 1px 2px,rgba(0,0,0,.1) 0 2px 4px,rgba(0,0,0,.1) 0 4px 8px,rgba(0,0,0,.1) 0 8px 16px,rgba(0,0,0,.1) 0 16px 32px,rgba(0,0,0,.1) 0 32px 64px}
+  .border-glow-card::before,.border-glow-card::after,.border-glow-card>.edge-light{content:"";position:absolute;inset:0;border-radius:inherit;transition:opacity .25s ease-out;z-index:-1}
+  .border-glow-card:not(:hover):not(.sweep-active)::before,.border-glow-card:not(:hover):not(.sweep-active)::after,.border-glow-card:not(:hover):not(.sweep-active)>.edge-light{opacity:0;transition:opacity .75s ease-in-out}
+  .border-glow-card::before{border:1px solid transparent;background:linear-gradient(var(--card-bg,#120F17) 0 100%) padding-box,linear-gradient(rgb(255 255 255 / 0%) 0% 100%) border-box,var(--gradient-one) border-box,var(--gradient-two) border-box,var(--gradient-three) border-box,var(--gradient-four) border-box,var(--gradient-five) border-box,var(--gradient-six) border-box,var(--gradient-seven) border-box,var(--gradient-base) border-box;opacity:calc((var(--edge-proximity) - var(--color-sensitivity)) / (100 - var(--color-sensitivity)));mask-image:conic-gradient(from var(--cursor-angle) at center,black calc(var(--cone-spread) * 1%),transparent calc((var(--cone-spread) + 15) * 1%),transparent calc((100 - var(--cone-spread) - 15) * 1%),black calc((100 - var(--cone-spread)) * 1%))}
+  .border-glow-card::after{border:1px solid transparent;background:var(--gradient-one) padding-box,var(--gradient-two) padding-box,var(--gradient-three) padding-box,var(--gradient-four) padding-box,var(--gradient-five) padding-box,var(--gradient-six) padding-box,var(--gradient-seven) padding-box,var(--gradient-base) padding-box;mask-image:linear-gradient(to bottom,black,black),radial-gradient(ellipse at 50% 50%,black 40%,transparent 65%),radial-gradient(ellipse at 66% 66%,black 5%,transparent 40%),radial-gradient(ellipse at 33% 33%,black 5%,transparent 40%),radial-gradient(ellipse at 66% 33%,black 5%,transparent 40%),radial-gradient(ellipse at 33% 66%,black 5%,transparent 40%),conic-gradient(from var(--cursor-angle) at center,transparent 5%,black 15%,black 85%,transparent 95%);mask-composite:subtract,add,add,add,add,add;opacity:calc(var(--fill-opacity,.5) * (var(--edge-proximity) - var(--color-sensitivity)) / (100 - var(--color-sensitivity)));mix-blend-mode:soft-light}
+  .border-glow-card>.edge-light{inset:calc(var(--glow-padding) * -1);pointer-events:none;z-index:1;mask-image:conic-gradient(from var(--cursor-angle) at center,black 2.5%,transparent 10%,transparent 90%,black 97.5%);opacity:calc((var(--edge-proximity) - var(--edge-sensitivity)) / (100 - var(--edge-sensitivity)));mix-blend-mode:plus-lighter}
+  .border-glow-card>.edge-light::before{content:"";position:absolute;inset:var(--glow-padding);border-radius:inherit;box-shadow:inset 0 0 0 1px var(--glow-color),inset 0 0 1px 0 var(--glow-color-60),inset 0 0 3px 0 var(--glow-color-50),inset 0 0 6px 0 var(--glow-color-40),inset 0 0 15px 0 var(--glow-color-30),inset 0 0 25px 2px var(--glow-color-20),inset 0 0 50px 2px var(--glow-color-10),0 0 1px 0 var(--glow-color-60),0 0 3px 0 var(--glow-color-50),0 0 6px 0 var(--glow-color-40),0 0 15px 0 var(--glow-color-30),0 0 25px 2px var(--glow-color-20),0 0 50px 2px var(--glow-color-10)}
+  .border-glow-inner{display:flex;flex-direction:column;position:relative;overflow:auto;z-index:1}
+
+  .card-body{padding:2.6em;text-align:left;min-width:280px}
+  .card-body .lab{letter-spacing:.28em;text-transform:uppercase;font-size:.68rem;color:var(--bronze)}
+  .card-body h3{font-family:Sora;font-weight:600;font-size:1.7rem;margin:.7rem 0 .6rem}
+  .card-body p{color:var(--muted);font-weight:300;line-height:1.6}
+  .card-body .price{margin-top:1.4rem;font-family:Sora;font-size:1.2rem;color:var(--bronze-lite)}
+  .tag{position:fixed;left:14px;bottom:14px;z-index:99;background:var(--bronze);color:#100f0e;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:7px 12px;font-weight:700;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="tag">Header 7 · Border Glow · Direção B</div>
+<p class="eyebrow">Border glow</p>
+<p class="hint">Aproxime o rato das <em>bordas</em> de cada cartão — o brilho segue o cursor.</p>
+
+<div class="stage">
+  <div class="border-glow-card" data-glow>
+    <span class="edge-light" aria-hidden="true"></span>
+    <div class="border-glow-inner"><div class="card-body">
+      <div class="lab">/ Serviço</div>
+      <h3>Proteção Cerâmica</h3>
+      <p>Sela a pintura, aprofunda o brilho e protege durante anos.</p>
+      <div class="price">a partir de €450</div>
+    </div></div>
+  </div>
+
+  <div class="border-glow-card" data-glow>
+    <span class="edge-light" aria-hidden="true"></span>
+    <div class="border-glow-inner"><div class="card-body">
+      <div class="lab">/ Serviço</div>
+      <h3>Restauro</h3>
+      <p>Faróis, chapa e pintura — superfícies castigadas ao seu melhor.</p>
+      <div class="price">a partir de €80</div>
+    </div></div>
+  </div>
+</div>
+
+<script>
+  // Port of the React Bits BorderGlow logic (bronze/charcoal props for Direction B).
+  const PROPS = {
+    edgeSensitivity: 30, glowColor: '38 58 66', backgroundColor: '#141210',
+    borderRadius: 8, glowRadius: 40, coneSpread: 25, glowIntensity: 1.0, fillOpacity: 0.5,
+    colors: ['#CBAE7E', '#B8935A', '#E7D8BE']
+  };
+  const POS = ['80% 55%','69% 34%','8% 6%','41% 38%','86% 85%','82% 18%','51% 4%'];
+  const GK = ['--gradient-one','--gradient-two','--gradient-three','--gradient-four','--gradient-five','--gradient-six','--gradient-seven'];
+  const CM = [0,1,2,0,1,2,1];
+  function glowVars(hsl, intensity){
+    const [h,s,l] = hsl.split(/\s+/); const base = `${h}deg ${s}% ${l}%`;
+    const ops=[100,60,50,40,30,20,10], keys=['','-60','-50','-40','-30','-20','-10'], o={};
+    ops.forEach((op,i)=>o[`--glow-color${keys[i]}`]=`hsl(${base} / ${Math.min(op*intensity,100)}%)`); return o;
+  }
+  function gradVars(colors){
+    const o={}; for(let i=0;i<7;i++){const c=colors[Math.min(CM[i],colors.length-1)];o[GK[i]]=`radial-gradient(at ${POS[i]}, ${c} 0px, transparent 50%)`;}
+    o['--gradient-base']=`linear-gradient(${colors[0]} 0 100%)`; return o;
+  }
+  const baseVars = Object.assign(
+    {'--edge-sensitivity':PROPS.edgeSensitivity,'--border-radius':PROPS.borderRadius+'px','--glow-padding':PROPS.glowRadius+'px',
+     '--cone-spread':PROPS.coneSpread,'--card-bg':PROPS.backgroundColor,'--fill-opacity':PROPS.fillOpacity},
+    glowVars(PROPS.glowColor,PROPS.glowIntensity), gradVars(PROPS.colors)
+  );
+  document.querySelectorAll('[data-glow]').forEach(card=>{
+    for(const k in baseVars) card.style.setProperty(k, baseVars[k]);
+    card.addEventListener('pointermove', e=>{
+      const r=card.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
+      const cx=r.width/2, cy=r.height/2, dx=x-cx, dy=y-cy;
+      let kx=Infinity, ky=Infinity; if(dx!==0)kx=cx/Math.abs(dx); if(dy!==0)ky=cy/Math.abs(dy);
+      const edge=Math.min(Math.max(1/Math.min(kx,ky),0),1);
+      let deg=Math.atan2(dy,dx)*(180/Math.PI)+90; if(deg<0)deg+=360;
+      card.style.setProperty('--edge-proximity',(edge*100).toFixed(3));
+      card.style.setProperty('--cursor-angle',deg.toFixed(3)+'deg');
+    });
+  });
+</script>
+</body>
+</html>
