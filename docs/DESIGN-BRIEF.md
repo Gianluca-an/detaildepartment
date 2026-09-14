@@ -4,6 +4,17 @@
 > sites (scraped via Firecrawl on 2026-09-13). Everything here is a **proposal held
 > lightly** — palette, type, and structure are all open to tweaking with the client.
 
+## CONFIRMED DECISIONS (2026-09-14)
+- **Brand:** Detail Department.
+- **Language:** **Portuguese only** for v1 (EN is a later phase — the bilingual opportunity from the teardown still stands).
+- **Services (exactly three pillars):** **Detalhe Automóvel · Proteção Cerâmica · Restauro** (restauro includes headlights/faróis, bodywork/chapa e pintura, etc.). **NO PPF** — do not mention or offer it.
+- **Pricing:** show **"a partir de €…"** starting prices per service.
+- **Hero:** typographic (type-led) for launch; cinematic video slot reserved for later.
+- **Stack:** Next.js + Tailwind + shadcn/ui + GSAP (SSR SEO + speed + accessible components + tasteful motion; bilingual-ready later).
+- **Visual direction:** deciding between **A) Editorial & warm** and **B) Dark & minimal (power)** via mockups.
+- **Tone:** deciding between **Both (connoisseur + welcoming)** and **Enthusiast/collector-led** via copy comparison.
+- **Still needed (non-blocking):** logo/wordmark (have one or design one?), real contact details (morada, telefone, WhatsApp, NIF), real starting prices.
+
 ---
 
 ## 1. The business
