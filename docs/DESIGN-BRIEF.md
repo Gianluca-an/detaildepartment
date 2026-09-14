@@ -11,8 +11,9 @@
 - **Pricing:** show **"a partir de €…"** starting prices per service.
 - **Hero:** typographic (type-led) for launch; cinematic video slot reserved for later.
 - **Stack:** Next.js + Tailwind + shadcn/ui + GSAP (SSR SEO + speed + accessible components + tasteful motion; bilingual-ready later).
-- **Visual direction:** deciding between **A) Editorial & warm** and **B) Dark & minimal (power)** via mockups.
-- **Tone:** deciding between **Both (connoisseur + welcoming)** and **Enthusiast/collector-led** via copy comparison.
+- **Visual direction:** **B — Dark & minimal (power)** (chosen 2026-09-14). Near-monochrome charcoal `#121110`/`#0B0A09`, soft light-gray `#EDEBE7` inverse, bronze `#B8935A` accent, Sora display + Inter body, near-sharp radius, big negative space. Mockup: `design/mockups/direction-b-power.html`.
+- **Tone:** **Both (connoisseur + welcoming)** — as written in the Direction B mockup (premium car-appreciation AND explicitly safe/welcoming for all clients).
+- **Build status:** NOT building yet — awaiting client assets (images, headers/copy, business details). See "Client asset intake" below.
 - **Still needed (non-blocking):** logo/wordmark (have one or design one?), real contact details (morada, telefone, WhatsApp, NIF), real starting prices.
 
 ---
@@ -187,3 +188,39 @@ ui-ux-pro-max validators.
 4. **Real services & exact names** offered (so the taxonomy is accurate).
 5. **Contact details:** address, phone, hours, booking method, socials.
 6. **Confirm** palette + Typography Option A vs B.
+
+---
+
+## Client asset intake (what to send before build)
+Direction locked: **B (dark/power)**, tone **Both**. To build the real site, gather the following. Nothing here is all-or-nothing — send what you have and we start; the rest can drop in later without a rebuild.
+
+### 1. Brand assets
+- [ ] Logo / wordmark (SVG or high-res PNG, ideally a light/white version for the dark theme) — or ask us to design one.
+- [ ] Any existing brand fonts/colors to honour (else we use the chosen Sora + Inter + charcoal/bronze).
+
+### 2. Copy / headers (PT)
+- [ ] Preferred **hero headline** + subheading (or approve the mockup's "O detalhe é tudo." direction).
+- [ ] Short **"About / O Estúdio"** paragraph — the story, who you are, the workshop.
+- [ ] Per-service blurb (2–4 lines each) for **Detalhe · Cerâmica · Restauro** — in your words.
+- [ ] Any signature lines/taglines you want used.
+
+### 3. Images & video (the big one — send when ready)
+- [ ] Hero shot or short **video** (the cinematic car footage) — or we keep the typographic hero until it exists.
+- [ ] **Before/after** pairs and finished-work photos (detailing, ceramic, restoration — headlights, bodywork).
+- [ ] Workshop / team / hands-at-work photos (supports the "welcoming, real studio" feel).
+- [ ] Note desired aspect (landscape/portrait) if you have a preference; otherwise we'll frame the slots.
+
+### 4. Services & pricing
+- [ ] Real **"a partir de €…"** starting prices per service (or confirm quote-only for any).
+- [ ] Any packages/tiers, and whether prices are +IVA or IVA incluído.
+- [ ] Any brand partnerships/products used (e.g. Koch-Chemie, Gyeon, CarPro) + guarantees/warranties.
+
+### 5. Business / contact (for footer, schema, local SEO)
+- [ ] Morada (address + concelho/freguesia), or "serviço ao domicílio / mobile" if applicable.
+- [ ] Telefone + **WhatsApp** number, email, opening hours.
+- [ ] NIF, and Google Business Profile link (for reviews + map).
+- [ ] Social links (Instagram/Facebook/etc.).
+- [ ] Domain: do you own `detaildepartment.pt` / `.com`? (for deploy)
+
+### 6. Booking preference
+- [ ] WhatsApp-first + quote form (recommended default), and/or a real online booking calendar?
