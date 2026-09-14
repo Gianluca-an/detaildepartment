@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Header 8 (Ghost Fibers Background)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bronze:#B8935A;--bronze-lite:#CBAE7E;--ink:#F3F1EC;--muted:#8C867C}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:#120F17;color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+  .stage{position:relative;width:100%;height:100vh;overflow:hidden}
+  #gf{position:absolute;inset:0;display:block;width:100%;height:100%}
+  .fallback{position:absolute;inset:0;background:
+    radial-gradient(120% 90% at 50% 40%,rgba(184,147,90,.18),transparent 60%),#120F17;display:none}
+  .overlay{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;
+    pointer-events:none}
+  .overlay .eyebrow{font-size:.66rem;letter-spacing:.34em;text-transform:uppercase;color:var(--bronze-lite);font-weight:600}
+  .overlay h1{font-family:Sora;font-weight:800;letter-spacing:-.03em;line-height:.94;margin-top:22px;font-size:clamp(3rem,10vw,8rem)}
+  .overlay h1 .b{color:var(--bronze)}
+  .overlay p{margin-top:24px;max-width:44ch;color:#cfc9bf;font-weight:300;font-size:clamp(1rem,1.6vw,1.18rem)}
+  /* gentle darkening so text stays legible over the shader */
+  .scrim{position:absolute;inset:0;z-index:1;background:radial-gradient(120% 90% at 50% 45%,transparent 30%,rgba(11,10,9,.55) 100%)}
+  .tag{position:fixed;left:14px;bottom:14px;z-index:9;background:var(--bronze);color:#100f0e;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:7px 12px;font-weight:700;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="tag">Header 8 · Ghost Fibers · Direção B</div>
+<div class="stage">
+  <div class="fallback" id="fallback"></div>
+  <canvas id="gf" aria-hidden="true"></canvas>
+  <div class="scrim"></div>
+  <div class="overlay">
+    <p class="eyebrow">Lisboa · Estúdio de Detalhe Automóvel</p>
+    <h1 class="disp">O detalhe<br>é <span class="b">tudo.</span></h1>
+    <p>Fibras de luz em bronze a atravessar o escuro — um fundo ambiente para o herói ou uma quebra de secção.</p>
+  </div>
+</div>
+
+<script type="module">
+/* Faithful preview: the ACTUAL React Bits GhostFibers fragment shader, run in raw
+   WebGL2 (no 'ogl' dependency needed for the preview), with Direction B uniforms. */
+const cfg = {
+  uSpeed:0.2, uScale:2, uRotation:0, uRotationSpeed:0.25, uLayers:4,
+  uWaveAmplitude:0.015, uWaveFrequency:3, uWaveSpeed:0.15, uLayerSpeed:0.08,
+  uTwist:0.1, uTwistFrequency:5, uTwistSpeed:1.2, uLineFrequency:5, uLineSpacing:2,
+  uLineSharpness:16, uGlowFalloff:10, uGlowIntensity:1.6, uBrightness:2,
+  uBlueBoost:1.0, uVignette:0.8, uGrain:0.05, uLightMode:0,
+  uLineColor:[0x3A/255,0x2A/255,0x16/255],   // #3A2A16 warm bronze ink
+  uGlowColor:[0xB8/255,0x93/255,0x5A/255]    // #B8935A bronze glow
+};
+
+const canvas = document.getElementById('gf');
+const gl = canvas.getContext('webgl2', { alpha:false, antialias:false });
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!gl) { document.getElementById('fallback').style.display='block'; canvas.style.display='none'; }
+else {
+  const vertexSrc = `#version 300 es
+in vec2 position;
+void main(){ gl_Position = vec4(position,0.0,1.0); }`;
+  const fragmentSrc = `#version 300 es
+precision highp float;
+uniform vec2 uResolution; uniform float uTime; uniform float uSpeed; uniform float uScale;
+uniform float uRotation; uniform float uLayers; uniform float uWaveAmplitude; uniform float uWaveFrequency;
+uniform float uWaveSpeed; uniform float uLayerSpeed; uniform float uTwist; uniform float uTwistFrequency;
+uniform float uTwistSpeed; uniform float uLineFrequency; uniform float uLineSpacing; uniform float uLineSharpness;
+uniform float uGlowFalloff; uniform float uGlowIntensity; uniform float uBrightness; uniform float uBlueBoost;
+uniform float uVignette; uniform float uGrain; uniform float uRotationSpeed; uniform float uLightMode;
+uniform vec3 uLineColor; uniform vec3 uGlowColor;
+out vec4 fragColor;
+#define MAX_LAYERS 10
+mat2 rotate2d(float a){ float s=sin(a),c=cos(a); return mat2(c,-s,s,c); }
+float grainHash(vec2 p){ p=floor(p); float h=52.9829189*fract(dot(p,vec2(0.065,0.005))); return fract(h); }
+float layeredGrain(vec2 fp){
+  vec2 p=mod(fp+vec2(uTime*30.0,-uTime*21.0),1024.0);
+  vec2 r=mat2(0.8,-0.5,0.5,0.8)*p; float g=0.0;
+  g+=0.40*grainHash(r); g+=0.25*grainHash(r*2.0+17.0); g+=0.20*grainHash(r*4.0+47.0);
+  g+=0.10*grainHash(r*8.0+113.0); g+=0.05*grainHash(r*16.0+191.0); return g;
+}
+void main(){
+  vec2 resolution=max(uResolution,vec2(1.0));
+  vec2 uv=(2.0*gl_FragCoord.xy-resolution)/resolution.y;
+  float time=uTime*uSpeed;
+  vec3 backdrop=mix(vec3(0.070588,0.058824,0.090196),vec3(1.0),step(0.5,uLightMode));
+  vec3 centerTone=max(uLineColor*0.85567-uGlowColor*0.06186,vec3(0.0));
+  vec3 cloudTone=uLineColor*0.19588+uGlowColor*0.2268;
+  vec2 p=uv; p/=max(uScale,0.05);
+  p=rotate2d(radians(uRotation)+time*uRotationSpeed)*p;
+  vec3 color=vec3(0.0); float fiberField=0.0;
+  for(int i=0;i<MAX_LAYERS;i++){
+    float fi=float(i)+1.0; if(fi>uLayers) break;
+    p+=uWaveAmplitude*sin(p.yx*fi*uWaveFrequency+time*(uWaveSpeed+fi*uLayerSpeed));
+    float radius=length(p); float pa=atan(p.y,p.x);
+    pa+=sin(radius*uTwistFrequency-time*uTwistSpeed+fi)*uTwist;
+    p=vec2(cos(pa),sin(pa))*radius;
+    float lines=abs(sin(p.x*(uLineFrequency+fi*uLineSpacing)+sin(p.y*3.0+time)));
+    lines=pow(max(0.0,1.0-lines),uLineSharpness);
+    fiberField+=lines/fi; color+=uLineColor*lines/fi;
+    float glow=exp(-uGlowFalloff*abs(sin(p.x*3.0+time+fi)));
+    color+=uGlowColor*glow*uGlowIntensity/(fi*2.0);
+  }
+  float center=exp(-2.2*dot(uv,uv)); color+=centerTone*center;
+  float cloud=exp(-1.5*length(uv+vec2(sin(time*0.3)*0.25,cos(time*0.25)*0.18))); color+=cloudTone*cloud;
+  float vg=1.0-smoothstep(0.35,1.45,length(uv));
+  color*=mix(1.0-uVignette,1.0,vg);
+  color=1.0-exp(-color*uBrightness); color.b*=uBlueBoost;
+  vec3 outc=backdrop+color;
+  float noise=(layeredGrain(gl_FragCoord.xy)-0.5)*uGrain;
+  outc=clamp(outc+noise,0.0,1.0);
+  fragColor=vec4(outc,1.0);
+}`;
+  function sh(type,src){ const s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s)); return s; }
+  const prog=gl.createProgram();
+  gl.attachShader(prog,sh(gl.VERTEX_SHADER,vertexSrc));
+  gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,fragmentSrc));
+  gl.linkProgram(prog); gl.useProgram(prog);
+  const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(prog,'position'); gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const U={}; for(const k in cfg) U[k]=gl.getUniformLocation(prog,k);
+  U.uResolution=gl.getUniformLocation(prog,'uResolution'); U.uTime=gl.getUniformLocation(prog,'uTime');
+  function setStatics(){
+    for(const k in cfg){ const v=cfg[k];
+      if(Array.isArray(v)) gl.uniform3f(U[k],v[0],v[1],v[2]); else gl.uniform1f(U[k],v); }
+  }
+  function resize(){
+    const r=canvas.getBoundingClientRect(); const w=Math.max(1,r.width|0),h=Math.max(1,r.height|0);
+    canvas.width=w; canvas.height=h; gl.viewport(0,0,w,h);
+    gl.useProgram(prog); gl.uniform2f(U.uResolution,w,h);
+  }
+  new ResizeObserver(resize).observe(canvas); resize(); setStatics();
+  let t0=performance.now();
+  function frame(now){
+    gl.useProgram(prog); setStatics();
+    gl.uniform1f(U.uTime,(now-t0)/1000);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  if(reduce){ gl.uniform1f(U.uTime,2.0); gl.drawArrays(gl.TRIANGLES,0,3); }
+  else requestAnimationFrame(frame);
+}
+</script>
+</body>
+</html>

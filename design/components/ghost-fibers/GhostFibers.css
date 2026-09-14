@@ -1,0 +1,7 @@
+/* GhostFibers.css — React Bits (JS-CSS variant), verbatim from the registry. */
+.ghost-fibers-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
