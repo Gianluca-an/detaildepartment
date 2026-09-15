@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Contact Option 1 (Aceternity)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--void:#050505;--card:#0d0c0b;--fg:#F2EFE9;--mist:#D9D4CA;--muted:#7f7a70;--border:rgba(201,162,75,.16);--gold:#C9A24B;--gold-lite:#E7CE8F;--g:201,162,75}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--void);color:var(--fg);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:82rem;margin:0 auto;padding:72px clamp(20px,5vw,56px);display:grid;grid-template-columns:1fr;gap:48px}
+@media(min-width:960px){.wrap{grid-template-columns:1fr 1fr;gap:64px;align-items:start}}
+/* left */
+.chip{width:52px;height:52px;border-radius:10px;display:grid;place-items:center;background:rgba(var(--g),.12);border:1px solid var(--border);color:var(--gold)}
+.chip svg{width:22px;height:22px}
+h1{font-family:Fraunces;font-weight:500;letter-spacing:-.02em;font-size:clamp(2.8rem,6vw,4.6rem);line-height:.98;color:var(--mist);margin-top:28px}
+.lead{margin-top:22px;max-width:42ch;color:var(--muted);font-weight:300;font-size:1.05rem;line-height:1.6}
+.row{margin-top:30px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;color:var(--mist);font-size:.92rem}
+.row a{color:inherit;text-decoration:none;transition:.25s}.row a:hover{color:var(--gold-lite)}
+.row .dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.6}
+.mapwrap{position:relative;margin-top:44px;max-width:600px}
+#map{width:100%;height:auto;display:block}
+.pinlabel{position:absolute;transform:translate(-50%,-140%);background:#16130f;border:1px solid var(--border);color:var(--mist);
+  font-size:.72rem;padding:6px 10px;border-radius:6px;white-space:nowrap;box-shadow:0 6px 24px rgba(0,0,0,.5)}
+/* right form card */
+.card{position:relative;border:1px solid var(--border);border-radius:16px;background:var(--card);padding:clamp(24px,3vw,40px);overflow:hidden}
+.card .gridbg{position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(var(--g),.05) 1px,transparent 1px),linear-gradient(90deg,rgba(var(--g),.05) 1px,transparent 1px);
+  background-size:34px 34px;mask-image:radial-gradient(120% 90% at 80% 0%,#000,transparent 75%)}
+.field{position:relative;z-index:1;margin-bottom:22px}
+.field label{display:block;font-size:.9rem;font-weight:500;color:var(--mist);margin-bottom:10px}
+.field input,.field textarea{width:100%;background:#151311;border:1px solid rgba(var(--g),.12);border-radius:8px;padding:14px 16px;
+  color:var(--fg);font-family:inherit;font-size:.95rem;transition:.25s;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:#6d685f}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--g),.12)}
+.submit{position:relative;z-index:1;background:#f2efe9;color:#0b0a09;border:none;border-radius:8px;padding:13px 26px;font-family:inherit;
+  font-size:.92rem;font-weight:600;cursor:pointer;transition:.25s}
+.submit:hover{background:var(--gold);box-shadow:0 0 34px rgba(var(--g),.4)}
+.tag{position:fixed;left:14px;bottom:14px;z-index:50;background:var(--gold);color:var(--void);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="tag">Contact Option 1 · Aceternity · Direção B</div>
+<div class="wrap">
+  <!-- LEFT -->
+  <div>
+    <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></div>
+    <h1>Fale connosco.</h1>
+    <p class="lead">Estamos sempre a melhorar. Marque uma avaliação ou diga-nos o que o seu carro precisa — respondemos rápido.</p>
+    <div class="row">
+      <a href="mailto:ola@detaildepartment.pt">ola@detaildepartment.pt</a><span class="dot"></span>
+      <a href="tel:+351000000000">+351 000 000 000</a><span class="dot"></span>
+      <a href="https://wa.me/351000000000">WhatsApp</a>
+    </div>
+    <div class="mapwrap">
+      <canvas id="map" width="600" height="320"></canvas>
+      <div class="pinlabel" id="pinlabel">Estamos aqui · Lisboa</div>
+    </div>
+  </div>
+  <!-- RIGHT -->
+  <div class="card">
+    <div class="gridbg"></div>
+    <form onsubmit="return false">
+      <div class="field"><label for="n">Nome</label><input id="n" placeholder="João Silva"></div>
+      <div class="field"><label for="e">Email ou telefone</label><input id="e" placeholder="joao@email.pt"></div>
+      <div class="field"><label for="c">Carro (marca / modelo)</label><input id="c" placeholder="Porsche 911"></div>
+      <div class="field"><label for="m">Mensagem</label><textarea id="m" rows="5" placeholder="O que procura?"></textarea></div>
+      <button class="submit">Enviar pedido</button>
+    </form>
+  </div>
+</div>
+
+<script>
+/* Dotted world map (continents approximated as ellipse fields) + gold Lisbon pin. */
+const cv=document.getElementById('map'),g=cv.getContext('2d');
+const label=document.getElementById('pinlabel');
+// internal coord space 1000x500 (2:1)
+const CONT=[ // [cx,cy,rx,ry]
+ [205,150,135,105],[330,66,34,26],           // N.America, Greenland
+ [300,360,72,112],                            // S.America
+ [520,140,58,46],                             // Europe
+ [545,305,88,120],                            // Africa
+ [730,155,175,110],[685,245,46,44],           // Asia, India
+ [805,300,72,34],[865,385,72,50]              // SE Asia, Australia
+];
+const PIN=[492,150]; // Portugal-ish in 1000x500
+function inside(x,y){for(const[cx,cy,rx,ry]of CONT){const dx=(x-cx)/rx,dy=(y-cy)/ry;if(dx*dx+dy*dy<=1)return true;}return false;}
+function draw(t){
+  const W=cv.width,H=cv.height;g.clearRect(0,0,W,H);
+  const sx=W/1000,sy=H/500,step=8;
+  for(let y=0;y<500;y+=step){for(let x=0;x<1000;x+=step){
+    if(inside(x,y)){const px=x*sx,py=y*sy;
+      g.beginPath();g.arc(px,py,1.05,0,6.28);
+      g.fillStyle='rgba(217,212,202,0.28)';g.fill();}}}
+  // pin location on canvas
+  const px=PIN[0]*sx,py=PIN[1]*sy;
+  const pulse=0.5+0.5*Math.sin(t*0.004);
+  // beam
+  const bg=g.createLinearGradient(px,py-70,px,py);
+  bg.addColorStop(0,'rgba('+'201,162,75'+',0)');bg.addColorStop(1,'rgba(201,162,75,'+(0.5+0.3*pulse)+')');
+  g.strokeStyle=bg;g.lineWidth=2;g.beginPath();g.moveTo(px,py-64);g.lineTo(px,py);g.stroke();
+  // glow ring
+  g.beginPath();g.arc(px,py,10+6*pulse,0,6.28);g.fillStyle='rgba(201,162,75,'+(0.12*pulse)+')';g.fill();
+  // pin dot
+  g.beginPath();g.arc(px,py,3.2,0,6.28);g.fillStyle='#E7CE8F';g.fill();
+  // place html label above pin
+  label.style.left=(px/W*100)+'%';label.style.top=(py/H*100)+'%';
+  requestAnimationFrame(draw);
+}
+function fit(){const r=cv.getBoundingClientRect();cv.width=Math.round(r.width);cv.height=Math.round(r.width*0.53);}
+new ResizeObserver(fit).observe(cv);fit();requestAnimationFrame(draw);
+</script>
+</body>
+</html>
