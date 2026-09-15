@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Process Option 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--void:#060605;--fg:#F2EFE9;--mist:#D9D4CA;--muted:#857F75;--border:rgba(201,162,75,.16);--chip:#131110;--gold:#C9A24B;--gold-lite:#E7CE8F}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--void);color:var(--fg);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.container{max-width:76rem;margin:0 auto;padding:96px clamp(20px,5vw,48px)}
+.grid{display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:1024px){.grid{grid-template-columns:2fr 4fr;gap:80px}}
+/* sticky intro */
+.intro{align-self:start}
+@media(min-width:1024px){.intro{position:sticky;top:64px;padding:24px 0}}
+.intro .ttl{position:relative;width:fit-content;font-family:Fraunces;font-weight:500;letter-spacing:-.02em;
+  font-size:clamp(2.6rem,6vw,4.6rem);line-height:.98;color:var(--mist)}
+.intro .ttl .ast{position:absolute;top:-6px;right:-30px;color:var(--gold);font-size:.4em}
+.intro p{margin-top:26px;font-size:1rem;line-height:1.6;color:var(--muted);max-width:34ch}
+.intro .btn{margin-top:26px;display:inline-flex;align-items:center;gap:10px;background:none;border:none;color:var(--mist);
+  font-family:inherit;font-size:.9rem;cursor:pointer;padding:6px 0;transition:.25s}
+.intro .btn svg{width:18px;height:18px;color:var(--gold)}
+.intro .btn:hover{color:var(--gold-lite)}
+/* steps */
+.steps{list-style:none}
+.step{position:relative;display:flex;flex-direction:column;gap:24px;border-top:1px solid var(--border);padding:36px 0}
+@media(min-width:768px){.step{flex-direction:row;justify-content:space-between;gap:40px}}
+.step .mark{position:absolute;top:16px;right:0;width:22px;height:20px}
+.step .num{flex:0 0 auto;width:48px;height:48px;display:grid;place-items:center;background:var(--chip);border:1px solid var(--border);
+  font-family:'JetBrains Mono',monospace;letter-spacing:-.04em;color:var(--gold-lite)}
+.step .body{flex:1;max-width:46ch}
+.step .body h3{font-family:Fraunces;font-weight:500;letter-spacing:-.02em;font-size:clamp(1.4rem,3vw,1.9rem);color:var(--mist);margin-bottom:12px}
+.step .body p{color:var(--muted);line-height:1.6;font-size:.98rem}
+.step:hover .num{border-color:rgba(201,162,75,.5);color:var(--gold)}
+.tag{position:fixed;left:14px;bottom:14px;z-index:50;background:var(--gold);color:var(--void);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="tag">Process Option 3 · Direção B</div>
+<div class="container">
+  <div class="grid">
+    <div class="intro">
+      <div class="ttl">O nosso<br>processo<span class="ast">✳</span></div>
+      <p>Sem atalhos. Cada carro passa pelas mesmas cinco etapas — da avaliação presencial à entrega impecável.</p>
+      <button class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 10 20 15 15 20"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+        Marcar avaliação
+      </button>
+    </div>
+    <ul class="steps" id="steps"></ul>
+  </div>
+</div>
+<script>
+const steps=[
+  {t:'Avaliação',d:'Vemos o carro em pessoa. Ouvimos o objetivo, inspecionamos a pintura sob luz própria e propomos o tratamento certo — sem vender o que não é preciso.'},
+  {t:'Preparação',d:'Lavagem de descontaminação química e mecânica, jantes, recantos e vidros. A base de qualquer trabalho a sério começa numa superfície verdadeiramente limpa.'},
+  {t:'Correção',d:'Remoção de riscos, hologramas e oxidação com polimento por etapas. Devolvemos profundidade e reflexo à cor original da pintura.'},
+  {t:'Proteção',d:'Aplicação e cura da cerâmica: brilho profundo, hidrofobia real e defesa duradoura contra o tempo e a estrada de Lisboa.'},
+  {t:'Entrega',d:'Inspeção final sob luz, detalhes de acabamento e entrega do carro impecável — com as instruções para manter o resultado.'},
+];
+const mark='<svg class="mark" viewBox="0 0 22 20" fill="none"><line x1="0.6" y1="2.6" x2="21.6" y2="2.6" stroke="#C9A24B" stroke-width="4"/><line x1="19.6" y1="19.6" x2="19.6" y2="4.6" stroke="#C9A24B" stroke-width="4"/></svg>';
+document.getElementById('steps').innerHTML=steps.map((s,i)=>`
+  <li class="step">${mark}
+    <div class="num">0${i+1}</div>
+    <div class="body"><h3>${s.t}</h3><p>${s.d}</p></div>
+  </li>`).join('');
+</script>
+</body>
+</html>
