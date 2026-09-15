@@ -42,19 +42,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:cent
 nav.solid{background:rgba(6,6,5,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding-top:14px;padding-bottom:14px}
 nav .brand{font-family:Fraunces;font-size:1.05rem;color:var(--mist)}
 nav .brand b{color:var(--gold);font-weight:500}
-nav .links{display:flex;gap:30px;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-nav .links a{color:inherit;text-decoration:none;transition:.3s;position:relative}
-nav .links a:hover{color:var(--gold-lite)}
+/* Option 2 glass pill nav */
+nav .pills{display:flex;gap:2px;background:rgba(var(--g),.06);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:5px}
+nav .pills a{color:var(--mist);text-decoration:none;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 15px;border-radius:999px;transition:.3s}
+nav .pills a:hover{background:rgba(var(--g),.14);color:var(--gold-lite)}
+nav .cta-pill{background:var(--gold);color:var(--void);border-radius:999px;padding:11px 20px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:.3s}
+nav .cta-pill:hover{background:var(--gold-lite);box-shadow:0 0 30px rgba(var(--g),.4)}
 .ihb{position:relative;overflow:hidden;border:1px solid var(--gold);border-radius:2px;background:transparent;color:var(--gold-lite);padding:12px 22px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:10px;cursor:pointer}
 .ihb .txt{position:relative;z-index:1;transition:color .4s}
 .ihb .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);z-index:1;transition:.4s}
 .ihb::before{content:"";position:absolute;left:14px;top:50%;width:7px;height:7px;border-radius:50%;background:var(--gold);transform:translateY(-50%) scale(1);transition:transform .5s cubic-bezier(.3,.7,.2,1)}
 .ihb:hover::before{transform:translateY(-50%) scale(50)}
 .ihb:hover .txt{color:var(--void)}.ihb:hover .dot{opacity:0}
-@media(max-width:860px){nav .links{display:none}}
+@media(max-width:860px){nav .pills{display:none}}
 
-/* HERO */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(20px,5vw,64px);overflow:hidden;z-index:2}
+/* HERO — Option 2 composition: centered, badge, pill CTAs */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 clamp(20px,5vw,64px);overflow:hidden;z-index:2}
+.hero .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(var(--g),.06);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lite)}
+.hero .b1{background:var(--gold);color:var(--void);border-radius:999px;padding:15px 30px;text-decoration:none;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;transition:.3s}
+.hero .b1:hover{background:var(--gold-lite);box-shadow:0 0 44px rgba(var(--g),.4);transform:translateY(-2px)}
+.hero .b2{border:1px solid var(--line);background:rgba(var(--g),.05);backdrop-filter:blur(14px);color:var(--mist);border-radius:999px;padding:15px 30px;text-decoration:none;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;transition:.3s}
+.hero .b2:hover{border-color:var(--gold);color:var(--gold-lite)}
 #gf,#beams{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
 #gf{display:none}
 .hero .scrim{position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 90% at 30% 50%,transparent,rgba(6,6,5,.7) 90%),linear-gradient(180deg,rgba(6,6,5,.5),transparent 30%,rgba(6,6,5,.85))}
@@ -221,20 +229,20 @@ footer{background:var(--void);position:relative;overflow:hidden}
 
 <nav id="nav">
   <div class="brand">Detail <b>Department</b></div>
-  <div class="links"><a href="#servicos">Serviços</a><a href="#processo">Processo</a><a href="#trabalhos">Trabalhos</a><a href="#faq">FAQ</a><a href="#contacto">Contacto</a></div>
-  <a href="#contacto" class="ihb"><span class="dot"></span><span class="txt">Marcar avaliação</span></a>
+  <div class="pills"><a href="#servicos">Serviços</a><a href="#processo">Processo</a><a href="#trabalhos">Trabalhos</a><a href="#contacto">Contacto</a></div>
+  <a href="#contacto" class="cta-pill">Marcar avaliação</a>
 </nav>
 
 <header class="hero">
   <canvas id="gf" aria-hidden="true"></canvas>
   <canvas id="beams" aria-hidden="true"></canvas>
   <div class="scrim"></div>
-  <div class="reveal"><div class="eyebrow"><span class="rule"></span>Estúdio de Detalhe Automóvel · Grande Lisboa</div></div>
+  <div class="reveal"><div class="badge">✦ Estúdio de Detalhe Automóvel · Grande Lisboa</div></div>
   <h1 class="reveal">O carro que<br>merece <span class="fill">reverência.</span></h1>
   <p class="sub reveal">Detalhe, proteção cerâmica e restauro — feitos à mão, para quem trata a máquina como uma obra.</p>
-  <div class="actions reveal">
-    <a href="#contacto" class="btn-primary">Marcar avaliação →</a>
-    <a href="#servicos" class="ihb"><span class="dot"></span><span class="txt">Ver serviços</span></a>
+  <div class="actions reveal" style="justify-content:center">
+    <a href="#contacto" class="b1">Marcar avaliação →</a>
+    <a href="#servicos" class="b2">Ver serviços</a>
   </div>
   <div class="scrollcue"><span class="d"></span>Deslize</div>
   <div class="hero-toggle">
