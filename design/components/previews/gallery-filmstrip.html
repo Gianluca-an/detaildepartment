@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Gallery Filmstrip</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--void:#060605;--fg:#F2EFE9;--mist:#D9D4CA;--muted:#857F75;--border:rgba(201,162,75,.16);--gold:#C9A24B;--gold-lite:#E7CE8F}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--void);color:var(--fg);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.stage{position:relative;height:100vh;display:flex;flex-direction:column}
+/* top bar */
+.top{display:flex;justify-content:space-between;padding:26px clamp(20px,4vw,48px) 0}
+.label h1{font-family:Fraunces;font-weight:300;font-size:clamp(1.8rem,4vw,3.1rem);line-height:1;letter-spacing:-.02em;color:var(--mist)}
+.label h1 .count{color:var(--gold);font-size:.5em;vertical-align:super;margin-left:6px}
+.label .sub{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.filter{text-align:right}
+.filter .k{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.filter button{display:block;margin-left:auto;background:none;border:none;color:var(--muted);font-family:inherit;font-size:.82rem;letter-spacing:.02em;
+  padding:5px 0;cursor:pointer;transition:.25s;text-align:right}
+.filter button:hover{color:var(--mist)}
+.filter button.on{color:var(--gold-lite)}
+.filter button.on::after{content:" /";color:var(--gold)}
+/* filmstrip */
+.strip-wrap{flex:1;display:flex;align-items:center;overflow:hidden;cursor:grab}
+.strip-wrap.drag{cursor:grabbing}
+.strip{display:flex;align-items:center;gap:22px;padding:0 clamp(20px,4vw,48px);will-change:transform}
+.tile{position:relative;flex:0 0 auto;border:1px solid var(--border);border-radius:3px;overflow:hidden;
+  background:linear-gradient(135deg,#141210,#0a0908);transition:transform .5s cubic-bezier(.2,.7,.2,1),border-color .4s;user-select:none}
+.tile::before{content:"";position:absolute;inset:0;opacity:0;transition:.5s;
+  background:radial-gradient(90% 70% at 30% 20%,rgba(201,162,75,.16),transparent 60%)}
+.tile:hover{border-color:rgba(201,162,75,.45);transform:translateY(-6px)}
+.tile:hover::before{opacity:1}
+.tile .ph{position:absolute;inset:0;display:grid;place-items:center;color:rgba(201,162,75,.25);font-family:Fraunces;font-size:2.4rem}
+.tile .cap{position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(0deg,rgba(6,6,5,.9),transparent);
+  transform:translateY(8px);opacity:0;transition:.4s}
+.tile:hover .cap{transform:none;opacity:1}
+.tile .cap .car{font-size:.9rem;color:var(--mist);font-weight:500}
+.tile .cap .svc{margin-top:3px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-lite)}
+.tile .tagv{position:absolute;top:10px;left:10px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--void);background:var(--gold);padding:3px 7px;border-radius:2px;opacity:.9}
+/* bottom bar */
+.bot{display:flex;justify-content:space-between;padding:0 clamp(20px,4vw,48px) 24px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.bot .hint{color:var(--gold-lite)}
+.tag{position:fixed;left:14px;bottom:40px;z-index:50;background:var(--gold);color:var(--void);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="tag">Gallery · Direção B</div>
+<div class="stage">
+  <div class="top">
+    <div class="label">
+      <h1 id="ttl">Trabalhos<span class="count" id="cnt">(0)</span></h1>
+      <div class="sub">Grande Lisboa · desde 2019</div>
+    </div>
+    <div class="filter" id="filter">
+      <div class="k">Filtro</div>
+      <button class="on" data-f="todos">Todos</button>
+      <button data-f="detalhe">Detalhe</button>
+      <button data-f="ceramica">Cerâmica</button>
+      <button data-f="restauro">Restauro</button>
+    </div>
+  </div>
+
+  <div class="strip-wrap" id="wrap">
+    <div class="strip" id="strip"></div>
+  </div>
+
+  <div class="bot">
+    <span>© Detail Department</span>
+    <span class="hint">← arraste / scroll horizontal →</span>
+  </div>
+</div>
+
+<script>
+const WORK=[
+  {car:'Porsche 911',svc:'Proteção Cerâmica',cat:'ceramica',w:360,h:240,v:1},
+  {car:'BMW M4',svc:'Correção de Pintura',cat:'detalhe',w:240,h:300},
+  {car:'Mercedes AMG',svc:'Restauro de Faróis',cat:'restauro',w:320,h:210},
+  {car:'Audi RS6',svc:'Detalhe Completo',cat:'detalhe',w:300,h:300,v:1},
+  {car:'Range Rover',svc:'Cerâmica + Interior',cat:'ceramica',w:260,h:340},
+  {car:'Golf GTI',svc:'Chapa e Pintura',cat:'restauro',w:340,h:230},
+  {car:'Tesla Model 3',svc:'Proteção Cerâmica',cat:'ceramica',w:300,h:200,v:1},
+  {car:'Ferrari Roma',svc:'Correção + Cerâmica',cat:'ceramica',w:380,h:250},
+  {car:'Mini Cooper',svc:'Detalhe de Detalhe',cat:'detalhe',w:230,h:290},
+  {car:'Volvo XC90',svc:'Restauro Integral',cat:'restauro',w:320,h:260},
+  {car:'Cupra Formentor',svc:'Correção de Pintura',cat:'detalhe',w:280,h:320,v:1},
+  {car:'Jaguar F-Type',svc:'Proteção Cerâmica',cat:'ceramica',w:360,h:220},
+];
+const strip=document.getElementById('strip'),cnt=document.getElementById('cnt'),ttl=document.getElementById('ttl');
+const labels={todos:'Trabalhos',detalhe:'Detalhe',ceramica:'Cerâmica',restauro:'Restauro'};
+let cur='todos';
+function render(f){
+  const items=f==='todos'?WORK:WORK.filter(w=>w.cat===f);
+  cnt.textContent=`(${items.length})`;
+  ttl.childNodes[0].nodeValue=labels[f];
+  strip.innerHTML=items.map(w=>`
+    <div class="tile" style="width:${w.w}px;height:${w.h}px">
+      ${w.v?'<span class="tagv">▶ vídeo</span>':''}
+      <div class="ph">DD</div>
+      <div class="cap"><div class="car">${w.car}</div><div class="svc">${w.svc}</div></div>
+    </div>`).join('');
+  // stagger reveal
+  strip.querySelectorAll('.tile').forEach((t,i)=>{t.style.opacity=0;t.style.transform='translateY(20px)';
+    setTimeout(()=>{t.style.transition='.6s cubic-bezier(.2,.7,.2,1)';t.style.opacity=1;t.style.transform='none';},i*55);});
+}
+document.getElementById('filter').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('.filter button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');cur=b.dataset.f;render(cur);wrapX=0;strip.style.transform='translateX(0)';
+});
+render('todos');
+
+// horizontal drag + wheel
+const wrap=document.getElementById('wrap');
+let wrapX=0,down=false,startX=0,startWrap=0;
+function maxScroll(){return Math.max(0,strip.scrollWidth-wrap.clientWidth);}
+function apply(){wrapX=Math.min(0,Math.max(-maxScroll(),wrapX));strip.style.transform=`translateX(${wrapX}px)`;}
+wrap.addEventListener('wheel',e=>{e.preventDefault();wrapX-=(Math.abs(e.deltaY)>Math.abs(e.deltaX)?e.deltaY:e.deltaX);apply();},{passive:false});
+wrap.addEventListener('pointerdown',e=>{down=true;startX=e.clientX;startWrap=wrapX;wrap.classList.add('drag');wrap.setPointerCapture(e.pointerId);});
+wrap.addEventListener('pointermove',e=>{if(!down)return;wrapX=startWrap+(e.clientX-startX);apply();});
+wrap.addEventListener('pointerup',e=>{down=false;wrap.classList.remove('drag');});
+addEventListener('resize',apply);
+</script>
+</body>
+</html>
