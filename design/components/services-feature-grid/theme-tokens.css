@@ -1,0 +1,64 @@
+/* Upstream Hirael Feature-08 theme tokens (Tailwind 4 @theme inline).
+   Preserved verbatim for reference. Our real build overrides --warm / --warm-glow
+   and the dark palette with Direction B gold/charcoal — see NOTES.md. */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme inline {
+  --color-warm: var(--warm);
+  --color-warm-foreground: var(--warm-foreground);
+  --color-warm-glow: var(--warm-glow);
+  --color-accent-cool: var(--accent-cool);
+  --color-accent-cool-glow: var(--accent-cool-glow);
+}
+
+:root {
+  --background: oklch(0.961 0.008 91.5);
+  --foreground: oklch(0.22 0.016 256.8);
+  --card: oklch(0.985 0.005 95.1);
+  --card-foreground: oklch(0.22 0.016 256.8);
+  --popover: oklch(0.985 0.005 95.1);
+  --popover-foreground: oklch(0.22 0.016 256.8);
+  --primary: oklch(0.78 0.14 78);
+  --primary-foreground: oklch(0.24 0.045 70);
+  --secondary: oklch(0.934 0.011 89.7);
+  --secondary-foreground: oklch(0.239 0.021 264.1);
+  --muted: oklch(0.934 0.011 89.7);
+  --muted-foreground: oklch(0.495 0.029 263.2);
+  --accent: oklch(0.934 0.011 89.7);
+  --accent-foreground: oklch(0.239 0.021 264.1);
+  --border: oklch(0.901 0.014 88.7);
+  --input: oklch(0.901 0.014 88.7);
+  --ring: oklch(0.7 0.13 75);
+  --warm: oklch(0.728 0.019 81.3);
+  --warm-foreground: oklch(0.22 0.016 256.8);
+  --warm-glow: oklch(0.65 0.05 81.3 / 20%);
+  --accent-cool: oklch(0.5 0.2 260);
+  --accent-cool-glow: oklch(0.5 0.2 260 / 20%);
+}
+
+.dark {
+  --background: oklch(0.176 0.014 258.4);
+  --foreground: oklch(0.92 0.009 84.6);
+  --card: oklch(0.239 0.021 264.1);
+  --card-foreground: oklch(0.92 0.009 84.6);
+  --popover: oklch(0.239 0.021 264.1);
+  --popover-foreground: oklch(0.92 0.009 84.6);
+  --primary: oklch(0.82 0.135 78);
+  --primary-foreground: oklch(0.2 0.04 70);
+  --secondary: oklch(0.324 0.023 264.2);
+  --secondary-foreground: oklch(0.92 0.009 84.6);
+  --muted: oklch(0.277 0.023 267.2);
+  --muted-foreground: oklch(0.704 0.021 263);
+  --accent: oklch(0.324 0.023 264.2);
+  --accent-foreground: oklch(0.92 0.009 84.6);
+  --border: oklch(0.92 0.01 90 / 9%);
+  --input: oklch(0.92 0.01 90 / 14%);
+  --ring: oklch(0.74 0.12 78);
+  --radius: 0.65rem;
+  --warm: oklch(0.728 0.019 81.3);
+  --warm-foreground: oklch(0.176 0.014 258.4);
+  --warm-glow: oklch(0.728 0.05 81.3 / 18%);
+  --accent-cool: oklch(0.62 0.19 260);
+  --accent-cool-glow: oklch(0.62 0.19 260 / 30%);
+}
