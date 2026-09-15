@@ -56,7 +56,7 @@ nav .links a:hover{color:var(--gold-lite)}
 /* HERO */
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(20px,5vw,64px);overflow:hidden;z-index:2}
 #gf,#beams{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
-#beams{display:none}
+#gf{display:none}
 .hero .scrim{position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 90% at 30% 50%,transparent,rgba(6,6,5,.7) 90%),linear-gradient(180deg,rgba(6,6,5,.5),transparent 30%,rgba(6,6,5,.85))}
 .hero .eyebrow{display:flex;align-items:center;gap:14px;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-lite)}
 .hero .eyebrow .rule{width:44px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
@@ -238,8 +238,8 @@ footer{background:var(--void);position:relative;overflow:hidden}
   </div>
   <div class="scrollcue"><span class="d"></span>Deslize</div>
   <div class="hero-toggle">
-    <button id="tg-fibras" class="on">Fibras</button>
-    <button id="tg-feixes">Feixes</button>
+    <button id="tg-fibras">Fibras</button>
+    <button id="tg-feixes" class="on">Feixes</button>
   </div>
 </header>
 
@@ -372,7 +372,7 @@ void main(){vec2 res=max(uResolution,vec2(1.));vec2 uv=(2.*gl_FragCoord.xy-res)/
   const fr=(now)=>{setS();gl.uniform1f(U.uTime,(now-t0)/1000);gl.drawArrays(gl.TRIANGLES,0,3);gfRAF=requestAnimationFrame(fr);};
   reduce?(gl.uniform1f(U.uTime,2),gl.drawArrays(gl.TRIANGLES,0,3)):(gfRAF=requestAnimationFrame(fr));
 }
-initGF();
+/* Default hero background = Ethereal Beams (Feixes). Ghost Fibers loads on toggle. */
 
 /* ---------- HERO OPTION 2: Ethereal Beams (three.js), lazy ---------- */
 let beamsInited=false,beamsRAF=null,beamsMat=null,beamsRenderer=null,beamsClock=null,beamsScene=null,beamsCam=null;
@@ -405,6 +405,8 @@ function initBeams(){
   addEventListener('resize',rsz);rsz();beamsClock=new THREE.Clock();
 }
 function beamsFrame(){const d=beamsClock.getDelta();if(beamsMat.userData.sh&&!reduce)beamsMat.userData.sh.uniforms.time.value+=.1*d;beamsRenderer.render(beamsScene,beamsCam);beamsRAF=requestAnimationFrame(beamsFrame);}
+/* start Beams as the default hero */
+initBeams();if(reduce){beamsRenderer.render(beamsScene,beamsCam);}else{beamsFrame();}
 
 /* toggle */
 const tgF=document.getElementById('tg-fibras'),tgB=document.getElementById('tg-feixes');
