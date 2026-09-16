@@ -1,24 +1,22 @@
-# Services page — options
+# Services section — options
 
-Say **"use Services Option 1"** or **"Option 2"** and I'll build/iterate that one.
+Say **"use Services Option 1 / 2 / 3"** and I'll build/iterate that one.
 
-## Option 1 — Feature grid (Hirael Feature-08) — SAVED + gold preview built
-- Files: `design/components/services-feature-grid/` (feature-08.tsx, badge.tsx,
-  theme-tokens.css, NOTES.md).
-- Preview: `design/components/previews/services-feature-grid.html`.
-- Look: card grid (1/2/3 cols), crosshair corner marks, extending hairlines,
-  pointer-follow spotlight, icon chips. Already warm/gold + dark-mode → closest
-  to Direction B. Reskinned with 6 detailing capability cards.
+| # | Option | Source | Status | Used in a landing? |
+|---|--------|--------|--------|--------------------|
+| 1 | **Feature grid** (crosshair cards + pointer spotlight) | Hirael Feature-08 (hirael.com/blocks/features/feature-08) | built + preview | **v3** |
+| 2 | **Lava list** (row-based, editorial, pairs with "a partir de €…") | onepagelove.com/section/services-list/lava-dental-studio/ | link saved | **v2** |
+| 3 | **Color-change cards** (grayscale→colour image cards, arrow rotate, letter-roll) | 21st.dev color-change-card | built + preview | — (candidate) |
 
-## Option 2 — Services list (Lava Dental Studio) — SAVED (link)
-- Ref: `design/references/services-page-option-2/NOTES.md`
-- https://onepagelove.com/section/services-list/lava-dental-studio/
-- Look: a listed / row-based services presentation (name + description +
-  price/CTA per row) rather than a card grid. Reskin pending screenshots.
+## Files
+- Option 1: `design/components/services-feature-grid/` · preview `previews/services-feature-grid.html`
+- Option 2: `design/references/services-page-option-2/` (link)
+- Option 3: `design/components/services-option-3-colorcards/` · preview `previews/services-colorcards.html`
 
-Grid (Option 1) vs List (Option 2) is the real choice — a grid shows capability
-breadth at a glance; a list reads more editorial and pairs naturally with
-"a partir de €…" pricing per row. Can also hybrid: list on the Services page,
-grid as a homepage teaser.
+## Read
+- **Option 1 (grid):** icon + text cards, precise/technical feel. Currently in Landing v3.
+- **Option 2 (list):** rows, most editorial, natural home for per-row pricing. Was in v2.
+- **Option 3 (color cards):** image-led, most visual/premium — shines with REAL car
+  photos (moody grayscale → full gloss on hover). Best once we have imagery.
 
-_Updated 2026-09-15._
+_Updated 2026-09-16._
