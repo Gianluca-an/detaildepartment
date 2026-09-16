@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Contact (Mohash)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--void:#050505;--fld:#151311;--ink:#F2EFE9;--mist:#D9D4CA;--muted:#8a847a;--line:rgba(201,162,75,.28);--gold:#C9A24B;--gold-lite:#E7CE8F;--g:201,162,75}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--void);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.sec{max-width:1000px;margin:0 auto;padding:clamp(70px,11vh,130px) clamp(20px,5vw,40px)}
+.sec h2{text-align:center;font-family:Fraunces;font-weight:500;letter-spacing:-.01em;font-size:clamp(2rem,4.5vw,3rem);color:var(--mist);margin-bottom:clamp(40px,6vh,64px)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,40px) clamp(24px,4vw,56px)}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+.fld{display:flex;flex-direction:column}
+.fld.full{grid-column:1/-1}
+.fld label{font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:12px}
+.fld label .req{color:var(--gold);margin-left:2px}
+.fld input,.fld textarea{background:var(--fld);border:1px solid var(--line);border-radius:2px;padding:16px 18px;color:var(--ink);
+  font-family:inherit;font-size:1rem;transition:.25s;resize:vertical}
+.fld input::placeholder,.fld textarea::placeholder{color:var(--muted)}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--g),.12)}
+.counter{margin-top:12px;font-size:.9rem;font-weight:500;color:var(--muted)}
+.submit-wrap{margin-top:clamp(36px,6vh,60px);display:flex;justify-content:center}
+.submit{width:min(520px,100%);background:var(--gold);color:#0b0a09;border:none;border-radius:2px;padding:18px;font-family:inherit;
+  font-size:.86rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.25s}
+.submit:hover{background:var(--gold-lite);box-shadow:0 0 44px rgba(var(--g),.4)}
+.tag{position:fixed;left:14px;bottom:14px;z-index:50;background:var(--gold);color:var(--void);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="tag">Contact · Mohash · Direção B</div>
+<section class="sec">
+  <h2>Contacto</h2>
+  <form onsubmit="return false">
+    <div class="grid">
+      <div class="fld"><label>Nome <span class="req">*</span></label><input placeholder="Qual é o seu nome?"></div>
+      <div class="fld"><label>Email ou telefone <span class="req">*</span></label><input placeholder="Como o contactamos?"></div>
+      <div class="fld"><label>Carro (marca / modelo)</label><input placeholder="Ex.: Porsche 911"></div>
+      <div class="fld"><label>Serviço pretendido</label><input placeholder="Detalhe · Cerâmica · Restauro"></div>
+      <div class="fld full">
+        <label>Mensagem <span class="req">*</span></label>
+        <textarea id="msg" rows="7" maxlength="500" placeholder="Escreva a sua mensagem aqui"></textarea>
+        <div class="counter"><span id="rem">500</span>/500 caracteres restantes</div>
+      </div>
+    </div>
+    <div class="submit-wrap"><button class="submit">Enviar mensagem</button></div>
+  </form>
+</section>
+<script>
+const msg=document.getElementById('msg'),rem=document.getElementById('rem');
+msg.addEventListener('input',()=>{rem.textContent=500-msg.value.length;});
+</script>
+</body>
+</html>
