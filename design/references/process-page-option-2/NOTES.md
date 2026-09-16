@@ -10,11 +10,19 @@ Reference only — NOT implemented.
 Reference name: **Flowjam** — a "how it works" section (via One Page Love).
 (Tall screenshot — likely a longer, multi-step vertical progression.)
 
-## Status
-To do: fetch/screenshot, note the step pattern (numbered steps, connective
-line/flow, icons vs. imagery, vertical progression, scroll-reveal), then reskin
-into our nocturnal-gold system with our real process:
-Avaliação → Preparação → Correção → Proteção → Entrega.
+## Status — SEEN + BUILT (client sent screenshot 2026-09-16)
+Layout (from the screenshot): big bold title "How do we do it?" (the "?" a lighter
+accent) + a muted lede, then a **vertical timeline** — a thin left line with
+**numbered circle nodes (1.–5.)**, each node beside a large **outlined rounded
+card** (~20px radius) holding a **line-icon (left) + bold title + one-line
+description**. Near-black background, monochrome white outlines.
+
+Reskinned build: `design/components/previews/process-flowjam.html` — same
+structure in Direction B (charcoal + gold hairline cards, gold nodes, Fraunces
+title with a gold italic "?", Inter-600 card titles), our 5 steps
+(Avaliação → Preparação → Correção → Proteção → Entrega) with custom detailing
+line-icons, hover slide + node glow, scroll-reveal. This is the Process section
+for Landing v3.
 
 ## Options recap
 - Option 1: Solana DB — `design/references/process-page-option-1/`

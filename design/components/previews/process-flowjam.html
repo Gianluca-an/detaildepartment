@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Process (Flowjam)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--void:#060605;--char:#0B0A09;--ink:#F2EFE9;--mist:#D9D4CA;--muted:#857F75;--line:rgba(201,162,75,.16);--gold:#C9A24B;--gold-lite:#E7CE8F;--g:201,162,75}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--char);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.sec{max-width:960px;margin:0 auto;padding:clamp(70px,11vh,130px) clamp(20px,5vw,48px)}
+.head{padding-left:clamp(0px,11vw,150px)}
+.head h2{font-family:Fraunces;font-weight:300;letter-spacing:-.02em;font-size:clamp(2.4rem,6vw,4.2rem);line-height:1;color:var(--mist)}
+.head h2 .q{color:var(--gold);font-style:italic}
+.head p{margin-top:20px;max-width:52ch;color:var(--muted);font-weight:300;font-size:clamp(1rem,1.5vw,1.12rem)}
+/* timeline */
+.steps{position:relative;margin-top:clamp(48px,7vh,84px);padding-left:clamp(52px,11vw,150px)}
+.steps::before{content:"";position:absolute;left:clamp(18px,5.2vw,70px);top:44px;bottom:44px;width:1px;background:linear-gradient(180deg,transparent,var(--line) 8%,var(--line) 92%,transparent)}
+.step{position:relative;margin-bottom:22px}
+.step:last-child{margin-bottom:0}
+.node{position:absolute;top:50%;transform:translateY(-50%);left:clamp(-51px,-9.3vw,-97px);width:38px;height:38px;border:1px solid var(--line);border-radius:50%;
+  display:grid;place-items:center;background:var(--char);font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--gold-lite);transition:.4s;z-index:1}
+.card{display:flex;align-items:center;gap:clamp(16px,3vw,34px);border:1px solid var(--line);border-radius:20px;padding:clamp(22px,3vw,34px) clamp(20px,3vw,38px);
+  background:linear-gradient(160deg,rgba(var(--g),.04),transparent);transition:.45s}
+.card .ic{flex:0 0 auto;width:clamp(56px,8vw,84px);height:clamp(56px,8vw,84px);color:var(--gold-lite);opacity:.9}
+.card .ic svg{width:100%;height:100%}
+.card .tx h3{font-family:Inter;font-weight:600;font-size:clamp(1.25rem,2.6vw,1.7rem);color:var(--ink);letter-spacing:-.01em}
+.card .tx p{margin-top:8px;color:var(--muted);font-weight:300;font-size:clamp(.92rem,1.4vw,1.02rem);max-width:46ch}
+.step:hover .card{border-color:rgba(var(--g),.45);transform:translateX(6px);background:linear-gradient(160deg,rgba(var(--g),.08),transparent)}
+.step:hover .node{border-color:var(--gold);color:var(--gold);box-shadow:0 0 22px rgba(var(--g),.35)}
+@media(max-width:640px){.card{flex-direction:row;gap:14px}.head{padding-left:52px}}
+.tag{position:fixed;left:14px;bottom:14px;z-index:50;background:var(--gold);color:var(--void);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="tag">Process · Flowjam · Direção B</div>
+<section class="sec">
+  <div class="head reveal">
+    <h2>Como trabalhamos<span class="q">?</span></h2>
+    <p>Cada carro passa pelas mesmas cinco etapas — da avaliação presencial à entrega impecável. Sem atalhos, sem surpresas.</p>
+  </div>
+  <div class="steps" id="steps"></div>
+</section>
+<script>
+const IC={
+  aval:'<circle cx="32" cy="32" r="13"/><circle cx="32" cy="32" r="4"/><path d="M32 6v6M32 52v6M6 32h6M52 32h6"/>',
+  prep:'<path d="M32 10c7 10 12 16 12 24a12 12 0 0 1-24 0c0-8 5-14 12-24z"/><path d="M26 34a6 6 0 0 0 6 6"/>',
+  corr:'<circle cx="32" cy="32" r="14"/><circle cx="32" cy="32" r="5"/><path d="M32 4l2 6-2 2-2-2z" fill="currentColor" stroke="none"/><path d="M50 20l-5 3 .5 3 3-.5z" fill="currentColor" stroke="none"/>',
+  prot:'<path d="M32 8l18 7v13c0 12-8 20-18 24-10-4-18-12-18-24V15z"/><path d="M24 31l6 6 12-13"/>',
+  ent:'<circle cx="24" cy="34" r="8"/><path d="M32 34h22M46 34v9M54 34v6"/><path d="M24 30v8"/>'
+};
+const STEPS=[
+  {i:'aval',t:'Avaliação presencial',d:'Vemos o carro em pessoa e inspecionamos a pintura sob luz própria.'},
+  {i:'prep',t:'Preparação',d:'Lavagem de descontaminação química e mecânica — a base de tudo.'},
+  {i:'corr',t:'Correção de pintura',d:'Removemos riscos, hologramas e oxidação, por etapas.'},
+  {i:'prot',t:'Proteção cerâmica',d:'Aplicação e cura da cerâmica: brilho profundo e defesa duradoura.'},
+  {i:'ent',t:'Entrega impecável',d:'Inspeção final sob luz e entrega, com instruções de manutenção.'},
+];
+document.getElementById('steps').innerHTML=STEPS.map((s,i)=>`
+  <div class="step reveal">
+    <div class="node">${i+1}.</div>
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${IC[s.i]}</svg></div>
+      <div class="tx"><h3>${s.t}</h3><p>${s.d}</p></div>
+    </div>
+  </div>`).join('');
+const io=new IntersectionObserver((es)=>es.forEach((en,i)=>{if(en.isIntersecting){setTimeout(()=>en.target.classList.add('in'),i*80);io.unobserve(en.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
