@@ -97,27 +97,28 @@ section{position:relative;z-index:2}
 .sec-head h2{font-family:Fraunces;font-weight:300;font-size:clamp(2rem,5.2vw,4rem);line-height:1.04;color:var(--mist)}
 .sec-head h2 em{font-style:italic;color:var(--gold)}
 
-/* SERVICES — feature grid (crosshair cards) */
+/* SERVICES — color-change image cards (Option 3) */
 .services{background:linear-gradient(180deg,var(--void),var(--char))}
 .services .sec-head{margin-left:auto;margin-right:auto;text-align:center}
 .services .sec-head .eyebrow{justify-content:center}
-.fgrid{margin:0 auto;max-width:1120px;display:grid;grid-template-columns:1fr;gap:32px}
-@media(min-width:640px){.fgrid{grid-template-columns:1fr 1fr}}
-@media(min-width:1024px){.fgrid{grid-template-columns:1fr 1fr 1fr}}
-.fcard{position:relative;display:flex;flex-direction:column;gap:24px;background:var(--card);padding:32px 24px 24px;background-image:radial-gradient(50% 80% at 25% 0%,rgba(var(--g),.06),transparent);cursor:default}
-.fcard .ln{position:absolute;background:var(--line)}
-.fcard .ln.l{top:-16px;bottom:-16px;left:-1px;width:1px}.fcard .ln.r{top:-16px;bottom:-16px;right:-1px;width:1px}
-.fcard .ln.t{left:-16px;right:-16px;top:-1px;height:1px}.fcard .ln.b{left:-16px;right:-16px;bottom:-1px;height:1px}
-.fcard .spot{position:absolute;inset:0;opacity:0;transition:opacity .3s;pointer-events:none;background:radial-gradient(circle 200px at var(--mx,50%) var(--my,50%),rgba(var(--g),.14),transparent 70%)}
-.fcard:hover .spot{opacity:1}
-.cross{position:absolute;z-index:10;width:14px;height:14px;color:var(--muted)}
-.cross.tl{left:0;top:0;transform:translate(-50%,-50%)}.cross.br{right:0;bottom:0;transform:translate(50%,50%)}
-.fcard .fico{position:relative;z-index:10;width:fit-content;border:1px solid var(--line);background:rgba(var(--g),.06);border-radius:3px;padding:12px;display:grid;place-items:center;transition:border-color .3s;color:var(--ink)}
-.fcard:hover .fico{border-color:rgba(var(--g),.4)}
-.fcard .fico svg{width:20px;height:20px;stroke-width:1.5}
-.fcard .fb{position:relative;z-index:10;display:flex;flex-direction:column;gap:8px}
-.fcard .fb h3{font-size:1.02rem;font-weight:500;color:var(--ink)}
-.fcard .fb p{font-size:.9rem;line-height:1.6;color:var(--muted)}
+.ccgrid{margin:0 auto;max-width:1120px;display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:720px){.ccgrid{grid-template-columns:1fr 1fr;gap:28px}}
+.ccard{position:relative;height:17rem;overflow:hidden;border-radius:3px;border:1px solid var(--line);cursor:pointer}
+.cbg{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(1) brightness(.8);transition:filter .5s,transform .5s;transform:scale(1)}
+.ccard:hover .cbg{filter:grayscale(0) brightness(1);transform:scale(1.1)}
+.cshade{position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(6,6,5,.85),transparent 55%)}
+.cinner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:20px;color:rgba(217,212,202,.75);transition:color .5s}
+.ccard:hover .cinner{color:#fff}
+.carrow{margin-left:auto;transition:transform .5s}
+.carrow svg{width:30px;height:30px}
+.ccard:hover .carrow{transform:rotate(-45deg)}
+.roll{display:flex;flex-wrap:wrap}
+.lt{display:inline-block;height:1.08em;overflow:hidden;font-weight:600;font-size:clamp(1.5rem,3.2vw,2rem);letter-spacing:-.01em}
+.lt .col{display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.ccard:hover .lt .col{transform:translateY(-50%)}
+.lt.sp{width:.34em}
+.cdesc{margin-top:8px;font-size:.92rem;font-weight:300;color:inherit;opacity:.85;max-width:38ch}
+@media(prefers-reduced-motion:reduce){.cbg,.lt .col,.carrow{transition:none}.ccard:hover .cbg{transform:none}}
 
 /* PROCESS — Flowjam timeline */
 .process{background:var(--char)}
@@ -214,17 +215,15 @@ section{position:relative;z-index:2}
 .csub{width:min(520px,100%);background:var(--gold);color:#0b0a09;border:none;border-radius:2px;padding:18px;font-family:inherit;font-size:.86rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.25s}
 .csub:hover{background:var(--gold-lite);box-shadow:0 0 44px rgba(var(--g),.4)}
 
-/* SMALL closing ORB (subtle) */
-.orb-section{position:relative;height:clamp(200px,26vh,300px);overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--void)}
+/* CLOSING ORB (big) — barely-visible charcoal wordmark WITHIN the orb */
+.orb-section{position:relative;height:clamp(300px,42vh,440px);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;background:var(--void)}
 #orb{position:absolute;inset:0;width:100%;height:100%;z-index:0}
-.orb-content{position:relative;z-index:2;text-align:center;pointer-events:none;padding:0 20px}
-.orb-content .k{font-size:.6rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-lite);opacity:.8}
+.orb-wm{position:relative;z-index:2;text-align:center;pointer-events:none;font-family:Fraunces;font-weight:300;text-transform:uppercase;
+  line-height:.82;letter-spacing:.02em;font-size:clamp(2.4rem,11vw,7rem);padding-bottom:clamp(24px,6vh,60px);user-select:none;
+  background:linear-gradient(180deg,#1c1810,#0c0a07);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-/* FOOTER — barely-visible charcoal wordmark (stacked) at the very bottom */
+/* FOOTER */
 footer{background:var(--void)}
-.fmark{text-align:center;font-family:Fraunces;font-weight:300;text-transform:uppercase;line-height:.82;letter-spacing:.01em;
-  font-size:clamp(2.8rem,17vw,14rem);padding:clamp(10px,3vw,30px) 12px clamp(6px,2vw,18px);user-select:none;
-  background:linear-gradient(180deg,#1a160f,#0c0a07);-webkit-background-clip:text;background-clip:text;color:transparent}
 .flegal{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;padding:26px clamp(20px,5vw,64px);font-size:.74rem;font-weight:300;color:var(--muted);border-top:1px solid var(--line)}
 .flegal a{color:inherit;text-decoration:none;transition:.3s}.flegal a:hover{color:var(--gold-lite)}
 .flegal nav{display:flex;flex-wrap:wrap;gap:12px 22px;background:none;position:static;padding:0}
@@ -277,10 +276,10 @@ footer{background:var(--void)}
 
 <div class="marquee"><span class="track">Detalhe<em>/</em>Proteção Cerâmica<em>/</em>Restauro<em>/</em>Faróis<em>/</em>Chapa e Pintura<em>/</em>Detalhe<em>/</em>Proteção Cerâmica<em>/</em>Restauro<em>/</em>Faróis<em>/</em>Chapa e Pintura<em>/</em></span></div>
 
-<!-- SERVICES feature grid -->
+<!-- SERVICES color-change cards -->
 <section class="services pad" id="servicos">
-  <div class="sec-head reveal"><div class="eyebrow"><span class="rule"></span>Serviços</div><h2>Tudo o que o seu carro <em>precisa.</em></h2></div>
-  <div class="fgrid reveal" id="fgrid"></div>
+  <div class="sec-head reveal"><div class="eyebrow"><span class="rule"></span>Serviços</div><h2>Passe o rato — <em>e veja a cor voltar.</em></h2></div>
+  <div class="ccgrid reveal" id="ccgrid"></div>
 </section>
 
 <!-- PROCESS Flowjam -->
@@ -345,14 +344,13 @@ footer{background:var(--void)}
   </form>
 </section>
 
-<!-- SMALL closing ORB -->
+<!-- CLOSING ORB (big) with wordmark within -->
 <section class="orb-section">
   <canvas id="orb"></canvas>
-  <div class="orb-content"><div class="k">Lisboa · Grande Lisboa</div></div>
+  <div class="orb-wm">Detail<br>Department</div>
 </section>
 
 <footer>
-  <div class="fmark">Detail<br>Department</div>
   <div class="flegal"><span>© <span id="yr"></span> Detail Department · NIF 000 000 000</span><nav><a href="#">Privacidade</a><a href="#">Cookies</a><a href="https://www.livroreclamacoes.pt/">Livro de Reclamações</a><a href="#">Instagram</a></nav></div>
 </footer>
 
@@ -449,19 +447,16 @@ tgB.onclick=()=>{if(tgB.classList.contains('on'))return;tgB.classList.add('on');
   if(gfRAF){cancelAnimationFrame(gfRAF);gfRAF=null;}document.getElementById('gf').style.display='none';
   document.getElementById('beams').style.display='block';if(!beamsRAF)beamsFrame();};
 
-/* SERVICES feature grid */
-const SVGI={correcao:'<path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/>',ceramica:'<path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/>',farois:'<path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path d="M15 9h4M15 15h4M5 9H2M5 15H2"/>',chapa:'<path d="M14 4l6 6-9 9H5v-6z"/><path d="M12 6l6 6"/>',lavagem:'<path d="M7 16.5c0 1.5-1 2.5-2.2 2.5S2.5 18 2.5 16.5 4.8 12 4.8 12s2.2 3 2.2 4.5z"/><path d="M13 19c0 1.5-1 2.5-2.2 2.5S8.5 20.5 8.5 19s2.3-4.5 2.3-4.5 2.2 3 2.2 4.5z"/><path d="M19 16.5c0 1.5-1 2.5-2.2 2.5S14.5 18 14.5 16.5s2.3-4.5 2.3-4.5 2.2 3 2.2 4.5z"/><path d="M4 8c2-3 5-4 8-4s6 1 8 4"/>',interior:'<path d="M4 18v-5a4 4 0 0 1 4-4h1l2-4h2a3 3 0 0 1 3 3v5"/><path d="M4 18h13M6 18v2M15 18v2"/>'};
-const FCARDS=[
-  {i:'correcao',t:'Correção de Pintura',d:'Remoção de riscos, hologramas e oxidação. Devolvemos profundidade e reflexo à cor original.'},
-  {i:'ceramica',t:'Proteção Cerâmica',d:'Camada que dura anos: brilho profundo, hidrofobia real e defesa contra o tempo de Lisboa.'},
-  {i:'farois',t:'Restauro de Faróis',d:'Faróis amarelados e opacos lixados, polidos e selados. Visão e estética recuperadas.'},
-  {i:'chapa',t:'Chapa e Pintura',d:'Amolgadelas, riscos profundos e repintura pontual — acabamento fiel ao original de fábrica.'},
-  {i:'lavagem',t:'Lavagem de Detalhe',d:'Descontaminação química e mecânica, jantes e recantos. A base de qualquer trabalho a sério.'},
-  {i:'interior',t:'Higienização Interior',d:'Estofos, pele, plásticos e ar. Limpeza profunda e proteção que se sente e se cheira.'},
+/* SERVICES color-change cards */
+const CCARDS=[
+  {t:'Detalhe',grad:'linear-gradient(135deg,#2a2418,#c9a24b 140%)',d:'Descontaminação, correção e um acabamento que devolve profundidade à cor.'},
+  {t:'Cerâmica',grad:'linear-gradient(135deg,#20242a,#e7ce8f 150%)',d:'Proteção que dura anos: brilho profundo e hidrofobia real.'},
+  {t:'Restauro',grad:'linear-gradient(135deg,#2c2015,#b8935a 140%)',d:'Faróis, chapa e pintura. De volta ao que era — ou melhor.'},
+  {t:'Interior',grad:'linear-gradient(135deg,#241f18,#cbae7e 150%)',d:'Estofos, pele e ar. Limpeza profunda que se sente e se cheira.'},
 ];
-const cr='<svg class="cross %P%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>';
-document.getElementById('fgrid').innerHTML=FCARDS.map(c=>`<div class="fcard"><span class="ln l"></span><span class="ln r"></span><span class="ln t"></span><span class="ln b"></span><div class="spot"></div>${cr.replace('%P%','tl')}${cr.replace('%P%','br')}<div class="fico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">${SVGI[c.i]}</svg></div><div class="fb"><h3>${c.t}</h3><p>${c.d}</p></div></div>`).join('');
-document.querySelectorAll('.fcard').forEach(card=>card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();card.style.setProperty('--mx',(e.clientX-r.left)+'px');card.style.setProperty('--my',(e.clientY-r.top)+'px');}));
+function ccRoll(word){return `<h4 class="roll" aria-label="${word}">`+word.split('').map((ch,i)=>ch===' '?'<span class="lt sp"></span>':`<span class="lt"><span class="col" style="transition-delay:${i*0.035}s"><span>${ch}</span><span>${ch}</span></span></span>`).join('')+`</h4>`;}
+const ccArrow='<div class="carrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>';
+document.getElementById('ccgrid').innerHTML=CCARDS.map(c=>`<div class="ccard"><div class="cbg" style="background-image:${c.grad}"></div><div class="cshade"></div><div class="cinner">${ccArrow}<div>${ccRoll(c.t)}<p class="cdesc">${c.d}</p></div></div></div>`).join('');
 
 /* PROCESS Flowjam */
 const PIC={aval:'<circle cx="32" cy="32" r="13"/><circle cx="32" cy="32" r="4"/><path d="M32 6v6M32 52v6M6 32h6M52 32h6"/>',prep:'<path d="M32 10c7 10 12 16 12 24a12 12 0 0 1-24 0c0-8 5-14 12-24z"/><path d="M26 34a6 6 0 0 0 6 6"/>',corr:'<circle cx="32" cy="32" r="14"/><circle cx="32" cy="32" r="5"/><path d="M32 4l2 6-2 2-2-2z" fill="currentColor" stroke="none"/><path d="M50 20l-5 3 .5 3 3-.5z" fill="currentColor" stroke="none"/>',prot:'<path d="M32 8l18 7v13c0 12-8 20-18 24-10-4-18-12-18-24V15z"/><path d="M24 31l6 6 12-13"/>',ent:'<circle cx="24" cy="34" r="8"/><path d="M32 34h22M46 34v9M54 34v6"/>'};
