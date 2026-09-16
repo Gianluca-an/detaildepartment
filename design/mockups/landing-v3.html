@@ -44,11 +44,28 @@ nav .cta-pill{background:var(--gold);color:var(--void);border-radius:999px;paddi
 nav .cta-pill:hover{background:var(--gold-lite);box-shadow:0 0 30px rgba(var(--g),.4)}
 @media(max-width:860px){nav .pills{display:none}}
 
-/* HERO */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 clamp(20px,5vw,64px);overflow:hidden;z-index:2}
+/* HERO — two real designs, toggled: Fibras (left-aligned) / Feixes (centered) */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(20px,5vw,64px);overflow:hidden;z-index:2}
 #gf,#beams{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
 #gf{display:none}
 .hero .scrim{position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 90% at 50% 50%,transparent,rgba(6,6,5,.6) 92%),linear-gradient(180deg,rgba(6,6,5,.5),transparent 30%,rgba(6,6,5,.85))}
+.hcontent{display:flex;flex-direction:column;width:100%}
+.h1c{align-items:flex-start;text-align:left}
+.h2c{align-items:center;text-align:center}
+.h1c .actions{justify-content:flex-start}
+.h2c .actions{justify-content:center}
+.hero.mode-feixes .h1c{display:none}
+.hero.mode-fibras .h2c{display:none}
+/* Option 1 (Fibras) chrome */
+.hero .eyebrow{display:flex;align-items:center;gap:14px;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-lite)}
+.hero .eyebrow .rule{width:44px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.btn-primary{background:var(--gold);color:var(--void);padding:16px 30px;border-radius:2px;text-decoration:none;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;transition:.3s;display:inline-flex;gap:10px}
+.btn-primary:hover{background:var(--gold-lite);box-shadow:0 0 44px rgba(var(--g),.4);transform:translateY(-2px)}
+.ihb{position:relative;overflow:hidden;border:1px solid var(--gold);border-radius:2px;background:transparent;color:var(--gold-lite);padding:16px 28px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:10px;cursor:pointer}
+.ihb .txt{position:relative;z-index:1;transition:color .4s}.ihb .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);z-index:1;transition:.4s}
+.ihb::before{content:"";position:absolute;left:16px;top:50%;width:7px;height:7px;border-radius:50%;background:var(--gold);transform:translateY(-50%) scale(1);transition:transform .5s cubic-bezier(.3,.7,.2,1)}
+.ihb:hover::before{transform:translateY(-50%) scale(50)}.ihb:hover .txt{color:var(--void)}.ihb:hover .dot{opacity:0}
+/* Option 2 (Feixes) chrome */
 .hero .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(var(--g),.06);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lite)}
 .hero h1{font-family:Fraunces;font-weight:300;line-height:.95;letter-spacing:-.03em;font-size:clamp(3rem,11vw,10.5rem);margin:26px 0 0;color:var(--mist)}
 .hero h1 .fill{background:linear-gradient(110deg,var(--gold) 20%,var(--gold-lite) 40%,#fff 50%,var(--gold-lite) 60%,var(--gold) 80%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 6s linear infinite;font-style:italic}
@@ -197,16 +214,18 @@ section{position:relative;z-index:2}
 .csub{width:min(520px,100%);background:var(--gold);color:#0b0a09;border:none;border-radius:2px;padding:18px;font-family:inherit;font-size:.86rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.25s}
 .csub:hover{background:var(--gold-lite);box-shadow:0 0 44px rgba(var(--g),.4)}
 
-/* SMALL closing ORB */
-.orb-section{position:relative;height:clamp(300px,42vh,420px);overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--void)}
+/* SMALL closing ORB (subtle) */
+.orb-section{position:relative;height:clamp(200px,26vh,300px);overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--void)}
 #orb{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .orb-content{position:relative;z-index:2;text-align:center;pointer-events:none;padding:0 20px}
-.orb-content .k{font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-lite)}
-.orb-content .wm{margin-top:10px;font-family:Fraunces;font-weight:300;text-transform:uppercase;letter-spacing:.02em;font-size:clamp(1.3rem,4vw,2.4rem);color:var(--mist)}
+.orb-content .k{font-size:.6rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-lite);opacity:.8}
 
-/* FOOTER */
-footer{background:var(--void);border-top:1px solid var(--line)}
-.flegal{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;padding:26px clamp(20px,5vw,64px);font-size:.74rem;font-weight:300;color:var(--muted)}
+/* FOOTER — barely-visible charcoal wordmark (stacked) at the very bottom */
+footer{background:var(--void)}
+.fmark{text-align:center;font-family:Fraunces;font-weight:300;text-transform:uppercase;line-height:.82;letter-spacing:.01em;
+  font-size:clamp(2.8rem,17vw,14rem);padding:clamp(10px,3vw,30px) 12px clamp(6px,2vw,18px);user-select:none;
+  background:linear-gradient(180deg,#1a160f,#0c0a07);-webkit-background-clip:text;background-clip:text;color:transparent}
+.flegal{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;padding:26px clamp(20px,5vw,64px);font-size:.74rem;font-weight:300;color:var(--muted);border-top:1px solid var(--line)}
 .flegal a{color:inherit;text-decoration:none;transition:.3s}.flegal a:hover{color:var(--gold-lite)}
 .flegal nav{display:flex;flex-wrap:wrap;gap:12px 22px;background:none;position:static;padding:0}
 
@@ -231,14 +250,27 @@ footer{background:var(--void);border-top:1px solid var(--line)}
   <a href="#contacto" class="cta-pill">Marcar avaliação</a>
 </nav>
 
-<header class="hero">
+<header class="hero mode-feixes" id="hero">
   <canvas id="gf" aria-hidden="true"></canvas>
   <canvas id="beams" aria-hidden="true"></canvas>
   <div class="scrim"></div>
-  <div class="reveal"><div class="badge">✦ Estúdio de Detalhe Automóvel · Grande Lisboa</div></div>
-  <h1 class="reveal">O carro que<br>merece <span class="fill">reverência.</span></h1>
-  <p class="sub reveal">Detalhe, proteção cerâmica e restauro — feitos à mão, para quem trata a máquina como uma obra.</p>
-  <div class="actions reveal"><a href="#contacto" class="b1">Marcar avaliação →</a><a href="#servicos" class="b2">Ver serviços</a></div>
+
+  <!-- HERO 1 · Fibras (Ghost Fibers, left-aligned) -->
+  <div class="hcontent h1c">
+    <div class="reveal"><div class="eyebrow"><span class="rule"></span>Estúdio de Detalhe Automóvel · Grande Lisboa</div></div>
+    <h1 class="reveal">O carro que<br>merece <span class="fill">reverência.</span></h1>
+    <p class="sub reveal">Detalhe, proteção cerâmica e restauro — feitos à mão, para quem trata a máquina como uma obra.</p>
+    <div class="actions reveal"><a href="#contacto" class="btn-primary">Marcar avaliação →</a><a href="#servicos" class="ihb"><span class="dot"></span><span class="txt">Ver serviços</span></a></div>
+  </div>
+
+  <!-- HERO 2 · Feixes (Ethereal Beams, centered) -->
+  <div class="hcontent h2c">
+    <div class="reveal"><div class="badge">✦ Estúdio de Detalhe Automóvel · Grande Lisboa</div></div>
+    <h1 class="reveal">O carro que<br>merece <span class="fill">reverência.</span></h1>
+    <p class="sub reveal">Detalhe, proteção cerâmica e restauro — feitos à mão, para quem trata a máquina como uma obra.</p>
+    <div class="actions reveal"><a href="#contacto" class="b1">Marcar avaliação →</a><a href="#servicos" class="b2">Ver serviços</a></div>
+  </div>
+
   <div class="scrollcue"><span class="d"></span>Deslize</div>
   <div class="hero-toggle"><button id="tg-fibras">Fibras</button><button id="tg-feixes" class="on">Feixes</button></div>
 </header>
@@ -316,10 +348,11 @@ footer{background:var(--void);border-top:1px solid var(--line)}
 <!-- SMALL closing ORB -->
 <section class="orb-section">
   <canvas id="orb"></canvas>
-  <div class="orb-content"><div class="k">Lisboa · Grande Lisboa</div><div class="wm">Detail Department</div></div>
+  <div class="orb-content"><div class="k">Lisboa · Grande Lisboa</div></div>
 </section>
 
 <footer>
+  <div class="fmark">Detail<br>Department</div>
   <div class="flegal"><span>© <span id="yr"></span> Detail Department · NIF 000 000 000</span><nav><a href="#">Privacidade</a><a href="#">Cookies</a><a href="https://www.livroreclamacoes.pt/">Livro de Reclamações</a><a href="#">Instagram</a></nav></div>
 </footer>
 
@@ -406,9 +439,15 @@ function initBeams(){if(beamsInited)return;beamsInited=true;const canvas=documen
   const rsz=()=>{beamsRenderer.setSize(innerWidth,innerHeight);beamsCam.aspect=innerWidth/innerHeight;beamsCam.updateProjectionMatrix();};addEventListener('resize',rsz);rsz();beamsClock=new THREE.Clock();}
 function beamsFrame(){const d=beamsClock.getDelta();if(beamsMat.userData.sh&&!reduce)beamsMat.userData.sh.uniforms.time.value+=.1*d;beamsRenderer.render(beamsScene,beamsCam);beamsRAF=requestAnimationFrame(beamsFrame);}
 initBeams();if(reduce){beamsRenderer.render(beamsScene,beamsCam);}else{beamsFrame();}
-const tgF=document.getElementById('tg-fibras'),tgB=document.getElementById('tg-feixes');
-tgF.onclick=()=>{if(tgF.classList.contains('on'))return;tgF.classList.add('on');tgB.classList.remove('on');document.getElementById('beams').style.display='none';document.getElementById('gf').style.display='block';if(beamsRAF){cancelAnimationFrame(beamsRAF);beamsRAF=null;}if(!gfRAF&&!reduce)initGF();};
-tgB.onclick=()=>{if(tgB.classList.contains('on'))return;tgB.classList.add('on');tgF.classList.remove('on');if(gfRAF){cancelAnimationFrame(gfRAF);gfRAF=null;}document.getElementById('gf').style.display='none';document.getElementById('beams').style.display='block';if(!beamsRAF)beamsFrame();};
+const tgF=document.getElementById('tg-fibras'),tgB=document.getElementById('tg-feixes'),heroEl=document.getElementById('hero');
+tgF.onclick=()=>{if(tgF.classList.contains('on'))return;tgF.classList.add('on');tgB.classList.remove('on');
+  heroEl.classList.remove('mode-feixes');heroEl.classList.add('mode-fibras');
+  document.getElementById('beams').style.display='none';document.getElementById('gf').style.display='block';
+  if(beamsRAF){cancelAnimationFrame(beamsRAF);beamsRAF=null;}if(!gfRAF&&!reduce)initGF();};
+tgB.onclick=()=>{if(tgB.classList.contains('on'))return;tgB.classList.add('on');tgF.classList.remove('on');
+  heroEl.classList.remove('mode-fibras');heroEl.classList.add('mode-feixes');
+  if(gfRAF){cancelAnimationFrame(gfRAF);gfRAF=null;}document.getElementById('gf').style.display='none';
+  document.getElementById('beams').style.display='block';if(!beamsRAF)beamsFrame();};
 
 /* SERVICES feature grid */
 const SVGI={correcao:'<path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/>',ceramica:'<path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/>',farois:'<path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path d="M15 9h4M15 15h4M5 9H2M5 15H2"/>',chapa:'<path d="M14 4l6 6-9 9H5v-6z"/><path d="M12 6l6 6"/>',lavagem:'<path d="M7 16.5c0 1.5-1 2.5-2.2 2.5S2.5 18 2.5 16.5 4.8 12 4.8 12s2.2 3 2.2 4.5z"/><path d="M13 19c0 1.5-1 2.5-2.2 2.5S8.5 20.5 8.5 19s2.3-4.5 2.3-4.5 2.2 3 2.2 4.5z"/><path d="M19 16.5c0 1.5-1 2.5-2.2 2.5S14.5 18 14.5 16.5s2.3-4.5 2.3-4.5 2.2 3 2.2 4.5z"/><path d="M4 8c2-3 5-4 8-4s6 1 8 4"/>',interior:'<path d="M4 18v-5a4 4 0 0 1 4-4h1l2-4h2a3 3 0 0 1 3 3v5"/><path d="M4 18h13M6 18v2M15 18v2"/>'};
