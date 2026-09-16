@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — 3D Orbit Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--void:#050505;--ink:#F2EFE9;--mist:#D9D4CA;--muted:#857F75;--gold:#C9A24B;--gold-lite:#E7CE8F}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--void);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:grab}
+#c.drag{cursor:grabbing}
+.grain{position:fixed;inset:0;z-index:5;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.vig{position:fixed;inset:0;z-index:4;pointer-events:none;background:radial-gradient(120% 100% at 50% 50%,transparent 55%,rgba(5,5,5,.75))}
+.ui{position:fixed;z-index:6;pointer-events:none}
+.top{top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:26px clamp(20px,4vw,48px)}
+.brand{font-family:Fraunces;font-size:1.05rem;color:var(--mist)}.brand b{color:var(--gold);font-weight:500}
+.title{text-align:right}
+.title h1{font-family:Fraunces;font-weight:300;font-size:clamp(1.8rem,4vw,3rem);line-height:1;color:var(--mist)}
+.title h1 .count{color:var(--gold);font-size:.5em;vertical-align:super;margin-left:6px}
+.title .sub{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.hint{bottom:26px;left:0;right:0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-lite)}
+.tag{position:fixed;left:14px;bottom:14px;z-index:7;background:var(--gold);color:var(--void);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+.fallback{position:fixed;inset:0;z-index:3;display:none;background:radial-gradient(circle at 50% 50%,rgba(201,162,75,.14),transparent 60%),#050505}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="fallback" id="fallback"></div>
+<div class="vig"></div>
+<div class="grain"></div>
+<div class="ui top">
+  <div class="brand">Detail <b>Department</b></div>
+  <div class="title"><h1>Trabalhos<span class="count">(24)</span></h1><div class="sub">Grande Lisboa</div></div>
+</div>
+<div class="ui hint">arraste para girar · scroll para aproximar</div>
+<div class="tag">3D Orbit Gallery · Direção B</div>
+
+<script type="module">
+import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.module.min.js";
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canvas=document.getElementById('c');
+let renderer;try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});}catch(e){document.getElementById('fallback').style.display='block';canvas.style.display='none';}
+if(renderer){
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  const scene=new THREE.Scene();scene.background=new THREE.Color(0x050505);
+  const camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,0.1,100);
+  scene.add(new THREE.AmbientLight(0xffffff,0.5));const pl=new THREE.PointLight(0xffffff,1);pl.position.set(10,10,10);scene.add(pl);
+
+  const SPHERE_RADIUS=9,PARTICLE_COUNT=1500,IMAGE_COUNT=24,IMAGE_SIZE=1.5;
+  const group=new THREE.Group();scene.add(group);
+
+  // ---- particle sphere (Points, warm gold) ----
+  const pos=new Float32Array(PARTICLE_COUNT*3),col=new Float32Array(PARTICLE_COUNT*3);const cc=new THREE.Color();
+  for(let i=0;i<PARTICLE_COUNT;i++){const phi=Math.acos(-1+(2*i)/PARTICLE_COUNT);const theta=Math.sqrt(PARTICLE_COUNT*Math.PI)*phi;
+    const rv=SPHERE_RADIUS+(Math.random()-0.5)*4;
+    pos[i*3]=rv*Math.cos(theta)*Math.sin(phi);pos[i*3+1]=rv*Math.cos(phi);pos[i*3+2]=rv*Math.sin(theta)*Math.sin(phi);
+    cc.setHSL(Math.random()*0.08+0.09,0.75,0.55+Math.random()*0.3);col[i*3]=cc.r;col[i*3+1]=cc.g;col[i*3+2]=cc.b;}
+  const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pos,3));pg.setAttribute('color',new THREE.BufferAttribute(col,3));
+  const pm=new THREE.PointsMaterial({size:0.14,vertexColors:true,transparent:true,opacity:0.95,sizeAttenuation:true});
+  group.add(new THREE.Points(pg,pm));
+
+  // ---- placeholder textures (gold gradient + car label) ----
+  const CARS=[['Porsche 911','Cerâmica'],['BMW M4','Correção'],['Mercedes AMG','Faróis'],['Audi RS6','Detalhe'],['Range Rover','Cerâmica'],['Golf GTI','Chapa'],['Ferrari Roma','Cerâmica'],['Tesla M3','Cerâmica'],['Mini Cooper','Detalhe'],['Volvo XC90','Restauro'],['Cupra','Correção'],['Jaguar F','Cerâmica']];
+  function makeTex(car,svc,i){const cv=document.createElement('canvas');cv.width=cv.height=256;const x=cv.getContext('2d');
+    const g=x.createLinearGradient(0,0,256,256);const h=(i*13)%40;g.addColorStop(0,'#14100a');g.addColorStop(1,`hsl(${38+h*0.2},45%,${16+ (i%3)*4}%)`);x.fillStyle=g;x.fillRect(0,0,256,256);
+    x.strokeStyle='rgba(201,162,75,0.5)';x.lineWidth=4;x.strokeRect(8,8,240,240);
+    x.fillStyle='rgba(201,162,75,0.25)';x.font='700 22px Fraunces, serif';x.textAlign='center';x.fillText('DD',128,60);
+    x.fillStyle='#E7CE8F';x.font='600 22px Inter, sans-serif';x.fillText(car,128,140);
+    x.fillStyle='#9a938a';x.font='500 12px monospace';x.fillText(svc.toUpperCase(),128,168);
+    const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;return t;}
+  const texes=[];for(let i=0;i<IMAGE_COUNT;i++){const[car,svc]=CARS[i%CARS.length];texes.push(makeTex(car,svc,i));}
+
+  // ---- orbiting image planes ----
+  for(let i=0;i<IMAGE_COUNT;i++){const angle=(i/IMAGE_COUNT)*Math.PI*2;const x=SPHERE_RADIUS*Math.cos(angle),z=SPHERE_RADIUS*Math.sin(angle);
+    const m=new THREE.Mesh(new THREE.PlaneGeometry(IMAGE_SIZE,IMAGE_SIZE),new THREE.MeshBasicMaterial({map:texes[i],side:THREE.DoubleSide}));
+    m.position.set(x,0,z);m.lookAt(0,0,0);group.add(m);}
+
+  // ---- custom orbit controls (drag rotate + wheel zoom) ----
+  let radius=Math.hypot(10,1.5,10),theta=Math.atan2(10,-10),phi=Math.acos(1.5/radius);
+  function updateCam(){const st=Math.sin(phi);camera.position.set(radius*st*Math.cos(theta),radius*Math.cos(phi),radius*st*Math.sin(theta));camera.lookAt(0,0,0);}
+  updateCam();
+  let down=false,px=0,py=0;
+  canvas.addEventListener('pointerdown',e=>{down=true;px=e.clientX;py=e.clientY;canvas.classList.add('drag');canvas.setPointerCapture(e.pointerId);});
+  canvas.addEventListener('pointermove',e=>{if(!down)return;theta-=(e.clientX-px)*0.005;phi-=(e.clientY-py)*0.005;phi=Math.max(0.15,Math.min(Math.PI-0.15,phi));px=e.clientX;py=e.clientY;updateCam();});
+  canvas.addEventListener('pointerup',e=>{down=false;canvas.classList.remove('drag');});
+  canvas.addEventListener('wheel',e=>{e.preventDefault();radius=Math.max(6,Math.min(28,radius+e.deltaY*0.01));updateCam();},{passive:false});
+
+  function rs(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+  addEventListener('resize',rs);rs();
+  function frame(){if(!reduce)group.rotation.y+=0.0006;renderer.render(scene,camera);requestAnimationFrame(frame);}
+  frame();
+}
+</script>
+</body>
+</html>
