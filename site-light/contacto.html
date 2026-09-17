@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department · Contacto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--void:#E4E4E4;--card:#EFEFEF;--fg:#171513;--mist:#3A352E;--muted:#6E685F;--line:rgba(201,162,75,.16);--gold:#C9A24B;--gold-lite:#8A6A1E;--g:201,162,75}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--fg);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,5vw,56px);background:rgba(228,228,228,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .brand{font-family:Fraunces;font-size:1.05rem;color:var(--mist)}nav .brand b{color:var(--gold);font-weight:500}
+nav .pills{display:flex;gap:2px;background:rgba(var(--g),.06);border:1px solid var(--line);border-radius:999px;padding:5px}
+nav .pills a{color:var(--mist);text-decoration:none;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 15px;border-radius:999px;transition:.3s}
+nav .pills a.on,nav .pills a:hover{background:rgba(var(--g),.14);color:var(--gold-lite)}
+nav .cta-pill{background:var(--gold);color:#171513;border-radius:999px;padding:11px 20px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:.3s}
+@media(max-width:860px){nav .pills{display:none}}
+.wrap{max-width:1200px;margin:0 auto;padding:clamp(56px,8vh,110px) clamp(20px,5vw,56px);display:grid;grid-template-columns:1fr;gap:48px}
+@media(min-width:960px){.wrap{grid-template-columns:1fr 1fr;gap:64px;align-items:start}}
+.chip{width:52px;height:52px;border-radius:10px;display:grid;place-items:center;background:rgba(var(--g),.12);border:1px solid var(--line);color:var(--gold)}
+.chip svg{width:22px;height:22px}
+h1{font-family:Fraunces;font-weight:500;letter-spacing:-.02em;font-size:clamp(2.8rem,6vw,4.6rem);line-height:.98;color:var(--mist);margin-top:28px}
+.lead{margin-top:22px;max-width:42ch;color:var(--muted);font-weight:300;font-size:1.05rem;line-height:1.6}
+.row{margin-top:30px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;color:var(--mist);font-size:.92rem}
+.row a{color:inherit;text-decoration:none;transition:.25s}.row a:hover{color:var(--gold-lite)}
+.row .dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.6}
+.mapwrap{position:relative;margin-top:44px;max-width:600px}
+#map{width:100%;height:auto;display:block}
+.pinlabel{position:absolute;transform:translate(-50%,-140%);background:#16130f;border:1px solid var(--line);color:var(--mist);font-size:.72rem;padding:6px 10px;border-radius:6px;white-space:nowrap}
+.card{position:relative;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:clamp(24px,3vw,40px);overflow:hidden}
+.card .gridbg{position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:linear-gradient(rgba(var(--g),.05) 1px,transparent 1px),linear-gradient(90deg,rgba(var(--g),.05) 1px,transparent 1px);background-size:34px 34px;mask-image:radial-gradient(120% 90% at 80% 0%,#000,transparent 75%)}
+.field{position:relative;z-index:1;margin-bottom:22px}
+.field label{display:block;font-size:.9rem;font-weight:500;color:var(--mist);margin-bottom:10px}
+.field input,.field textarea{width:100%;background:#FFFFFF;border:1px solid rgba(var(--g),.12);border-radius:8px;padding:14px 16px;color:var(--fg);font-family:inherit;font-size:.95rem;transition:.25s;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:#6d685f}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--g),.12)}
+.submit{position:relative;z-index:1;background:var(--gold);color:#0b0a09;border:none;border-radius:8px;padding:14px 28px;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer;transition:.25s}
+.submit:hover{background:var(--gold);box-shadow:0 0 34px rgba(var(--g),.4)}
+footer{border-top:1px solid var(--line)}
+.flegal{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;padding:24px clamp(20px,5vw,56px);font-size:.74rem;font-weight:300;color:var(--muted)}
+.flegal a{color:inherit;text-decoration:none;transition:.3s}.flegal a:hover{color:var(--gold-lite)}
+.flegal nav{display:flex;flex-wrap:wrap;gap:12px 22px;background:none;position:static;padding:0;border:none}
+.tag{position:fixed;left:14px;bottom:14px;z-index:50;background:var(--gold);color:#171513;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+.navright{display:flex;align-items:center;gap:12px}
+.langtog{display:flex;gap:3px}
+.langtog button{background:none;border:1px solid var(--line);color:var(--muted);font-family:Inter,monospace;font-size:.62rem;letter-spacing:.14em;padding:7px 9px;border-radius:999px;cursor:pointer;transition:.3s}
+.langtog button:hover{color:var(--gold-lite)}
+.langtog button.on{background:rgba(var(--g),.16);color:var(--gold-lite);border-color:rgba(var(--g),.4)}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="tag">Contact Page · Aceternity · Direção B</div>
+<nav>
+  <a class="brand" href="index.html" style="text-decoration:none">Detail <b>Department</b></a>
+  <div class="pills"><a href="servicos.html" data-i18n="nav.servicos">Serviços</a><a href="processo.html" data-i18n="nav.processo">Processo</a><a href="trabalhos.html" data-i18n="nav.trabalhos">Trabalhos</a><a href="sobre.html" data-i18n="nav.estudio">Estúdio</a><a href="contacto.html" class="on" data-i18n="nav.contacto">Contacto</a></div>
+  <div class="navright"><div class="langtog" id="langtog"><button type="button" data-lang="pt" class="on">PT</button><button type="button" data-lang="en">EN</button></div><a href="contacto.html" class="cta-pill" data-i18n="nav.cta">Marcar avaliação</a></div>
+</nav>
+
+<div class="wrap">
+  <div>
+    <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></div>
+    <h1 data-i18n="ct.h1">Fale connosco.</h1>
+    <p class="lead" data-i18n="ct.lead">Marque uma avaliação ou diga-nos o que o seu carro precisa. Respondemos rápido, em toda a Grande Lisboa.</p>
+    <div class="row">
+      <a href="mailto:ola@detaildepartment.pt">ola@detaildepartment.pt</a><span class="dot"></span>
+      <a href="tel:+351000000000">+351 000 000 000</a><span class="dot"></span>
+      <a href="https://wa.me/351000000000">WhatsApp</a>
+    </div>
+    <div class="mapwrap"><canvas id="map" width="600" height="320"></canvas><div class="pinlabel" id="pinlabel" data-i18n="ct.pin">Estamos aqui · Lisboa</div></div>
+  </div>
+  <div class="card">
+    <div class="gridbg"></div>
+    <form onsubmit="return false">
+      <div class="field"><label data-i18n="ct.name">Nome</label><input placeholder="João Silva"></div>
+      <div class="field"><label data-i18n="ct.contact">Email ou telefone</label><input placeholder="joao@email.pt"></div>
+      <div class="field"><label data-i18n="ct.car">Carro (marca / modelo)</label><input placeholder="Porsche 911"></div>
+      <div class="field"><label data-i18n="ct.message">Mensagem</label><textarea rows="5" data-i18n-ph="ct.messagePh" placeholder="O que procura?"></textarea></div>
+      <button class="submit" data-i18n="ct.send">Enviar pedido</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <div class="flegal"><span>© <span id="yr"></span> Detail Department · NIF 000 000 000</span><nav><a href="#" data-i18n="foot.privacy">Privacidade</a><a href="#">Cookies</a><a href="https://www.livroreclamacoes.pt/">Livro de Reclamações</a><a href="#">Instagram</a></nav></div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+const I18N={
+  'nav.servicos':{pt:'Serviços',en:'Services'},'nav.processo':{pt:'Processo',en:'Process'},
+  'nav.trabalhos':{pt:'Trabalhos',en:'Work'},'nav.estudio':{pt:'Estúdio',en:'Studio'},
+  'nav.contacto':{pt:'Contacto',en:'Contact'},'nav.cta':{pt:'Marcar avaliação',en:'Book an assessment'},
+  'ct.h1':{pt:'Fale connosco.',en:'Get in touch.'},
+  'ct.lead':{pt:'Marque uma avaliação ou diga-nos o que o seu carro precisa. Respondemos rápido, em toda a Grande Lisboa.',en:'Book an assessment or tell us what your car needs. We reply quickly, across all of Greater Lisbon.'},
+  'ct.pin':{pt:'Estamos aqui · Lisboa',en:'We are here · Lisbon'},
+  'ct.name':{pt:'Nome',en:'Name'},'ct.contact':{pt:'Email ou telefone',en:'Email or phone'},
+  'ct.car':{pt:'Carro (marca / modelo)',en:'Car (make / model)'},'ct.message':{pt:'Mensagem',en:'Message'},
+  'ct.messagePh':{pt:'O que procura?',en:'What are you looking for?'},
+  'ct.send':{pt:'Enviar pedido',en:'Send request'},
+  'foot.privacy':{pt:'Privacidade',en:'Privacy'}
+};
+let LANG='pt';try{const s=localStorage.getItem('dd_lang');if(s==='pt'||s==='en')LANG=s;}catch(e){}
+function applyI18n(){document.documentElement.lang=LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[k])el.innerHTML=I18N[k][LANG];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(I18N[k])el.setAttribute('placeholder',I18N[k][LANG]);});
+  document.querySelectorAll('#langtog button').forEach(b=>b.classList.toggle('on',b.dataset.lang===LANG));}
+function setLang(l){LANG=l;try{localStorage.setItem('dd_lang',l);}catch(e){}applyI18n();}
+document.getElementById('langtog').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setLang(b.dataset.lang);});
+applyI18n();
+const cv=document.getElementById('map'),g=cv.getContext('2d'),label=document.getElementById('pinlabel');
+const CONT=[[205,150,135,105],[330,66,34,26],[300,360,72,112],[520,140,58,46],[545,305,88,120],[730,155,175,110],[685,245,46,44],[805,300,72,34],[865,385,72,50]];
+const PIN=[492,150];
+function inside(x,y){for(const[cx,cy,rx,ry]of CONT){const dx=(x-cx)/rx,dy=(y-cy)/ry;if(dx*dx+dy*dy<=1)return true;}return false;}
+function draw(t){const W=cv.width,H=cv.height;g.clearRect(0,0,W,H);const sx=W/1000,sy=H/500;
+  for(let y=0;y<500;y+=8)for(let x=0;x<1000;x+=8){if(inside(x,y)){g.beginPath();g.arc(x*sx,y*sy,1.05,0,6.28);g.fillStyle='rgba(20,18,15,.28)';g.fill();}}
+  const px=PIN[0]*sx,py=PIN[1]*sy,pulse=.5+.5*Math.sin(t*.004);
+  const bg=g.createLinearGradient(px,py-70,px,py);bg.addColorStop(0,'rgba(201,162,75,0)');bg.addColorStop(1,'rgba(201,162,75,'+(.5+.3*pulse)+')');
+  g.strokeStyle=bg;g.lineWidth=2;g.beginPath();g.moveTo(px,py-64);g.lineTo(px,py);g.stroke();
+  g.beginPath();g.arc(px,py,10+6*pulse,0,6.28);g.fillStyle='rgba(201,162,75,'+(.12*pulse)+')';g.fill();
+  g.beginPath();g.arc(px,py,3.2,0,6.28);g.fillStyle='#8A6A1E';g.fill();
+  label.style.left=(px/W*100)+'%';label.style.top=(py/H*100)+'%';requestAnimationFrame(draw);}
+function fit(){const r=cv.getBoundingClientRect();cv.width=Math.round(r.width);cv.height=Math.round(r.width*.53);}
+new ResizeObserver(fit).observe(cv);fit();requestAnimationFrame(draw);
+</script>
+</body>
+</html>
