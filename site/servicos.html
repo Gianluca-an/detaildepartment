@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Detail Department — Services Page</title>
+<title>Detail Department · Serviços</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -63,6 +63,11 @@ nav .cta-pill{background:var(--gold);color:var(--void);border-radius:999px;paddi
 .srow:hover .arc{background:var(--gold);border-color:var(--gold);color:var(--void)}
 .srow:hover .arc svg{transform:rotate(45deg)}
 .tag{position:fixed;left:14px;bottom:14px;z-index:50;background:var(--gold);color:var(--void);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+.navright{display:flex;align-items:center;gap:12px}
+.langtog{display:flex;gap:3px}
+.langtog button{background:none;border:1px solid var(--line);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.14em;padding:7px 9px;border-radius:999px;cursor:pointer;transition:.3s}
+.langtog button:hover{color:var(--gold-lite)}
+.langtog button.on{background:rgba(var(--g),.16);color:var(--gold-lite);border-color:rgba(var(--g),.4)}
 </style>
 </head>
 <body>
@@ -70,15 +75,15 @@ nav .cta-pill{background:var(--gold);color:var(--void);border-radius:999px;paddi
 <div class="tag">Services Page · Direção B</div>
 <nav>
   <div class="brand">Detail <b>Department</b></div>
-  <div class="pills"><a href="servicos.html" class="on">Serviços</a><a href="processo.html">Processo</a><a href="trabalhos.html">Trabalhos</a><a href="sobre.html">Estúdio</a><a href="contacto.html">Contacto</a></div>
-  <a href="contacto.html" class="cta-pill">Marcar avaliação</a>
+  <div class="pills"><a href="servicos.html" class="on" data-i18n="nav.servicos">Serviços</a><a href="processo.html" data-i18n="nav.processo">Processo</a><a href="trabalhos.html" data-i18n="nav.trabalhos">Trabalhos</a><a href="sobre.html" data-i18n="nav.estudio">Estúdio</a><a href="contacto.html" data-i18n="nav.contacto">Contacto</a></div>
+  <div class="navright"><div class="langtog" id="langtog"><button type="button" data-lang="pt" class="on">PT</button><button type="button" data-lang="en">EN</button></div><a href="contacto.html" class="cta-pill" data-i18n="nav.cta">Marcar avaliação</a></div>
 </nav>
 
 <div class="wrap">
   <div class="phead">
-    <div class="eyebrow"><span class="rule"></span>Serviços</div>
-    <h1>Tudo o que fazemos, <em>ao detalhe.</em></h1>
-    <p>Do primeiro toque de espuma à cura final da cerâmica — cada serviço é executado à mão, com o mesmo rigor.</p>
+    <div class="eyebrow"><span class="rule"></span><span data-i18n="serv.eyebrow">Serviços</span></div>
+    <h1 data-i18n="serv.h1">Tudo o que fazemos, <em>ao detalhe.</em></h1>
+    <p data-i18n="serv.lede">Do primeiro toque de espuma à cura final da cerâmica, cada serviço é executado à mão e com o mesmo rigor.</p>
   </div>
 
   <div id="page"></div>
@@ -86,21 +91,36 @@ nav .cta-pill{background:var(--gold);color:var(--void);border-radius:999px;paddi
 
 <script>
 const ARR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>';
-const featured={n:'01',t:'Correção de Pintura',grad:'linear-gradient(135deg,#2b2418,#c9a24b 160%)'};
+const featured={n:'01',t:{pt:'Correção de Pintura',en:'Paint Correction'},grad:'linear-gradient(135deg,#2b2418,#c9a24b 160%)'};
 const cards=[
-  {n:'02',t:'Proteção Cerâmica',grad:'linear-gradient(135deg,#20242a,#e7ce8f 160%)'},
-  {n:'03',t:'Restauro de Faróis',grad:'linear-gradient(135deg,#2c2015,#b8935a 160%)'},
-  {n:'04',t:'Chapa e Pintura',grad:'linear-gradient(135deg,#241f18,#cbae7e 160%)'},
-  {n:'05',t:'Higienização Interior',grad:'linear-gradient(135deg,#1e2117,#c9a24b 160%)'},
+  {n:'02',t:{pt:'Proteção Cerâmica',en:'Ceramic Protection'},grad:'linear-gradient(135deg,#20242a,#e7ce8f 160%)'},
+  {n:'03',t:{pt:'Restauro de Faróis',en:'Headlight Restoration'},grad:'linear-gradient(135deg,#2c2015,#b8935a 160%)'},
+  {n:'04',t:{pt:'Chapa e Pintura',en:'Bodywork'},grad:'linear-gradient(135deg,#241f18,#cbae7e 160%)'},
+  {n:'05',t:{pt:'Higienização Interior',en:'Interior Cleaning'},grad:'linear-gradient(135deg,#1e2117,#c9a24b 160%)'},
 ];
 const list=[
-  {n:'06',t:'Lavagem de Detalhe'},{n:'07',t:'Descontaminação'},{n:'08',t:'Polimento & Enriquecimento'},{n:'09',t:'Proteção de Vidros'},{n:'10',t:'Jantes & Travões'},
+  {n:'06',t:{pt:'Lavagem de Detalhe',en:'Detail Wash'}},{n:'07',t:{pt:'Descontaminação',en:'Decontamination'}},{n:'08',t:{pt:'Polimento e Enriquecimento',en:'Polishing and Enrichment'}},{n:'09',t:{pt:'Proteção de Vidros',en:'Glass Protection'}},{n:'10',t:{pt:'Jantes e Travões',en:'Wheels and Brakes'}},
 ];
-const cardHTML=(c,cls)=>`<a class="scard ${cls}" href="#"><div class="img" style="background-image:${c.grad}"></div><div class="shade"></div><div class="num">${c.n}</div><div class="arc">${ARR}</div><div class="ttl">${c.t}</div></a>`;
-document.getElementById('page').innerHTML=
+const I18N={
+  'nav.servicos':{pt:'Serviços',en:'Services'},'nav.processo':{pt:'Processo',en:'Process'},
+  'nav.trabalhos':{pt:'Trabalhos',en:'Work'},'nav.estudio':{pt:'Estúdio',en:'Studio'},
+  'nav.contacto':{pt:'Contacto',en:'Contact'},'nav.cta':{pt:'Marcar avaliação',en:'Book an assessment'},
+  'serv.eyebrow':{pt:'Serviços',en:'Services'},
+  'serv.h1':{pt:'Tudo o que fazemos, <em>ao detalhe.</em>',en:'Everything we do, <em>in detail.</em>'},
+  'serv.lede':{pt:'Do primeiro toque de espuma à cura final da cerâmica, cada serviço é executado à mão e com o mesmo rigor.',en:'From the first touch of foam to the final cure of the ceramic, every service is done by hand and with the same rigour.'}
+};
+let LANG='pt';try{const s=localStorage.getItem('dd_lang');if(s==='pt'||s==='en')LANG=s;}catch(e){}
+const cardHTML=(c,cls)=>`<a class="scard ${cls}" href="contacto.html"><div class="img" style="background-image:${c.grad}"></div><div class="shade"></div><div class="num">${c.n}</div><div class="arc">${ARR}</div><div class="ttl">${c.t[LANG]}</div></a>`;
+function renderPage(){document.getElementById('page').innerHTML=
   cardHTML(featured,'featured')+
   `<div class="cards4">${cards.map(c=>cardHTML(c,'')).join('')}</div>`+
-  `<div class="slist">${list.map(r=>`<a class="srow" href="#"><div class="n">${r.n}</div><div class="t">${r.t}</div><div class="arc">${ARR}</div></a>`).join('')}</div>`;
+  `<div class="slist">${list.map(r=>`<a class="srow" href="contacto.html"><div class="n">${r.n}</div><div class="t">${r.t[LANG]}</div><div class="arc">${ARR}</div></a>`).join('')}</div>`;}
+function applyI18n(){document.documentElement.lang=LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[k])el.innerHTML=I18N[k][LANG];});
+  document.querySelectorAll('#langtog button').forEach(b=>b.classList.toggle('on',b.dataset.lang===LANG));}
+function setLang(l){LANG=l;try{localStorage.setItem('dd_lang',l);}catch(e){}applyI18n();renderPage();}
+document.getElementById('langtog').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setLang(b.dataset.lang);});
+applyI18n();renderPage();
 </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Detail Department — About Page</title>
+<title>Detail Department · Estúdio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@500&family=Sacramento&display=swap" rel="stylesheet">
@@ -52,6 +52,11 @@ footer{border-top:1px solid var(--line)}
 .flegal a{color:inherit;text-decoration:none;transition:.3s}.flegal a:hover{color:var(--gold-lite)}
 .flegal nav{display:flex;flex-wrap:wrap;gap:12px 22px;background:none;position:static;padding:0;border:none}
 .tag{position:fixed;left:14px;bottom:14px;z-index:50;background:var(--gold);color:var(--void);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+.navright{display:flex;align-items:center;gap:12px}
+.langtog{display:flex;gap:3px}
+.langtog button{background:none;border:1px solid var(--line);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.14em;padding:7px 9px;border-radius:999px;cursor:pointer;transition:.3s}
+.langtog button:hover{color:var(--gold-lite)}
+.langtog button.on{background:rgba(var(--g),.16);color:var(--gold-lite);border-color:rgba(var(--g),.4)}
 </style>
 </head>
 <body>
@@ -59,30 +64,53 @@ footer{border-top:1px solid var(--line)}
 <div class="tag">About Page · Direção B</div>
 <nav>
   <div class="brand">Detail <b>Department</b></div>
-  <div class="pills"><a href="servicos.html">Serviços</a><a href="processo.html">Processo</a><a href="trabalhos.html">Trabalhos</a><a href="sobre.html" class="on">Estúdio</a><a href="contacto.html">Contacto</a></div>
-  <a href="contacto.html" class="cta-pill">Marcar avaliação</a>
+  <div class="pills"><a href="servicos.html" data-i18n="nav.servicos">Serviços</a><a href="processo.html" data-i18n="nav.processo">Processo</a><a href="trabalhos.html" data-i18n="nav.trabalhos">Trabalhos</a><a href="sobre.html" class="on" data-i18n="nav.estudio">Estúdio</a><a href="contacto.html" data-i18n="nav.contacto">Contacto</a></div>
+  <div class="navright"><div class="langtog" id="langtog"><button type="button" data-lang="pt" class="on">PT</button><button type="button" data-lang="en">EN</button></div><a href="contacto.html" class="cta-pill" data-i18n="nav.cta">Marcar avaliação</a></div>
 </nav>
 
 <section class="ah">
   <div class="al">
-    <div class="eyebrow">O Fundador</div>
-    <h1><span class="a">Olá, sou o [Nome].</span><span class="b">Prazer em conhecê-lo.</span></h1>
+    <div class="eyebrow" data-i18n="ab.eyebrow">O Fundador</div>
+    <h1><span class="a" data-i18n="ab.h1a">Olá, sou o [Nome].</span><span class="b" data-i18n="ab.h1b">Prazer em conhecê-lo.</span></h1>
     <div class="body">
-      <p>Há mais de dez anos que trato de carros — mas comecei como entusiasta, na garagem de casa, a passar horas num único painel até ficar perfeito. Foi aí que percebi uma coisa: detalhe não é limpeza. É respeito pela máquina.</p>
-      <p>Hoje giro um estúdio de um só homem, na Grande Lisboa — sem pressas, sem atalhos, um carro de cada vez. Só mãos, luz, produtos profissionais e a obsessão de entregar cada viatura melhor do que saiu de fábrica.</p>
+      <p data-i18n="ab.p1">Há mais de dez anos que trato de carros, mas comecei como entusiasta, na garagem de casa, a passar horas num único painel até ficar perfeito. Foi aí que percebi uma coisa: detalhe não é limpeza, é respeito pela máquina.</p>
+      <p data-i18n="ab.p2">Hoje giro um estúdio de um só homem, na Grande Lisboa, sem pressas, sem atalhos e um carro de cada vez. Só mãos, luz, produtos profissionais e a obsessão de entregar cada viatura melhor do que saiu de fábrica.</p>
     </div>
     <div class="connect">
-      <span>Siga o estúdio em</span>
+      <span data-i18n="ab.follow">Siga o estúdio em</span>
       <a href="https://instagram.com/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
     </div>
-    <div class="sign">Detail Department<small>Assinatura / nome real do fundador ao vivo</small></div>
+    <div class="sign">Detail Department<small data-i18n="ab.sign">Assinatura e nome real do fundador entram aqui</small></div>
   </div>
-  <div class="ar"><span class="lbl">Retrato do fundador · imagem real (P&B)</span></div>
+  <div class="ar"><span class="lbl" data-i18n="ab.portrait">Retrato do fundador · imagem real (P&B)</span></div>
 </section>
 
 <footer>
-  <div class="flegal"><span>© <span id="yr"></span> Detail Department · NIF 000 000 000</span><nav><a href="#">Privacidade</a><a href="#">Cookies</a><a href="https://www.livroreclamacoes.pt/">Livro de Reclamações</a><a href="#">Instagram</a></nav></div>
+  <div class="flegal"><span>© <span id="yr"></span> Detail Department · NIF 000 000 000</span><nav><a href="#" data-i18n="foot.privacy">Privacidade</a><a href="#">Cookies</a><a href="https://www.livroreclamacoes.pt/">Livro de Reclamações</a><a href="#">Instagram</a></nav></div>
 </footer>
-<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+const I18N={
+  'nav.servicos':{pt:'Serviços',en:'Services'},'nav.processo':{pt:'Processo',en:'Process'},
+  'nav.trabalhos':{pt:'Trabalhos',en:'Work'},'nav.estudio':{pt:'Estúdio',en:'Studio'},
+  'nav.contacto':{pt:'Contacto',en:'Contact'},'nav.cta':{pt:'Marcar avaliação',en:'Book an assessment'},
+  'ab.eyebrow':{pt:'O Fundador',en:'The Founder'},
+  'ab.h1a':{pt:'Olá, sou o [Nome].',en:"Hi, I'm [Name]."},
+  'ab.h1b':{pt:'Prazer em conhecê-lo.',en:'Pleasure to meet you.'},
+  'ab.p1':{pt:'Há mais de dez anos que trato de carros, mas comecei como entusiasta, na garagem de casa, a passar horas num único painel até ficar perfeito. Foi aí que percebi uma coisa: detalhe não é limpeza, é respeito pela máquina.',en:'I have been working on cars for more than ten years, but I started as an enthusiast in the garage at home, spending hours on a single panel until it was perfect. That is when I understood one thing: detailing is not cleaning, it is respect for the car.'},
+  'ab.p2':{pt:'Hoje giro um estúdio de um só homem, na Grande Lisboa, sem pressas, sem atalhos e um carro de cada vez. Só mãos, luz, produtos profissionais e a obsessão de entregar cada viatura melhor do que saiu de fábrica.',en:'Today I run a one-man studio in Greater Lisbon, with no rush, no shortcuts and one car at a time. Just hands, light, professional products and the obsession of delivering every car better than it left the factory.'},
+  'ab.follow':{pt:'Siga o estúdio em',en:'Follow the studio on'},
+  'ab.sign':{pt:'Assinatura e nome real do fundador entram aqui',en:"The founder's signature and real name go here"},
+  'ab.portrait':{pt:'Retrato do fundador · imagem real (P&B)',en:'Founder portrait · real image (B&W)'},
+  'foot.privacy':{pt:'Privacidade',en:'Privacy'}
+};
+let LANG='pt';try{const s=localStorage.getItem('dd_lang');if(s==='pt'||s==='en')LANG=s;}catch(e){}
+function applyI18n(){document.documentElement.lang=LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[k])el.innerHTML=I18N[k][LANG];});
+  document.querySelectorAll('#langtog button').forEach(b=>b.classList.toggle('on',b.dataset.lang===LANG));}
+function setLang(l){LANG=l;try{localStorage.setItem('dd_lang',l);}catch(e){}applyI18n();}
+document.getElementById('langtog').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setLang(b.dataset.lang);});
+applyI18n();
+</script>
 </body>
 </html>
