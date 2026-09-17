@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department · Serviços</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--void:#B7B8B3;--char:#AEAFAA;--card:#C3C4BF;--line:rgba(201,162,75,.16);--ink:#171513;--mist:#34302A;--muted:#5A564F;--gold:#C9A24B;--gold-lite:#7A5E19;--g:201,162,75}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* nav */
+nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,5vw,56px);background:rgba(183,184,179,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .brand{font-family:Fraunces;font-size:1.05rem;color:var(--mist)}nav .brand b{color:var(--gold);font-weight:500}
+nav .pills{display:flex;gap:2px;background:rgba(var(--g),.06);border:1px solid var(--line);border-radius:999px;padding:5px}
+nav .pills a{color:var(--mist);text-decoration:none;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 15px;border-radius:999px;transition:.3s}
+nav .pills a.on,nav .pills a:hover{background:rgba(var(--g),.14);color:var(--gold-lite)}
+nav .cta-pill{background:var(--gold);color:#171513;border-radius:999px;padding:11px 20px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:.3s}
+@media(max-width:860px){nav .pills{display:none}}
+/* page */
+.wrap{max-width:1240px;margin:0 auto;padding:clamp(48px,7vh,90px) clamp(20px,5vw,56px)}
+.phead{max-width:640px;margin-bottom:clamp(40px,6vh,64px)}
+.phead .eyebrow{display:flex;align-items:center;gap:12px;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-lite);margin-bottom:20px}
+.phead .eyebrow .rule{width:40px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.phead h1{font-family:Fraunces;font-weight:300;font-size:clamp(2.4rem,6vw,4.4rem);line-height:1.02;color:var(--mist)}
+.phead h1 em{font-style:italic;color:var(--gold)}
+.phead p{margin-top:20px;color:var(--muted);font-weight:300;font-size:1.05rem;max-width:52ch}
+/* card base */
+.scard{position:relative;overflow:hidden;border-radius:3px;border:1px solid var(--line);cursor:pointer;display:block}
+.scard .img{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(.7) brightness(.62) sepia(.3) hue-rotate(3deg);transition:filter .55s,transform .55s;transform:scale(1)}
+.scard:hover .img{filter:grayscale(0) brightness(.85);transform:scale(1.06)}
+.scard .shade{position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(183,184,179,.8),transparent 55%)}
+.scard .num{position:absolute;z-index:2;top:18px;left:20px;font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--mist)}
+.scard .arc{position:absolute;z-index:2;top:16px;right:16px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.35);display:grid;place-items:center;color:var(--mist);transition:.35s;background:rgba(183,184,179,.25);backdrop-filter:blur(4px)}
+.scard .arc svg{width:18px;height:18px;transition:transform .35s}
+.scard:hover .arc{background:var(--gold);border-color:var(--gold);color:#171513}
+.scard:hover .arc svg{transform:rotate(45deg)}
+.scard .ttl{position:absolute;z-index:2;left:22px;bottom:20px;right:22px;font-family:Fraunces;font-weight:400;letter-spacing:-.01em;color:#fff;line-height:1.05}
+/* featured */
+.featured{aspect-ratio:21/8;margin-bottom:20px}
+.featured .ttl{font-size:clamp(1.6rem,3.6vw,2.6rem)}
+@media(max-width:640px){.featured{aspect-ratio:4/3}}
+/* four cards */
+.cards4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:clamp(40px,6vh,70px)}
+.cards4 .scard{aspect-ratio:3/4}
+.cards4 .ttl{font-size:clamp(1.1rem,1.6vw,1.4rem)}
+@media(max-width:900px){.cards4{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.cards4{grid-template-columns:1fr}}
+/* list */
+.slist{border-top:1px solid var(--line)}
+.srow{display:grid;grid-template-columns:64px 1fr 52px;align-items:center;gap:20px;padding:26px 6px;border-bottom:1px solid var(--line);cursor:pointer;transition:.35s;text-decoration:none}
+.srow:hover{padding-left:16px;background:linear-gradient(90deg,rgba(var(--g),.06),transparent 70%)}
+.srow .n{font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--muted)}
+.srow .t{font-family:Fraunces;font-weight:400;font-size:clamp(1.2rem,2.4vw,1.7rem);color:var(--mist);transition:.35s}
+.srow:hover .t{color:var(--gold-lite)}
+.srow .arc{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--gold-lite);transition:.35s}
+.srow .arc svg{width:16px;height:16px;transition:transform .35s}
+.srow:hover .arc{background:var(--gold);border-color:var(--gold);color:#171513}
+.srow:hover .arc svg{transform:rotate(45deg)}
+.tag{position:fixed;left:14px;bottom:14px;z-index:50;background:var(--gold);color:#171513;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+.navright{display:flex;align-items:center;gap:12px}
+.langtog{display:flex;gap:3px}
+.langtog button{background:none;border:1px solid var(--line);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.14em;padding:7px 9px;border-radius:999px;cursor:pointer;transition:.3s}
+.langtog button:hover{color:var(--gold-lite)}
+.langtog button.on{background:rgba(var(--g),.16);color:var(--gold-lite);border-color:rgba(var(--g),.4)}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="tag">Services Page · Direção B</div>
+<nav>
+  <a class="brand" href="index.html" style="text-decoration:none">Detail <b>Department</b></a>
+  <div class="pills"><a href="servicos.html" class="on" data-i18n="nav.servicos">Serviços</a><a href="processo.html" data-i18n="nav.processo">Processo</a><a href="trabalhos.html" data-i18n="nav.trabalhos">Trabalhos</a><a href="sobre.html" data-i18n="nav.estudio">Estúdio</a><a href="contacto.html" data-i18n="nav.contacto">Contacto</a></div>
+  <div class="navright"><div class="langtog" id="langtog"><button type="button" data-lang="pt" class="on">PT</button><button type="button" data-lang="en">EN</button></div><a href="contacto.html" class="cta-pill" data-i18n="nav.cta">Marcar avaliação</a></div>
+</nav>
+
+<div class="wrap">
+  <div class="phead">
+    <div class="eyebrow"><span class="rule"></span><span data-i18n="serv.eyebrow">Serviços</span></div>
+    <h1 data-i18n="serv.h1">Tudo o que fazemos, <em>ao detalhe.</em></h1>
+    <p data-i18n="serv.lede">Do primeiro toque de espuma à cura final da cerâmica, cada serviço é executado à mão e com o mesmo rigor.</p>
+  </div>
+
+  <div id="page"></div>
+</div>
+
+<script>
+const ARR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>';
+const featured={n:'01',t:{pt:'Correção de Pintura',en:'Paint Correction'},grad:'linear-gradient(135deg,#2b2418,#c9a24b 160%)'};
+const cards=[
+  {n:'02',t:{pt:'Proteção Cerâmica',en:'Ceramic Protection'},grad:'linear-gradient(135deg,#20242a,#e7ce8f 160%)'},
+  {n:'03',t:{pt:'Restauro de Faróis',en:'Headlight Restoration'},grad:'linear-gradient(135deg,#2c2015,#b8935a 160%)'},
+  {n:'04',t:{pt:'Chapa e Pintura',en:'Bodywork'},grad:'linear-gradient(135deg,#241f18,#cbae7e 160%)'},
+  {n:'05',t:{pt:'Higienização Interior',en:'Interior Cleaning'},grad:'linear-gradient(135deg,#1e2117,#c9a24b 160%)'},
+];
+const list=[
+  {n:'06',t:{pt:'Lavagem de Detalhe',en:'Detail Wash'}},{n:'07',t:{pt:'Descontaminação',en:'Decontamination'}},{n:'08',t:{pt:'Polimento e Enriquecimento',en:'Polishing and Enrichment'}},{n:'09',t:{pt:'Proteção de Vidros',en:'Glass Protection'}},{n:'10',t:{pt:'Jantes e Travões',en:'Wheels and Brakes'}},
+];
+const I18N={
+  'nav.servicos':{pt:'Serviços',en:'Services'},'nav.processo':{pt:'Processo',en:'Process'},
+  'nav.trabalhos':{pt:'Trabalhos',en:'Work'},'nav.estudio':{pt:'Estúdio',en:'Studio'},
+  'nav.contacto':{pt:'Contacto',en:'Contact'},'nav.cta':{pt:'Marcar avaliação',en:'Book an assessment'},
+  'serv.eyebrow':{pt:'Serviços',en:'Services'},
+  'serv.h1':{pt:'Tudo o que fazemos, <em>ao detalhe.</em>',en:'Everything we do, <em>in detail.</em>'},
+  'serv.lede':{pt:'Do primeiro toque de espuma à cura final da cerâmica, cada serviço é executado à mão e com o mesmo rigor.',en:'From the first touch of foam to the final cure of the ceramic, every service is done by hand and with the same rigour.'}
+};
+let LANG='pt';try{const s=localStorage.getItem('dd_lang');if(s==='pt'||s==='en')LANG=s;}catch(e){}
+const cardHTML=(c,cls)=>`<a class="scard ${cls}" href="contacto.html"><div class="img" style="background-image:${c.grad}"></div><div class="shade"></div><div class="num">${c.n}</div><div class="arc">${ARR}</div><div class="ttl">${c.t[LANG]}</div></a>`;
+function renderPage(){document.getElementById('page').innerHTML=
+  cardHTML(featured,'featured')+
+  `<div class="cards4">${cards.map(c=>cardHTML(c,'')).join('')}</div>`+
+  `<div class="slist">${list.map(r=>`<a class="srow" href="contacto.html"><div class="n">${r.n}</div><div class="t">${r.t[LANG]}</div><div class="arc">${ARR}</div></a>`).join('')}</div>`;}
+function applyI18n(){document.documentElement.lang=LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[k])el.innerHTML=I18N[k][LANG];});
+  document.querySelectorAll('#langtog button').forEach(b=>b.classList.toggle('on',b.dataset.lang===LANG));}
+function setLang(l){LANG=l;try{localStorage.setItem('dd_lang',l);}catch(e){}applyI18n();renderPage();}
+document.getElementById('langtog').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setLang(b.dataset.lang);});
+applyI18n();renderPage();
+</script>
+</body>
+</html>

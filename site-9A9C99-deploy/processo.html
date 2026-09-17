@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department · Processo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--void:#9A9C99;--char:#919390;--card:#A6A8A4;--line:rgba(201,162,75,.16);--ink:#171513;--mist:#2E2A25;--muted:#4A4741;--gold:#C9A24B;--gold-lite:#6A5016;--g:201,162,75}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(20px,5vw,56px);background:rgba(154,156,153,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .brand{font-family:Fraunces;font-size:1.05rem;color:var(--mist)}nav .brand b{color:var(--gold);font-weight:500}
+nav .pills{display:flex;gap:2px;background:rgba(var(--g),.06);border:1px solid var(--line);border-radius:999px;padding:5px}
+nav .pills a{color:var(--mist);text-decoration:none;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 15px;border-radius:999px;transition:.3s}
+nav .pills a.on,nav .pills a:hover{background:rgba(var(--g),.14);color:var(--gold-lite)}
+nav .cta-pill{background:var(--gold);color:#171513;border-radius:999px;padding:11px 20px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:.3s}
+@media(max-width:860px){nav .pills{display:none}}
+/* scroll process */
+.p2{max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,56px)}
+.p2grid{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:900px){.p2grid{grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px)}}
+/* left sticky */
+.p2left{align-self:start}
+@media(min-width:900px){.p2left{position:sticky;top:80px;height:calc(100vh - 80px);display:flex;flex-direction:column;justify-content:center;padding:40px 0}}
+.p2left h2{font-family:Fraunces;font-weight:300;letter-spacing:-.02em;font-size:clamp(2.4rem,5vw,4rem);line-height:1;color:var(--mist)}
+.p2left .lede{margin-top:22px;max-width:42ch;color:var(--muted);font-weight:300;font-size:1.02rem}
+.p2imgwrap{position:relative;margin-top:30px;aspect-ratio:4/3;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.p2img{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.04);transition:opacity .7s ease,transform 1.2s ease}
+.p2img.on{opacity:1;transform:scale(1)}
+.p2img .il{position:absolute;left:16px;bottom:14px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,18,15,.75)}
+.p2cta{margin-top:26px;display:inline-flex;align-items:center;gap:10px;color:var(--mist);text-decoration:none;font-size:.9rem;transition:.3s;width:fit-content}
+.p2cta svg{width:18px;height:18px;color:var(--gold);transition:transform .3s}
+.p2cta:hover{color:var(--gold-lite)}.p2cta:hover svg{transform:translate(3px,-3px)}
+/* right steps */
+.p2right{padding:20px 0}
+.p2step{min-height:82vh;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--line);opacity:.32;transition:opacity .5s}
+.p2step.active{opacity:1}
+.p2step:last-child{border-bottom:none}
+.p2step .num{font-family:Fraunces;font-weight:300;font-size:clamp(4rem,9vw,7.5rem);line-height:.9;color:var(--mist);transition:color .5s}
+.p2step.active .num{color:var(--gold)}
+.p2step h3{font-family:Fraunces;font-weight:400;font-size:clamp(1.6rem,3vw,2.2rem);color:var(--ink);margin-top:26px;letter-spacing:-.01em}
+.p2step p{margin-top:16px;max-width:40ch;color:var(--muted);font-weight:300;font-size:1.05rem;line-height:1.7}
+.tag{position:fixed;left:14px;bottom:14px;z-index:50;background:var(--gold);color:#171513;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+.navright{display:flex;align-items:center;gap:12px}
+.langtog{display:flex;gap:3px}
+.langtog button{background:none;border:1px solid var(--line);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.14em;padding:7px 9px;border-radius:999px;cursor:pointer;transition:.3s}
+.langtog button:hover{color:var(--gold-lite)}
+.langtog button.on{background:rgba(var(--g),.16);color:var(--gold-lite);border-color:rgba(var(--g),.4)}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="tag">Process · Scroll-driven · Direção B</div>
+<nav>
+  <a class="brand" href="home.html" style="text-decoration:none">Detail <b>Department</b></a>
+  <div class="pills"><a href="servicos.html" data-i18n="nav.servicos">Serviços</a><a href="processo.html" class="on" data-i18n="nav.processo">Processo</a><a href="trabalhos.html" data-i18n="nav.trabalhos">Trabalhos</a><a href="sobre.html" data-i18n="nav.estudio">Estúdio</a><a href="contacto.html" data-i18n="nav.contacto">Contacto</a></div>
+  <div class="navright"><div class="langtog" id="langtog"><button type="button" data-lang="pt" class="on">PT</button><button type="button" data-lang="en">EN</button></div><a href="contacto.html" class="cta-pill" data-i18n="nav.cta">Marcar avaliação</a></div>
+</nav>
+
+<div class="p2">
+  <div class="p2grid">
+    <div class="p2left">
+      <h2 data-i18n="proc.h2">O nosso<br>processo</h2>
+      <p class="lede" data-i18n="proc.lede">Cada carro passa pelas mesmas cinco etapas, sem atalhos. Role para as percorrer.</p>
+      <div class="p2imgwrap" id="imgwrap"></div>
+    </div>
+    <div class="p2right" id="steps"></div>
+  </div>
+</div>
+
+<script>
+const STEPS=[
+  {n:'01',t:{pt:'Avaliação presencial',en:'In-person assessment'},d:{pt:'Vemos o carro em pessoa, sob luz própria, e definimos o plano certo, sem vender o que não é preciso.',en:'We see the car in person, under our own lighting, and set the right plan without selling what is not needed.'},g:'linear-gradient(135deg,#2b2418,#c9a24b 150%)',lbl:{pt:'Avaliação',en:'Assessment'}},
+  {n:'02',t:{pt:'Preparação',en:'Preparation'},d:{pt:'Lavagem de descontaminação química e mecânica, jantes e recantos. A base de qualquer trabalho a sério.',en:'A chemical and mechanical decontamination wash, wheels and every corner. The base of any serious work.'},g:'linear-gradient(135deg,#20242a,#e7ce8f 150%)',lbl:{pt:'Preparação',en:'Preparation'}},
+  {n:'03',t:{pt:'Correção de pintura',en:'Paint correction'},d:{pt:'Remoção de riscos, hologramas e oxidação com polimento por etapas. Devolvemos profundidade à cor.',en:'We remove scratches, holograms and oxidation with step-by-step polishing. We bring depth back to the colour.'},g:'linear-gradient(135deg,#2c2015,#b8935a 150%)',lbl:{pt:'Correção',en:'Correction'}},
+  {n:'04',t:{pt:'Proteção cerâmica',en:'Ceramic protection'},d:{pt:'Aplicação e cura da cerâmica: brilho profundo, hidrofobia real e defesa duradoura contra o tempo.',en:'We apply and cure the ceramic: deep gloss, real water repellency and lasting defence against the elements.'},g:'linear-gradient(135deg,#241f18,#cbae7e 150%)',lbl:{pt:'Proteção',en:'Protection'}},
+  {n:'05',t:{pt:'Entrega impecável',en:'Flawless handover'},d:{pt:'Inspeção final sob luz, detalhes de acabamento e entrega, com as instruções para manter o resultado.',en:'A final inspection under light, finishing details and handover, with instructions to keep the result.'},g:'linear-gradient(135deg,#1e2117,#c9a24b 150%)',lbl:{pt:'Entrega',en:'Handover'}},
+];
+const I18N={
+  'nav.servicos':{pt:'Serviços',en:'Services'},'nav.processo':{pt:'Processo',en:'Process'},
+  'nav.trabalhos':{pt:'Trabalhos',en:'Work'},'nav.estudio':{pt:'Estúdio',en:'Studio'},
+  'nav.contacto':{pt:'Contacto',en:'Contact'},'nav.cta':{pt:'Marcar avaliação',en:'Book an assessment'},
+  'proc.h2':{pt:'O nosso<br>processo',en:'Our<br>process'},
+  'proc.lede':{pt:'Cada carro passa pelas mesmas cinco etapas, sem atalhos. Role para as percorrer.',en:'Every car goes through the same five stages, with no shortcuts. Scroll to follow them.'}
+};
+let LANG='pt';try{const s=localStorage.getItem('dd_lang');if(s==='pt'||s==='en')LANG=s;}catch(e){}
+function renderSteps(){
+  document.getElementById('imgwrap').innerHTML=STEPS.map((s,i)=>`<div class="p2img${i===0?' on':''}" data-i="${i}" style="background-image:${s.g}"><span class="il">${s.lbl[LANG]}</span></div>`).join('');
+  document.getElementById('steps').innerHTML=STEPS.map((s,i)=>`<div class="p2step${i===0?' active':''}" data-i="${i}"><div class="num">${s.n}</div><h3>${s.t[LANG]}</h3><p>${s.d[LANG]}</p></div>`).join('');
+}
+function applyI18n(){document.documentElement.lang=LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[k])el.innerHTML=I18N[k][LANG];});
+  document.querySelectorAll('#langtog button').forEach(b=>b.classList.toggle('on',b.dataset.lang===LANG));}
+let imgs=[],steps=[];
+function setActive(i){imgs.forEach(m=>m.classList.toggle('on',+m.dataset.i===i));steps.forEach(s=>s.classList.toggle('active',+s.dataset.i===i));}
+// a 0-height line at viewport center; whichever step crosses it is active
+const io=new IntersectionObserver((ents)=>{ents.forEach(e=>{if(e.isIntersecting)setActive(+e.target.dataset.i);})},{rootMargin:'-50% 0px -50% 0px',threshold:0});
+function wire(){io.disconnect();imgs=[...document.querySelectorAll('.p2img')];steps=[...document.querySelectorAll('.p2step')];steps.forEach(s=>io.observe(s));}
+function setLang(l){LANG=l;try{localStorage.setItem('dd_lang',l);}catch(e){}applyI18n();renderSteps();wire();}
+document.getElementById('langtog').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setLang(b.dataset.lang);});
+applyI18n();renderSteps();wire();
+</script>
+</body>
+</html>
