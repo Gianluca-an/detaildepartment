@@ -34,4 +34,18 @@ Tailwind + shadcn, so it drops straight in).
 - Swap system font for Fraunces display / Inter body; add our grain.
 - Beams read like light raking across a dark panel — on-brand for paint.
 
-_Option 2 added 2026-09-15._
+## Option 3 — Molten Metal (NEW — intended INITIAL landing hero)
+- `option-3-molten-metal/MoltenMetal.tsx` + `MoltenMetal.css` (verbatim) +
+  `detail-department-usage.tsx` (gold config).
+- Flowing **molten gold** liquid-metal shader over near-black charcoal,
+  **mouse-reactive** (the metal drifts toward the cursor). React Bits, `ogl`.
+- The "liquid reflective paint / poured gold" background I recommended as the
+  strongest abstract hero for a detailing brand — reads like light on wet paint.
+- Config: colorMode molten, color1 #241A0D · color2 #C9A24B · color3 #F3E1B0,
+  charcoal ground, grain on.
+- Preview: `design/components/previews/hero-option-3-molten-metal.html`
+  (raw-WebGL2 port of the exact shader + hero overlay).
+- **Client: use this as the initial hero for the landing-page build.** The real
+  hero video can still drop in later; Molten Gold is the interim/showpiece bg.
+
+_Option 2 added 2026-09-15 · Option 3 added 2026-09-17._
