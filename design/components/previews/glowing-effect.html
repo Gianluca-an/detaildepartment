@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Glowing Effect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--void:#060605;--card:#100e0d;--line:rgba(201,162,75,.14);--ink:#F2EFE9;--mist:#D9D4CA;--muted:#857F75;--gold:#C9A24B;--gold-lite:#E7CE8F;--g:201,162,75}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--void);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.sec{max-width:1120px;margin:0 auto;padding:clamp(60px,10vh,120px) clamp(20px,5vw,40px)}
+.head{text-align:center;max-width:620px;margin:0 auto clamp(36px,5vh,52px)}
+.head .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-lite);margin-bottom:16px}
+.head .eyebrow .rule{width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.head h2{font-family:Fraunces;font-weight:300;font-size:clamp(1.9rem,4.6vw,3.1rem);color:var(--mist)}
+.head p{margin-top:14px;color:var(--muted);font-weight:300}
+.bento{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:760px){.bento{grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(180px,auto)}}
+.cell{min-height:14rem;list-style:none}
+@media(min-width:760px){
+  .cell.a{grid-column:1/7}.cell.b{grid-column:7/13}
+  .cell.c{grid-column:1/6;grid-row:span 1}
+  .cell.d{grid-column:6/13}
+  .cell.e{grid-column:1/13}
+}
+/* card + glow */
+.gwrap{position:relative;height:100%;border:1px solid var(--line);border-radius:20px;padding:10px;background:rgba(255,255,255,.01)}
+.glow{position:absolute;inset:0;border-radius:inherit;pointer-events:none}
+.glow::after{content:"";position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;
+  background:conic-gradient(from calc((var(--start,0) - var(--spread,40))*1deg), transparent 0deg, var(--gold) calc(var(--spread,40)*0.6deg), var(--gold-lite) calc(var(--spread,40)*1deg), var(--gold) calc(var(--spread,40)*1.4deg), transparent calc(var(--spread,40)*2deg));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:var(--active,0);transition:opacity .3s;filter:drop-shadow(0 0 6px rgba(var(--g),.5))}
+.inner{position:relative;height:100%;display:flex;flex-direction:column;justify-content:space-between;gap:24px;border:1px solid rgba(255,255,255,.04);border-radius:12px;padding:24px;background:var(--card);overflow:hidden}
+.ico{width:fit-content;border:1px solid rgba(201,162,75,.28);border-radius:10px;padding:9px;color:var(--gold-lite)}
+.ico svg{width:18px;height:18px}
+.tx h3{font-size:clamp(1.15rem,2vw,1.5rem);font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.tx p{margin-top:8px;font-size:.95rem;font-weight:300;color:var(--muted);line-height:1.6}
+.tag{position:fixed;left:14px;bottom:14px;z-index:50;background:var(--gold);color:var(--void);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+@media(prefers-reduced-motion:reduce){.glow::after{transition:none}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="tag">Glowing Effect · Direção B</div>
+<section class="sec">
+  <div class="head">
+    <div class="eyebrow"><span class="rule"></span>Porquê nós</div>
+    <h2>Passe o rato pelos cartões.</h2>
+    <p>O brilho segue o cursor à volta da borda — calmo até tocar.</p>
+  </div>
+  <ul class="bento" id="bento"></ul>
+</section>
+<script>
+const I={
+  hand:'<path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>',
+  drop:'<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>',
+  shield:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M9 12l2 2 4-4"/>',
+  spark:'<path d="M9.94 14.06A4 4 0 0 1 6 10a4 4 0 0 1 3.94-4M12 3v2M12 19v2M3 12h2M19 12h2"/><circle cx="12" cy="12" r="3"/>',
+  search:'<circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/>'
+};
+const CARDS=[
+  {c:'a',i:'hand',t:'Feito à mão',d:'Um carro de cada vez, sem atalhos — só tempo e mãos experientes.'},
+  {c:'b',i:'drop',t:'Produtos profissionais',d:'Só o que resiste ao tempo e à estrada de Lisboa.'},
+  {c:'c',i:'shield',t:'Proteção que dura',d:'Cerâmica com anos de defesa real e brilho profundo.'},
+  {c:'d',i:'spark',t:'Acabamento impecável',d:'Profundidade e reflexo devolvidos à cor original.'},
+  {c:'e',i:'search',t:'Avaliação presencial',d:'Vemos o carro sob luz própria antes de propor seja o que for.'},
+];
+document.getElementById('bento').innerHTML=CARDS.map(c=>`
+  <li class="cell ${c.c}">
+    <div class="gwrap"><div class="glow"></div>
+      <div class="inner">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${I[c.i]}</svg></div>
+        <div class="tx"><h3>${c.t}</h3><p>${c.d}</p></div>
+      </div>
+    </div>
+  </li>`).join('');
+
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const glows=[...document.querySelectorAll('.glow')];
+const spread=40,proximity=64,inactiveZone=0.15;
+let raf;
+addEventListener('pointermove',e=>{if(reduce)return;if(raf)cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{
+  glows.forEach(g=>{const r=g.getBoundingClientRect();const cx=r.left+r.width/2,cy=r.top+r.height/2;
+    const dist=Math.hypot(e.clientX-cx,e.clientY-cy);const inactiveR=0.5*Math.min(r.width,r.height)*inactiveZone;
+    if(dist<inactiveR){g.style.setProperty('--active','0');return;}
+    const active=e.clientX>r.left-proximity&&e.clientX<r.right+proximity&&e.clientY>r.top-proximity&&e.clientY<r.bottom+proximity;
+    g.style.setProperty('--active',active?'1':'0');
+    if(!active)return;
+    const ang=Math.atan2(e.clientY-cy,e.clientX-cx)*180/Math.PI+90;
+    const cur=parseFloat(g.style.getPropertyValue('--start'))||0;
+    const diff=((ang-cur+180)%360)-180;g.style.setProperty('--start',String(cur+diff*0.2));
+  });
+});});
+glows.forEach(g=>g.style.setProperty('--spread',spread));
+</script>
+</body>
+</html>
