@@ -416,18 +416,18 @@ if(window.gsap && window.ScrollTrigger && !reduce){
   mm.add({desk:'(min-width:900px)',mob:'(max-width:899px)'},(ctx)=>{
     const desk=ctx.conditions.desk; const titleScale=desk?2.7:1.9;
     const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{
-      trigger:'#heroStage',start:'top top',end:desk?'+=220%':'+=150%',scrub:desk?1:.6,pin:'#heroPin',anticipatePin:1,invalidateOnRefresh:true,
+      trigger:'#heroStage',start:'top top',end:desk?'+=165%':'+=115%',scrub:desk?1:.6,pin:'#heroPin',anticipatePin:1,invalidateOnRefresh:true,
       onUpdate:self=>{heroProgress=self.progress;}}});
     tl.to('#lBadge',{yPercent:-140,autoAlpha:0,duration:.2},0)
       .to('#scrollcue',{autoAlpha:0,duration:.12},0)
       .to('#lSub',{y:70,autoAlpha:0,duration:.24},0.02)
       .to('#lCta',{y:110,autoAlpha:0,duration:.26},0.04)
       .to('#lGhost',{autoAlpha:0,duration:.16},0.02)
-      .to('#lTitle',{scale:titleScale,duration:.72},0.06)
-      .to('#lTitle',{filter:'blur(14px)',duration:.3},0.42)
-      .to('#lTitle',{autoAlpha:0,duration:.22},0.52)
-      .to('#heroVign',{opacity:.92,duration:.5},0.46)
-      .to('#molten',{autoAlpha:.12,duration:.3},0.7);
+      .to('#lTitle',{scale:titleScale,duration:.82},0.08)
+      .to('#lTitle',{filter:'blur(14px)',duration:.34},0.55)
+      .to('#lTitle',{autoAlpha:0,duration:.24},0.66)
+      .to('#heroVign',{opacity:.92,duration:.34},0.66)
+      .to('#molten',{autoAlpha:.12,duration:.26},0.74);
   });
 } else {
   const sc=document.getElementById('scrollcue'); if(sc) sc.style.display='none';
