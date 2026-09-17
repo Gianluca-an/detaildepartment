@@ -100,6 +100,7 @@ section{position:relative;z-index:2}
 .lt .col{display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.4,0,.2,1)}
 .ccard:hover .lt .col{transform:translateY(-50%)}
 .lt.sp{width:.34em}
+.ctitle{font-weight:600;font-size:clamp(1.5rem,3.2vw,2rem);letter-spacing:-.01em;line-height:1.1}
 .cdesc{margin-top:8px;font-size:.92rem;font-weight:300;color:inherit;opacity:.85;max-width:38ch}
 @media(prefers-reduced-motion:reduce){.cbg,.lt .col,.carrow{transition:none}.ccard:hover .cbg{transform:none}}
 
@@ -445,7 +446,7 @@ function applyStatic(){
   document.getElementById('marqueeTrack').innerHTML=(()=>{const one=MARQUEE[LANG];const seq=[...one,...one];return seq.map(w=>`${w}<em>/</em>`).join('');})();
 }
 function renderServices(){
-  const roll=(word)=>`<h4 class="roll" aria-label="${word}">`+word.split('').map((ch,i)=>ch===' '?'<span class="lt sp"></span>':`<span class="lt"><span class="col" style="transition-delay:${i*0.035}s"><span>${ch}</span><span>${ch}</span></span></span>`).join('')+`</h4>`;
+  const roll=(word)=>`<h4 class="ctitle">${word}</h4>`;
   const arrow='<div class="carrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>';
   document.getElementById('ccgrid').innerHTML=CCARDS.map(c=>`<div class="ccard"><div class="cbg" style="background-image:${c.grad}"></div><div class="cshade"></div><div class="cinner">${arrow}<div>${roll(c.t[LANG])}<p class="cdesc">${c.d[LANG]}</p></div></div></div>`).join('');
 }
@@ -592,6 +593,11 @@ if(window.gsap && window.ScrollTrigger && !reduce){
 (function(){const c=document.getElementById('orb'),x=c.getContext('2d');let W,H,DPR=Math.min(devicePixelRatio||1,2);
  function sz(){W=c.clientWidth;H=c.clientHeight;c.width=W*DPR;c.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0);}new ResizeObserver(sz).observe(c);sz();
  let mx=.5,my=.5,cmx=.5,cmy=.5;addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;mx=(e.clientX-r.left)/r.width;my=(e.clientY-r.top)/r.height;});
+ // derive the sphere tone from the page background so the orb matches each theme
+ const _m=getComputedStyle(document.body).backgroundColor.match(/\d+/g)||[6,6,5];
+ const _r=+_m[0],_g=+_m[1],_b=+_m[2];
+ const shade=f=>`rgb(${Math.round(_r*f)},${Math.round(_g*f)},${Math.round(_b*f)})`;
+ const SPH0=shade(.62),SPH8=shade(.78),SPH1=shade(.5);
  function frame(t){cmx+=(mx-cmx)*.06;cmy+=(my-cmy)*.06;x.clearRect(0,0,W,H);
   const cx2=W*.5,cy2=H*1.35,R=Math.min(W*.42,H*1.5),time=reduce?0:t*.0005;
   const ha=Math.atan2(cmy*H-cy2,cmx*W-cx2);const prox=1-Math.min(1,Math.hypot(cmx-.5,cmy-.6)*1.4);
@@ -600,7 +606,7 @@ if(window.gsap && window.ScrollTrigger && !reduce){
   for(let i=0;i<pl;i++){const base=-Math.PI/2+(i-pl/2)*.18;const ang=base+Math.sin(time*1.3+i)*.05+(cmx-.5)*.5;const len=R*(1+.2*Math.sin(time*2+i*1.7));const gx=cx2+Math.cos(ang)*len,gy=cy2+Math.sin(ang)*len;const g=x.createLinearGradient(cx2,cy2,gx,gy);const a=.04+.04*Math.sin(time*2+i);g.addColorStop(0,`rgba(231,206,143,${a})`);g.addColorStop(1,'rgba(231,206,143,0)');x.strokeStyle=g;x.lineWidth=R*.08;x.beginPath();x.moveTo(cx2,cy2);x.lineTo(gx,gy);x.stroke();}
   x.lineWidth=1.8;x.strokeStyle=`rgba(231,206,143,${.45+prox*.3})`;x.shadowColor='rgba(201,162,75,.9)';x.shadowBlur=20+prox*24;x.beginPath();x.arc(cx2,cy2,R,0,Math.PI*2);x.stroke();
   x.strokeStyle='rgba(255,244,214,.8)';x.shadowBlur=38+prox*30;x.lineWidth=2.4;x.beginPath();x.arc(cx2,cy2,R,ha-.5,ha+.5);x.stroke();x.shadowBlur=0;
-  x.globalCompositeOperation='source-over';const sph=x.createRadialGradient(cx2-R*.3,cy2-R*.3,R*.2,cx2,cy2,R);sph.addColorStop(0,'#0a0908');sph.addColorStop(.8,'#050504');sph.addColorStop(1,'#000');x.fillStyle=sph;x.beginPath();x.arc(cx2,cy2,R*.995,0,Math.PI*2);x.fill();
+  x.globalCompositeOperation='source-over';const sph=x.createRadialGradient(cx2-R*.3,cy2-R*.3,R*.2,cx2,cy2,R);sph.addColorStop(0,SPH0);sph.addColorStop(.8,SPH8);sph.addColorStop(1,SPH1);x.fillStyle=sph;x.beginPath();x.arc(cx2,cy2,R*.995,0,Math.PI*2);x.fill();
   if(!reduce)requestAnimationFrame(frame);}
  reduce?frame(0):requestAnimationFrame(frame);
 })();
