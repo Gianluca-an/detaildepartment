@@ -423,11 +423,11 @@ if(window.gsap && window.ScrollTrigger && !reduce){
       .to('#lSub',{y:70,autoAlpha:0,duration:.24},0.02)
       .to('#lCta',{y:110,autoAlpha:0,duration:.26},0.04)
       .to('#lGhost',{autoAlpha:0,duration:.16},0.02)
-      .to('#lTitle',{scale:titleScale,duration:.82},0.08)
-      .to('#lTitle',{filter:'blur(14px)',duration:.34},0.55)
-      .to('#lTitle',{autoAlpha:0,duration:.24},0.66)
-      .to('#heroVign',{opacity:.92,duration:.34},0.66)
-      .to('#molten',{autoAlpha:.12,duration:.26},0.74);
+      .to('#lTitle',{scale:titleScale,duration:.87},0.08)
+      .to('#lTitle',{filter:'blur(14px)',duration:.4},0.55)
+      .to('#lTitle',{autoAlpha:0,duration:.28},0.67)
+      .to('#heroVign',{opacity:.92,duration:.32},0.7)
+      .to('#molten',{autoAlpha:.12,duration:.24},0.76);
   });
 } else {
   const sc=document.getElementById('scrollcue'); if(sc) sc.style.display='none';
