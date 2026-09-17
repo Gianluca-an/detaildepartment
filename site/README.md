@@ -1,11 +1,8 @@
-# Detail Department — full site (static mockup)
+# Detail Department - full site (static mockup)
 
-Open `index.html` in a browser (or deploy the folder). Top-nav links connect all pages.
+Open index.html (or deploy the folder). Top-nav links connect every page.
 
-- index.html     Landing (pinned cinematic Molten-Gold hero -> services -> process -> gallery -> about -> FAQ -> contact -> orb -> footer)
-- servicos.html  Serviços (featured card + cards + list)
-- sobre.html     Sobre / O Estúdio (founder)
-- trabalhos.html Trabalhos (3D orbit gallery)
-- contacto.html  Contacto (Aceternity map + form)
+Landing: index.html (cinematic pinned Molten-Gold hero + all sections)
+Pages: servicos.html, processo.html, trabalhos.html, sobre.html, contacto.html
 
-All copy/prices/photos are placeholders. Next step: Next.js production build.
+Placeholders throughout (photos/video/copy/prices/contact). Next: Next.js build.
