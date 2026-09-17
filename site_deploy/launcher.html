@@ -1,0 +1,21 @@
+<title>Detail Department</title>
+<style>
+  :root{--void:#060605;--gold:#C9A24B;--ink:#F2EFE9;--muted:#857F75}
+  body{background:var(--void);color:var(--ink);font-family:'Inter',system-ui,sans-serif;min-height:100%}
+  .wrap{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;padding:40px 16px}
+  .brand{font-family:'Fraunces',Georgia,serif;font-size:clamp(28px,7vw,52px);letter-spacing:.02em;line-height:1;color:var(--ink)}
+  .brand span{display:block;color:var(--gold)}
+  .sub{color:var(--muted);font-size:14px;letter-spacing:.18em;text-transform:uppercase}
+  .enter{margin-top:8px;display:inline-block;padding:14px 30px;border:1px solid var(--gold);border-radius:999px;color:#060605;background:var(--gold);text-decoration:none;font-weight:600;letter-spacing:.02em}
+  .spin{width:26px;height:26px;border:2px solid rgba(201,162,75,.25);border-top-color:var(--gold);border-radius:50%;animation:s 1s linear infinite}
+  @keyframes s{to{transform:rotate(360deg)}}
+</style>
+<div class="wrap">
+  <div class="brand">Detail<span>Department</span></div>
+  <div class="sub">Grande Lisboa · Estúdio de Detalhe</div>
+  <div class="spin" aria-hidden="true"></div>
+  <a class="enter" href="home.html">Entrar</a>
+</div>
+<script>
+  try { window.location.replace('home.html'); } catch (e) {}
+</script>
