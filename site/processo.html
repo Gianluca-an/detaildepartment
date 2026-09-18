@@ -52,13 +52,16 @@ nav .cta-pill{background:var(--gold);color:var(--void);border-radius:999px;paddi
 .langtog button{background:none;border:1px solid var(--line);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.14em;padding:7px 9px;border-radius:999px;cursor:pointer;transition:.3s}
 .langtog button:hover{color:var(--gold-lite)}
 .langtog button.on{background:rgba(var(--g),.16);color:var(--gold-lite);border-color:rgba(var(--g),.4)}
+.logobadge{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:1.5px solid var(--gold);border-radius:.72em;padding:.42em .74em .5em;line-height:1;color:var(--gold);font-family:Inter,system-ui,sans-serif;font-size:15px}
+.logobadge .l1{font-weight:600;letter-spacing:.05em;font-size:1em}
+.logobadge .l2{font-weight:500;letter-spacing:.42em;font-size:.38em;margin-top:.42em;padding-left:.42em}
 </style>
 </head>
 <body>
 <div class="grain"></div>
 <div class="tag">Process · Scroll-driven · Direção B</div>
 <nav>
-  <a class="brand" href="index.html" style="text-decoration:none">Detail <b>Department</b></a>
+  <a class="brand" href="index.html" style="text-decoration:none" aria-label="Detail Department"><span class="logobadge"><span class="l1">DETAIL</span><span class="l2">DEPARTMENT</span></span></a>
   <div class="pills"><a href="servicos.html" data-i18n="nav.servicos">Serviços</a><a href="processo.html" class="on" data-i18n="nav.processo">Processo</a><a href="trabalhos.html" data-i18n="nav.trabalhos">Trabalhos</a><a href="sobre.html" data-i18n="nav.estudio">Estúdio</a><a href="contacto.html" data-i18n="nav.contacto">Contacto</a></div>
   <div class="navright"><div class="langtog" id="langtog"><button type="button" data-lang="pt" class="on">PT</button><button type="button" data-lang="en">EN</button></div><a href="contacto.html" class="cta-pill" data-i18n="nav.cta">Marcar avaliação</a></div>
 </nav>
