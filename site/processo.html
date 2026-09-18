@@ -55,10 +55,13 @@ nav .cta-pill{background:var(--gold);color:var(--void);border-radius:999px;paddi
 .logobadge{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:1.5px solid var(--gold);border-radius:.72em;padding:.42em .74em .5em;line-height:1;color:var(--gold);font-family:Inter,system-ui,sans-serif;font-size:15px}
 .logobadge .l1{font-weight:600;letter-spacing:.05em;font-size:1em}
 .logobadge .l2{font-weight:500;letter-spacing:.42em;font-size:.38em;margin-top:.42em;padding-left:.42em}
-.ptabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
-.ptabs button{background:rgba(var(--g),.06);border:1px solid var(--line);color:var(--mist);font-family:Inter,system-ui,sans-serif;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;padding:9px 15px;border-radius:999px;cursor:pointer;transition:.3s}
+.ptabs{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin-top:26px;position:relative;width:100%;max-width:480px}
+.ptabs button{background:rgba(var(--g),.06);border:1px solid var(--line);color:var(--mist);font-family:Inter,system-ui,sans-serif;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;padding:11px 14px;border-radius:999px;cursor:pointer;transition:.3s;text-align:center}
 .ptabs button:hover{color:var(--gold-lite);border-color:rgba(var(--g),.4)}
 .ptabs button.on{background:var(--gold);border-color:var(--gold);color:var(--void);font-weight:600}
+.pdot{position:absolute;left:50%;top:50%;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);background:var(--gold-lite);pointer-events:none;z-index:2;animation:pdotpulse 2.2s ease-in-out infinite}
+@keyframes pdotpulse{0%,100%{opacity:.55;box-shadow:0 0 8px 2px rgba(var(--g),.5)}50%{opacity:1;box-shadow:0 0 15px 5px rgba(var(--g),.85)}}
+@media(prefers-reduced-motion:reduce){.pdot{animation:none}}
 </style>
 </head>
 <body>
@@ -92,7 +95,7 @@ const PROCESSES=[
    {t:{pt:'Exterior e brilho',en:'Exterior & gloss'},d:{pt:'Secagem, tratamento de plásticos e pneus e uma proteção rápida que realça o brilho.',en:'Drying, trim and tyre dressing, and a quick protection that lifts the gloss.'},lbl:{pt:'Exterior',en:'Exterior'}},
    {t:{pt:'Inspeção e entrega',en:'Inspection & handover'},d:{pt:'Verificação final sob luz e entrega, pronto a rolar.',en:'A final check under light and handover, ready to roll.'},lbl:{pt:'Entrega',en:'Handover'}},
  ]},
- {id:'ceramica',name:{pt:'Proteção Cerâmica',en:'Ceramic Protection'},steps:[
+ {id:'ceramica',name:{pt:'Cerâmica',en:'Ceramic'},steps:[
    {t:{pt:'Avaliação',en:'Assessment'},d:{pt:'Avaliamos a pintura e escolhemos a cerâmica certa para o uso do carro.',en:'We assess the paint and choose the right ceramic for how the car is used.'},lbl:{pt:'Avaliação',en:'Assessment'}},
    {t:{pt:'Preparação',en:'Preparation'},d:{pt:'Lavagem e descontaminação química e mecânica, para uma base perfeitamente limpa.',en:'Wash and chemical and mechanical decontamination, for a perfectly clean base.'},lbl:{pt:'Preparação',en:'Prep'}},
    {t:{pt:'Refinamento',en:'Refinement'},d:{pt:'Polimento de refinamento que remove marcas ligeiras e maximiza a nitidez.',en:'A refinement polish that removes light marks and maximises clarity.'},lbl:{pt:'Refinamento',en:'Refine'}},
@@ -123,7 +126,9 @@ const I18N={
 };
 let LANG='pt';try{const s=localStorage.getItem('dd_lang');if(s==='pt'||s==='en')LANG=s;}catch(e){}
 let CUR=0;
-function renderTabs(){document.getElementById('ptabs').innerHTML=PROCESSES.map((p,i)=>`<button type="button" data-p="${i}" class="${i===CUR?'on':''}">${p.name[LANG]}</button>`).join('');}
+// grid order: Detailing | Restoration  /  Ceramic | Correction+Ceramic
+const TABORDER=[0,3,1,2];
+function renderTabs(){document.getElementById('ptabs').innerHTML=TABORDER.map(i=>`<button type="button" data-p="${i}" class="${i===CUR?'on':''}">${PROCESSES[i].name[LANG]}</button>`).join('')+'<span class="pdot"></span>';}
 function renderSteps(){const S=PROCESSES[CUR].steps;
   document.getElementById('imgwrap').innerHTML=S.map((s,i)=>`<div class="p2img${i===0?' on':''}" data-i="${i}" style="background-image:${G[i%G.length]}"><span class="il">${s.lbl[LANG]}</span></div>`).join('');
   document.getElementById('steps').innerHTML=S.map((s,i)=>`<div class="p2step${i===0?' active':''}" data-i="${i}"><div class="num">${String(i+1).padStart(2,'0')}</div><h3>${s.t[LANG]}</h3><p>${s.d[LANG]}</p></div>`).join('');
