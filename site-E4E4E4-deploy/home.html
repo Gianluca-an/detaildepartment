@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--void:#E4E4E4;--char:#D8D8D8;--card:#EFEFEF;--line:rgba(201,162,75,.14);--ink:#171513;--mist:#3A352E;--muted:#5E5A54;--gold:#C9A24B;--gold-lite:#7E611B;--g:201,162,75;--fld:#FFFFFF}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.55}
+::selection{background:rgba(var(--g),.3);color:#fff}
+.grain{position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.torch{position:fixed;top:0;left:0;width:52vmax;height:52vmax;z-index:1;pointer-events:none;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(var(--g),.06),transparent 60%);filter:blur(24px)}
+
+/* INTRO — plain, no background effect */
+#intro{position:fixed;inset:0;z-index:100;background:var(--void);display:flex;align-items:center;justify-content:center;transition:opacity 1.1s,visibility 1.1s}
+#intro.done{opacity:0;visibility:hidden}
+.iw{position:relative;z-index:2;text-align:center}
+.iw .k{font-size:.7rem;letter-spacing:.5em;text-transform:uppercase;color:var(--gold-lite);opacity:0;animation:iw 1s ease .3s forwards}
+.iw h1{font-family:Fraunces;font-weight:300;font-size:clamp(2rem,7vw,5rem);color:var(--mist);margin-top:14px;letter-spacing:-.02em;opacity:0;animation:iw 1.2s ease .6s forwards}
+.iw .bar{height:1px;width:0;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:26px auto 0;animation:bar 1.6s ease 1s forwards}
+@keyframes iw{to{opacity:1}}@keyframes bar{to{width:220px}}
+
+/* LOGO BADGE (from brand identity manual) */
+.logobadge{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid var(--gold);border-radius:.72em;padding:.42em .74em .5em;line-height:1;color:var(--gold);font-family:Inter,system-ui,sans-serif}
+.logobadge .l1{font-weight:600;letter-spacing:.05em;font-size:1em}
+.logobadge .l2{font-weight:500;letter-spacing:.42em;font-size:.38em;margin-top:.42em;padding-left:.42em}
+.rss{font-family:'JetBrains Mono',monospace;letter-spacing:.42em;text-transform:uppercase;color:var(--gold-lite);padding-left:.42em}
+.intro-badge{font-size:clamp(1.9rem,6vw,3.4rem);padding:.5em 1.5em .6em;border-radius:.5em;border-color:var(--gold);opacity:0;animation:iw 1.2s ease .5s forwards}
+.intro-badge .l1{letter-spacing:.18em;color:var(--mist)}
+.intro-badge .l2{letter-spacing:.5em;color:var(--gold-lite);font-size:.34em;padding-left:.5em}
+.iw .rss{margin-top:24px;font-size:.72rem;opacity:0;animation:iw 1s ease .95s forwards}
+.nav-badge{font-size:15px;border-width:1.5px}
+.foot-badge{font-size:13px;border-width:1.5px}
+.fbrand{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:26px clamp(20px,5vw,64px);border-top:1px solid var(--line)}
+.fbrand .rss{font-size:.66rem;color:var(--muted)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(20px,5vw,64px);transition:.5s;background:linear-gradient(180deg,rgba(228,228,228,.85),transparent)}
+nav.solid{background:rgba(228,228,228,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding-top:14px;padding-bottom:14px}
+nav .brand{font-family:Fraunces;font-size:1.05rem;color:var(--mist);text-decoration:none}nav .brand b{color:var(--gold);font-weight:500}
+nav .pills{display:flex;gap:2px;background:rgba(var(--g),.06);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:5px}
+nav .pills a{color:var(--mist);text-decoration:none;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 15px;border-radius:999px;transition:.3s}
+nav .pills a:hover{background:rgba(var(--g),.14);color:var(--gold-lite)}
+.navright{display:flex;align-items:center;gap:12px}
+.langtog{display:flex;gap:3px;align-items:center}
+.langtog button{background:none;border:1px solid var(--line);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.14em;padding:7px 9px;border-radius:999px;cursor:pointer;transition:.3s}
+.langtog button:hover{color:var(--gold-lite)}
+.langtog button.on{background:rgba(var(--g),.16);color:var(--gold-lite);border-color:rgba(var(--g),.4)}
+nav .cta-pill{background:var(--gold);color:#171513;border-radius:999px;padding:11px 20px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:.3s}
+nav .cta-pill:hover{background:var(--gold-lite);box-shadow:0 0 30px rgba(var(--g),.4)}
+@media(max-width:860px){nav .pills{display:none}}
+
+/* HERO — pinned, scroll-scrubbed Molten Gold (Grainient composition) */
+.hero-stage{position:relative;z-index:2}
+.hero-pin{position:relative;height:100vh;width:100%;overflow:hidden;background:var(--void)}
+#molten{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
+.hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(65% 55% at 50% 44%,rgba(228,228,228,.86),rgba(228,228,228,.45) 46%,transparent 76%),linear-gradient(180deg,#E4E4E4 0%,rgba(228,228,228,.25) 40%,transparent 62%)}
+.hero-vign{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;background:radial-gradient(120% 100% at 50% 50%,transparent 42%,rgba(228,228,228,.78))}
+.hero-content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px}
+.hlayer{will-change:transform,opacity,filter}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(20,17,12,.7);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lite)}
+.hero h1{font-family:Fraunces;font-weight:400;letter-spacing:-.03em;line-height:1;font-size:clamp(2.8rem,8.5vw,6.6rem);color:var(--ink);margin-top:26px}
+.hero h1 em{font-style:italic;font-weight:300;color:var(--gold)}
+.hero .sub{margin-top:28px;font-family:'JetBrains Mono',monospace;font-weight:500;font-size:clamp(.74rem,1.5vw,.98rem);letter-spacing:.44em;text-transform:uppercase;color:var(--gold-lite);opacity:.92;padding-left:.44em}
+.hero .actions{margin-top:38px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.hero .b1{background:var(--gold);color:#0b0a09;border-radius:999px;padding:16px 34px;text-decoration:none;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;transition:background .3s,box-shadow .3s}
+.hero .b1:hover{background:var(--gold-lite);box-shadow:0 0 50px rgba(var(--g),.5)}
+.hero .ghost{margin-top:20px;display:inline-flex;color:var(--muted);text-decoration:none;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;transition:.3s}
+.hero .ghost:hover{color:var(--gold-lite)}
+.hspark{position:absolute;z-index:2;color:var(--gold-lite);pointer-events:none;opacity:0;animation:tw 4s ease-in-out infinite}
+.hspark svg{width:100%;height:100%}
+@keyframes tw{0%,100%{opacity:0;transform:scale(.6)}50%{opacity:.7;transform:scale(1)}}
+.scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:4;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scrollcue .d{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pl 2s infinite}
+@keyframes pl{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:1;transform:scale(1.6)}}
+
+/* MARQUEE */
+.marquee{border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:20px 0;background:var(--char);position:relative;z-index:2}
+.marquee .track{display:inline-block;animation:mq 32s linear infinite;font-family:Fraunces;font-size:clamp(1.3rem,2.8vw,2.2rem);color:#2a2620;font-weight:300}
+.marquee .track em{color:var(--gold);font-style:normal;margin:0 .4em}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+section{position:relative;z-index:2}
+.pad{padding:clamp(80px,13vh,160px) clamp(20px,5vw,64px)}
+.sec-head{max-width:680px;margin-bottom:56px}
+.sec-head .eyebrow{display:flex;align-items:center;gap:14px;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-lite);margin-bottom:20px}
+.sec-head .eyebrow .rule{width:44px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.sec-head h2{font-family:Fraunces;font-weight:300;font-size:clamp(2rem,5.2vw,4rem);line-height:1.04;color:var(--mist)}
+.sec-head h2 em{font-style:italic;color:var(--gold)}
+
+/* SERVICES — color-change image cards */
+.services{background:linear-gradient(180deg,var(--void),var(--char))}
+.services .sec-head{margin-left:auto;margin-right:auto;text-align:center}
+.services .sec-head .eyebrow{justify-content:center}
+.ccgrid{margin:0 auto;max-width:1120px;display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:720px){.ccgrid{grid-template-columns:1fr 1fr;gap:28px}}
+.ccard{position:relative;height:17rem;overflow:hidden;border-radius:3px;border:1px solid var(--line);cursor:pointer}
+.cbg{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(1) brightness(.8);transition:filter .5s,transform .5s;transform:scale(1)}
+.ccard:hover .cbg{filter:grayscale(0) brightness(1);transform:scale(1.1)}
+.cshade{position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(228,228,228,.85),transparent 55%)}
+.cinner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:20px;color:rgba(20,18,15,.75);transition:color .5s}
+.ccard:hover .cinner{color:#fff}
+.carrow{margin-left:auto;transition:transform .5s}
+.carrow svg{width:30px;height:30px}
+.ccard:hover .carrow{transform:rotate(-45deg)}
+.roll{display:flex;flex-wrap:wrap}
+.lt{display:inline-block;height:1.08em;overflow:hidden;font-weight:600;font-size:clamp(1.5rem,3.2vw,2rem);letter-spacing:-.01em}
+.lt .col{display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.ccard:hover .lt .col{transform:translateY(-50%)}
+.lt.sp{width:.34em}
+.ctitle{font-weight:600;font-size:clamp(1.5rem,3.2vw,2rem);letter-spacing:-.01em;line-height:1.1}
+.cdesc{margin-top:8px;font-size:.92rem;font-weight:300;color:inherit;opacity:.85;max-width:38ch}
+@media(prefers-reduced-motion:reduce){.cbg,.lt .col,.carrow{transition:none}.ccard:hover .cbg{transform:none}}
+
+/* PROCESS timeline */
+.process{background:var(--char)}
+.psteps{position:relative;max-width:960px;margin:0 auto;padding-left:clamp(52px,11vw,150px)}
+.psteps::before{content:"";position:absolute;left:clamp(18px,5.2vw,70px);top:44px;bottom:44px;width:1px;background:linear-gradient(180deg,transparent,var(--line) 8%,var(--line) 92%,transparent)}
+.pstep{position:relative;margin-bottom:22px}
+.pnode{position:absolute;top:50%;transform:translateY(-50%);left:clamp(-51px,-9.3vw,-97px);width:38px;height:38px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;background:var(--char);font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--gold-lite);transition:.4s;z-index:1}
+.pcard{display:flex;align-items:center;gap:clamp(16px,3vw,34px);border:1px solid var(--line);border-radius:20px;padding:clamp(22px,3vw,32px) clamp(20px,3vw,36px);background:linear-gradient(160deg,rgba(var(--g),.04),transparent);transition:.45s}
+.pcard .pic{flex:0 0 auto;width:clamp(52px,7vw,76px);height:clamp(52px,7vw,76px);color:var(--gold-lite);opacity:.9}
+.pcard .pic svg{width:100%;height:100%}
+.pcard .ptx h3{font-weight:600;font-size:clamp(1.2rem,2.5vw,1.6rem);color:var(--ink);letter-spacing:-.01em}
+.pcard .ptx p{margin-top:7px;color:var(--muted);font-weight:300;font-size:clamp(.9rem,1.4vw,1rem);max-width:46ch}
+.pstep:hover .pcard{border-color:rgba(var(--g),.45);transform:translateX(6px);background:linear-gradient(160deg,rgba(var(--g),.08),transparent)}
+.pstep:hover .pnode{border-color:var(--gold);color:var(--gold);box-shadow:0 0 22px rgba(var(--g),.35)}
+@media(max-width:640px){.pcard{gap:14px}}
+
+/* GALLERY filmstrip */
+.gallery{background:var(--void);overflow:hidden}
+.gtop{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;max-width:1200px;margin:0 auto 34px}
+.gtop h2{font-family:Fraunces;font-weight:300;font-size:clamp(2rem,5vw,3.4rem);color:var(--mist)}
+.gtop h2 .count{color:var(--gold);font-size:.5em;vertical-align:super;margin-left:6px}
+.gfilter{display:flex;gap:16px}
+.gfilter button{background:none;border:none;color:var(--muted);font-family:inherit;font-size:.82rem;cursor:pointer;transition:.25s;padding:4px 0}
+.gfilter button.on{color:var(--gold-lite)}.gfilter button:hover{color:var(--mist)}
+.gwrap{cursor:grab;overflow:hidden}.gwrap.drag{cursor:grabbing}
+.gstrip{display:flex;align-items:center;gap:20px;will-change:transform;padding:6px 0}
+.gtile{position:relative;flex:0 0 auto;border:1px solid var(--line);border-radius:3px;overflow:hidden;background:linear-gradient(135deg,#141210,#0a0908);transition:transform .5s cubic-bezier(.2,.7,.2,1),border-color .4s;user-select:none}
+.gtile::before{content:"";position:absolute;inset:0;opacity:0;transition:.5s;background:radial-gradient(90% 70% at 30% 20%,rgba(var(--g),.16),transparent 60%)}
+.gtile:hover{border-color:rgba(var(--g),.45);transform:translateY(-6px)}.gtile:hover::before{opacity:1}
+.gtile .ph{position:absolute;inset:0;display:grid;place-items:center;color:rgba(var(--g),.22);font-family:Fraunces;font-size:2rem}
+.gtile .cap{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(0deg,rgba(228,228,228,.92),transparent);transform:translateY(8px);opacity:0;transition:.4s}
+.gtile:hover .cap{transform:none;opacity:1}
+.gtile .cap .car{font-size:.88rem;color:var(--mist);font-weight:500}
+.gtile .cap .svc{margin-top:2px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lite)}
+.ghint{max-width:1200px;margin:22px auto 0;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-lite)}
+
+/* ABOUT teaser */
+.about{background:linear-gradient(180deg,var(--void),var(--char))}
+.awrap{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:44px;align-items:center}
+@media(min-width:900px){.awrap{grid-template-columns:1.05fr .95fr;gap:clamp(48px,6vw,88px)}}
+.about .eyebrow{display:flex;align-items:center;gap:14px;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-lite);margin-bottom:20px}
+.about .eyebrow .rule{width:44px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.about h2{font-family:Fraunces;font-weight:300;font-size:clamp(1.9rem,4.4vw,3.2rem);line-height:1.05;color:var(--mist)}
+.about h2 em{font-style:italic;color:var(--gold)}
+.about p{margin-top:20px;color:var(--muted);font-weight:300;font-size:1.02rem;line-height:1.7;max-width:48ch}
+.astats{margin-top:30px;display:flex;flex-wrap:wrap;gap:32px}
+.astats .s .n{font-family:Fraunces;font-size:1.9rem;color:var(--gold-lite)}
+.astats .s .l{margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.about .acta{margin-top:34px;display:inline-flex;align-items:center;gap:12px;position:relative;overflow:hidden;border:1px solid var(--gold);border-radius:2px;color:var(--gold-lite);padding:14px 28px;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;text-decoration:none;cursor:pointer}
+.about .acta .txt{position:relative;z-index:1;transition:color .4s}
+.about .acta::before{content:"";position:absolute;left:18px;top:50%;width:8px;height:8px;border-radius:50%;background:var(--gold);transform:translateY(-50%) scale(1);transition:transform .55s cubic-bezier(.3,.7,.2,1)}
+.about .acta:hover::before{transform:translateY(-50%) scale(55)}.about .acta:hover .txt{color:#171513}
+.aportrait{position:relative;aspect-ratio:4/5;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:linear-gradient(150deg,#161310,#0a0908);display:flex;align-items:flex-end;padding:22px}
+.aportrait::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 30% 15%,rgba(var(--g),.14),transparent 60%)}
+.aportrait span{position:relative;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* FAQ */
+.faq{position:relative}
+.faq .fbg{position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(120% 80% at 78% 18%,rgba(200,196,188,.5),transparent 55%),radial-gradient(90% 70% at 18% 100%,rgba(196,192,184,.55),transparent 60%),var(--char)}
+.fwrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:44px}
+@media(min-width:900px){.fwrap{grid-template-columns:0.85fr 1.15fr;gap:clamp(48px,7vw,100px)}}
+.fleft{align-self:start}
+@media(min-width:900px){.fleft{position:sticky;top:96px}}
+.fleft .eyebrow{display:flex;align-items:center;gap:12px;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-lite);margin-bottom:22px}
+.fleft .eyebrow .rule{width:40px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+.fleft h2{font-family:Fraunces;font-weight:500;letter-spacing:-.01em;font-size:clamp(2rem,4.6vw,3.4rem);line-height:1.02;color:var(--ink);text-transform:uppercase}
+.fleft h2 em{font-style:italic;font-weight:300;color:var(--gold);text-transform:none}
+.fleft p{margin-top:22px;max-width:34ch;color:var(--muted);font-weight:300}
+.qa{border-bottom:1px solid rgba(20,18,15,.14)}
+.qa .q{display:flex;justify-content:space-between;align-items:center;gap:28px;padding:24px 0;cursor:pointer}
+.qa .q h3{font-size:clamp(1rem,1.7vw,1.16rem);font-weight:500;color:var(--mist);transition:.3s}
+.qa:hover .q h3{color:var(--ink)}
+.qa .pm{position:relative;width:20px;height:20px;flex-shrink:0}
+.qa .pm::before,.qa .pm::after{content:"";position:absolute;background:var(--gold);transition:.35s}
+.qa .pm::before{left:0;top:9px;width:20px;height:2px}.qa .pm::after{left:9px;top:0;width:2px;height:20px}
+.qa.open .pm::after{transform:rotate(90deg);opacity:0}
+.qa .a{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+.qa .a p{padding:0 50px 26px 0;color:var(--muted);font-weight:300;line-height:1.7}
+
+/* CONTACT */
+.contact{background:var(--void)}
+.contact h2{text-align:center;font-family:Fraunces;font-weight:500;font-size:clamp(2rem,4.5vw,3rem);color:var(--mist);margin-bottom:clamp(40px,6vh,60px)}
+.cform{max-width:1000px;margin:0 auto}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,40px) clamp(24px,4vw,56px)}
+@media(max-width:640px){.cgrid{grid-template-columns:1fr}}
+.cfld{display:flex;flex-direction:column}.cfld.full{grid-column:1/-1}
+.cfld label{font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:12px}
+.cfld label .req{color:var(--gold);margin-left:2px}
+.cfld input,.cfld textarea{background:var(--fld);border:1px solid rgba(var(--g),.28);border-radius:2px;padding:16px 18px;color:var(--ink);font-family:inherit;font-size:1rem;transition:.25s;resize:vertical}
+.cfld input::placeholder,.cfld textarea::placeholder{color:#5E5A54}
+.cfld input:focus,.cfld textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--g),.12)}
+.ccounter{margin-top:12px;font-size:.9rem;font-weight:500;color:var(--muted)}
+.csubwrap{margin-top:clamp(34px,5vh,54px);display:flex;justify-content:center}
+.csub{width:min(520px,100%);background:var(--gold);color:#0b0a09;border:none;border-radius:2px;padding:18px;font-family:inherit;font-size:.86rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.25s}
+.csub:hover{background:var(--gold-lite);box-shadow:0 0 44px rgba(var(--g),.4)}
+
+/* CLOSING ORB (big) — barely-visible charcoal wordmark WITHIN the orb */
+.orb-section{position:relative;height:clamp(300px,42vh,440px);overflow:hidden;display:flex;align-items:flex-end;justify-content:center;background:var(--void)}
+#orb{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.orb-wm{position:relative;z-index:2;pointer-events:none;user-select:none;display:flex;flex-direction:column;align-items:center;gap:14px;padding-bottom:clamp(24px,6vh,60px)}
+.orb-badge{font-size:clamp(1.5rem,6vw,3.4rem);border-color:rgba(var(--g),.16);color:rgba(var(--g),.17)}
+.orb-wm .rss{color:rgba(var(--g),.15);font-size:clamp(.5rem,1.4vw,.72rem)}
+
+/* FOOTER */
+footer{background:var(--void)}
+.flegal{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;padding:26px clamp(20px,5vw,64px);font-size:.74rem;font-weight:300;color:var(--muted);border-top:1px solid var(--line)}
+.flegal a{color:inherit;text-decoration:none;transition:.3s}.flegal a:hover{color:var(--gold-lite)}
+.flegal nav{display:flex;flex-wrap:wrap;gap:12px 22px;background:none;position:static;padding:0}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.tag{position:fixed;left:14px;bottom:14px;z-index:90;background:var(--gold);color:#171513;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.marquee .track,.hero h1 .fill,.scrollcue .d{animation:none}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="torch" id="torch"></div>
+<div class="tag">mockup</div>
+
+<div id="intro">
+  <div class="iw"><span class="logobadge intro-badge"><span class="l1">DETAIL</span><span class="l2">DEPARTMENT</span></span><div class="rss">ROAD · SEA · SKY</div><div class="bar"></div></div>
+</div>
+
+<nav id="nav">
+  <a class="brand" href="home.html" aria-label="Detail Department"><span class="logobadge nav-badge"><span class="l1">DETAIL</span><span class="l2">DEPARTMENT</span></span></a>
+  <div class="pills">
+    <a href="servicos.html" data-i18n="nav.servicos">Serviços</a>
+    <a href="processo.html" data-i18n="nav.processo">Processo</a>
+    <a href="trabalhos.html" data-i18n="nav.trabalhos">Trabalhos</a>
+    <a href="sobre.html" data-i18n="nav.estudio">Estúdio</a>
+    <a href="contacto.html" data-i18n="nav.contacto">Contacto</a>
+  </div>
+  <div class="navright">
+    <div class="langtog" id="langtog">
+      <button type="button" data-lang="pt" class="on">PT</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+    <a href="contacto.html" class="cta-pill" data-i18n="nav.cta">Marcar avaliação</a>
+  </div>
+</nav>
+
+<section class="hero-stage" id="heroStage">
+  <div class="hero-pin hero" id="heroPin">
+    <canvas id="molten" aria-hidden="true"></canvas>
+    <div class="hero-scrim"></div>
+    <div class="hspark" style="left:16%;bottom:16%;width:15px;height:15px;animation-delay:.2s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l1.6 8.4L22 10l-8.4 1.6L12 20l-1.6-8.4L2 10l8.4-1.6z"/></svg></div>
+    <div class="hspark" style="left:82%;bottom:22%;width:12px;height:12px;animation-delay:1.4s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l1.6 8.4L22 10l-8.4 1.6L12 20l-1.6-8.4L2 10l8.4-1.6z"/></svg></div>
+    <div class="hspark" style="left:68%;bottom:10%;width:10px;height:10px;animation-delay:2.6s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l1.6 8.4L22 10l-8.4 1.6L12 20l-1.6-8.4L2 10l8.4-1.6z"/></svg></div>
+    <div class="hspark" style="left:30%;bottom:9%;width:9px;height:9px;animation-delay:3.2s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l1.6 8.4L22 10l-8.4 1.6L12 20l-1.6-8.4L2 10l8.4-1.6z"/></svg></div>
+    <div class="hero-content" id="heroContent">
+      <div class="hlayer" id="lBadge"><div class="badge" data-i18n="hero.badge">✦ Estúdio de Detalhe Automóvel · Grande Lisboa</div></div>
+      <h1 class="hlayer" id="lTitle" data-i18n="hero.title">O carro que<br>merece <em>reverência.</em></h1>
+      <p class="sub hlayer" id="lSub" data-i18n="hero.sub">Detalhe, proteção cerâmica e restauro, feitos à mão para quem trata a máquina como uma obra.</p>
+      <div class="actions hlayer" id="lCta"><a href="contacto.html" class="b1" data-i18n="hero.cta">Marcar avaliação</a></div>
+      <a href="#servicos" class="ghost hlayer" id="lGhost" data-i18n="hero.ghost">Ver serviços ↓</a>
+    </div>
+    <div class="hero-vign" id="heroVign"></div>
+    <div class="scrollcue" id="scrollcue"><span data-i18n="hero.cue">Explore</span><span class="d"></span></div>
+  </div>
+</section>
+
+<div class="marquee"><span class="track" id="marqueeTrack"></span></div>
+
+<!-- SERVICES color-change cards -->
+<section class="services pad" id="servicos">
+  <div class="sec-head reveal"><div class="eyebrow"><span class="rule"></span><span data-i18n="serv.eyebrow">Serviços</span></div><h2 data-i18n="serv.title">Passe o rato e veja a <em>cor voltar.</em></h2></div>
+  <div class="ccgrid reveal" id="ccgrid"></div>
+</section>
+
+<!-- PROCESS -->
+<section class="process pad" id="processo">
+  <div class="sec-head reveal" style="max-width:960px;margin-left:auto;margin-right:auto;padding-left:clamp(0px,11vw,150px)"><div class="eyebrow"><span class="rule"></span><span data-i18n="proc.eyebrow">Como trabalhamos</span></div><h2 data-i18n="proc.title">Um processo <em>sem atalhos.</em></h2></div>
+  <div class="psteps reveal" id="psteps"></div>
+</section>
+
+<!-- GALLERY filmstrip -->
+<section class="gallery pad" id="trabalhos">
+  <div class="gtop reveal">
+    <h2 id="gttl">Trabalhos<span class="count" id="gcnt">(0)</span></h2>
+    <div class="gfilter" id="gfilter"><button class="on" data-f="todos" data-i18n="gal.todos">Todos</button><button data-f="detalhe" data-i18n="gal.detalhe">Detalhe</button><button data-f="ceramica" data-i18n="gal.ceramica">Cerâmica</button><button data-f="restauro" data-i18n="gal.restauro">Restauro</button></div>
+  </div>
+  <div class="gwrap reveal" id="gwrap"><div class="gstrip" id="gstrip"></div></div>
+  <div class="ghint" data-i18n="gal.hint">Arraste ou use o scroll horizontal.</div>
+</section>
+
+<!-- ABOUT teaser -->
+<section class="about pad" id="estudio">
+  <div class="awrap">
+    <div class="reveal">
+      <div class="eyebrow"><span class="rule"></span><span data-i18n="about.eyebrow">O Estúdio</span></div>
+      <h2 data-i18n="about.title">Feito à mão, por quem <em>vive disto.</em></h2>
+      <p data-i18n="about.body">Não somos uma lavagem. Somos um estúdio de detalhe na Grande Lisboa, onde cada carro recebe tempo, luz e mãos experientes, e sai como devia ter saído de fábrica, ou melhor.</p>
+      <div class="astats">
+        <div class="s"><div class="n" data-i18n="about.s1n">Desde 2019</div><div class="l" data-i18n="about.s1l">A tratar carros em Lisboa</div></div>
+        <div class="s"><div class="n">+500</div><div class="l" data-i18n="about.s2l">Carros detalhados</div></div>
+        <div class="s"><div class="n" data-i18n="about.s3n">1 a 1</div><div class="l" data-i18n="about.s3l">Um carro de cada vez</div></div>
+      </div>
+      <a href="sobre.html" class="acta"><span class="txt" data-i18n="about.cta">Conhecer o estúdio</span></a>
+    </div>
+    <div class="aportrait reveal"><span data-i18n="about.portrait">Retrato do estúdio · imagem real</span></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq pad" id="faq">
+  <div class="fbg"></div>
+  <div class="fwrap">
+    <div class="fleft reveal">
+      <div class="eyebrow"><span class="rule"></span><span data-i18n="faq.eyebrow">Perguntas frequentes</span></div>
+      <h2 data-i18n="faq.title">Respondemos às suas <em>dúvidas.</em></h2>
+      <p data-i18n="faq.body">Tudo o que precisa de saber para dar o próximo passo.</p>
+    </div>
+    <div class="fright reveal" id="faqlist"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact pad" id="contacto">
+  <h2 class="reveal" data-i18n="contact.title">Contacto</h2>
+  <form class="cform reveal" onsubmit="return false">
+    <div class="cgrid">
+      <div class="cfld"><label><span data-i18n="contact.name">Nome</span> <span class="req">*</span></label><input data-i18n-ph="contact.namePh" placeholder="Qual é o seu nome?"></div>
+      <div class="cfld"><label><span data-i18n="contact.contact">Email ou telefone</span> <span class="req">*</span></label><input data-i18n-ph="contact.contactPh" placeholder="Como o contactamos?"></div>
+      <div class="cfld"><label data-i18n="contact.car">Carro (marca / modelo)</label><input data-i18n-ph="contact.carPh" placeholder="Ex.: Porsche 911"></div>
+      <div class="cfld"><label data-i18n="contact.service">Serviço pretendido</label><input data-i18n-ph="contact.servicePh" placeholder="Detalhe · Cerâmica · Restauro"></div>
+      <div class="cfld full"><label><span data-i18n="contact.message">Mensagem</span> <span class="req">*</span></label><textarea id="msg" rows="7" maxlength="500" data-i18n-ph="contact.messagePh" placeholder="Escreva a sua mensagem aqui"></textarea><div class="ccounter"><span id="rem">500</span>/500 <span data-i18n="contact.counter">caracteres restantes</span></div></div>
+    </div>
+    <div class="csubwrap"><button class="csub" data-i18n="contact.send">Enviar mensagem</button></div>
+  </form>
+</section>
+
+<!-- CLOSING ORB (big) with wordmark within -->
+<section class="orb-section">
+  <canvas id="orb"></canvas>
+  <div class="orb-wm"><span class="logobadge orb-badge"><span class="l1">DETAIL</span><span class="l2">DEPARTMENT</span></span><div class="rss">ROAD · SEA · SKY</div></div>
+</section>
+
+<footer>
+  <div class="fbrand"><span class="logobadge foot-badge"><span class="l1">DETAIL</span><span class="l2">DEPARTMENT</span></span><span class="rss">ROAD · SEA · SKY</span></div>
+  <div class="flegal"><span>© <span id="yr"></span> Detail Department · NIF 000 000 000</span><nav><a href="#" data-i18n="foot.privacy">Privacidade</a><a href="#">Cookies</a><a href="https://www.livroreclamacoes.pt/">Livro de Reclamações</a><a href="#">Instagram</a></nav></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script type="module">
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+/* ============ I18N ============ */
+const I18N={
+  'nav.servicos':{pt:'Serviços',en:'Services'},
+  'nav.processo':{pt:'Processo',en:'Process'},
+  'nav.trabalhos':{pt:'Trabalhos',en:'Work'},
+  'nav.estudio':{pt:'Estúdio',en:'Studio'},
+  'nav.contacto':{pt:'Contacto',en:'Contact'},
+  'nav.cta':{pt:'Marcar avaliação',en:'Book an assessment'},
+  'hero.badge':{pt:'✦ Estúdio de Detalhe Automóvel · Grande Lisboa',en:'✦ Car Detailing Studio · Greater Lisbon'},
+  'hero.title':{pt:'O carro que<br>merece <em>reverência.</em>',en:'The car that<br>deserves <em>reverence.</em>'},
+  'hero.sub':{pt:'ROAD · SEA · SKY',en:'ROAD · SEA · SKY'},
+  'hero.cta':{pt:'Marcar avaliação',en:'Book an assessment'},
+  'hero.ghost':{pt:'Ver serviços ↓',en:'See services ↓'},
+  'hero.cue':{pt:'Explore',en:'Explore'},
+  'serv.eyebrow':{pt:'Serviços',en:'Services'},
+  'serv.title':{pt:'Passe o rato e veja a <em>cor voltar.</em>',en:'Hover and watch the <em>colour return.</em>'},
+  'proc.eyebrow':{pt:'Como trabalhamos',en:'How we work'},
+  'proc.title':{pt:'Um processo <em>sem atalhos.</em>',en:'A process with <em>no shortcuts.</em>'},
+  'gal.todos':{pt:'Todos',en:'All'},
+  'gal.detalhe':{pt:'Detalhe',en:'Detailing'},
+  'gal.ceramica':{pt:'Cerâmica',en:'Ceramic'},
+  'gal.restauro':{pt:'Restauro',en:'Restoration'},
+  'gal.hint':{pt:'Arraste ou use o scroll horizontal.',en:'Drag or scroll sideways.'},
+  'about.eyebrow':{pt:'O Estúdio',en:'The Studio'},
+  'about.title':{pt:'Feito à mão, por quem <em>vive disto.</em>',en:'Done by hand, by people who <em>live for this.</em>'},
+  'about.body':{pt:'Não somos uma lavagem. Somos um estúdio de detalhe na Grande Lisboa, onde cada carro recebe tempo, luz e mãos experientes, e sai como devia ter saído de fábrica, ou melhor.',en:'We are not a car wash. We are a detailing studio in Greater Lisbon, where every car gets time, light and experienced hands, and leaves the way it should have left the factory, or better.'},
+  'about.s1n':{pt:'Desde 2019',en:'Since 2019'},
+  'about.s1l':{pt:'A tratar carros em Lisboa',en:'Caring for cars in Lisbon'},
+  'about.s2l':{pt:'Carros detalhados',en:'Cars detailed'},
+  'about.s3n':{pt:'1 a 1',en:'One to one'},
+  'about.s3l':{pt:'Um carro de cada vez',en:'One car at a time'},
+  'about.cta':{pt:'Conhecer o estúdio',en:'Meet the studio'},
+  'about.portrait':{pt:'Retrato do estúdio · imagem real',en:'Studio portrait · real image'},
+  'faq.eyebrow':{pt:'Perguntas frequentes',en:'Frequently asked questions'},
+  'faq.title':{pt:'Respondemos às suas <em>dúvidas.</em>',en:'We answer your <em>questions.</em>'},
+  'faq.body':{pt:'Tudo o que precisa de saber para dar o próximo passo.',en:'Everything you need to know to take the next step.'},
+  'contact.title':{pt:'Contacto',en:'Contact'},
+  'contact.name':{pt:'Nome',en:'Name'},
+  'contact.namePh':{pt:'Qual é o seu nome?',en:'What is your name?'},
+  'contact.contact':{pt:'Email ou telefone',en:'Email or phone'},
+  'contact.contactPh':{pt:'Como o contactamos?',en:'How do we reach you?'},
+  'contact.car':{pt:'Carro (marca / modelo)',en:'Car (make / model)'},
+  'contact.carPh':{pt:'Ex.: Porsche 911',en:'e.g. Porsche 911'},
+  'contact.service':{pt:'Serviço pretendido',en:'Service of interest'},
+  'contact.servicePh':{pt:'Detalhe · Cerâmica · Restauro',en:'Detailing · Ceramic · Restoration'},
+  'contact.message':{pt:'Mensagem',en:'Message'},
+  'contact.messagePh':{pt:'Escreva a sua mensagem aqui',en:'Write your message here'},
+  'contact.counter':{pt:'caracteres restantes',en:'characters left'},
+  'contact.send':{pt:'Enviar mensagem',en:'Send message'},
+  'foot.privacy':{pt:'Privacidade',en:'Privacy'}
+};
+const MARQUEE={pt:['Detalhe','Proteção Cerâmica','Restauro','Faróis','Chapa e Pintura'],en:['Detailing','Ceramic Protection','Restoration','Headlights','Bodywork']};
+const CCARDS=[
+  {t:{pt:'Detalhe',en:'Detailing'},grad:'linear-gradient(135deg,#2a2418,#c9a24b 140%)',d:{pt:'Descontaminação, correção e um acabamento que devolve profundidade à cor.',en:'Decontamination, correction and a finish that brings depth back to the paint.'}},
+  {t:{pt:'Cerâmica',en:'Ceramic'},grad:'linear-gradient(135deg,#20242a,#e7ce8f 150%)',d:{pt:'Proteção que dura anos, com brilho profundo e hidrofobia real.',en:'Protection that lasts for years, with deep gloss and real water repellency.'}},
+  {t:{pt:'Restauro',en:'Restoration'},grad:'linear-gradient(135deg,#2c2015,#b8935a 140%)',d:{pt:'Faróis, chapa e pintura. De volta ao que eram, ou melhor.',en:'Headlights, bodywork and paint. Back to how they were, or better.'}},
+  {t:{pt:'Interior',en:'Interior'},grad:'linear-gradient(135deg,#241f18,#cbae7e 150%)',d:{pt:'Estofos, pele e ar. Uma limpeza profunda que se sente e se cheira.',en:'Upholstery, leather and air. A deep clean you can feel and smell.'}}
+];
+const PSTEPS=[
+  {i:'aval',t:{pt:'Avaliação presencial',en:'In-person assessment'},d:{pt:'Vemos o carro em pessoa e inspecionamos a pintura sob a nossa própria luz.',en:'We see the car in person and inspect the paint under our own lighting.'}},
+  {i:'prep',t:{pt:'Preparação',en:'Preparation'},d:{pt:'Uma lavagem de descontaminação química e mecânica, que é a base de tudo.',en:'A chemical and mechanical decontamination wash, which is the base of everything.'}},
+  {i:'corr',t:{pt:'Correção de pintura',en:'Paint correction'},d:{pt:'Removemos riscos, hologramas e oxidação, passo a passo.',en:'We remove scratches, holograms and oxidation, step by step.'}},
+  {i:'prot',t:{pt:'Proteção cerâmica',en:'Ceramic protection'},d:{pt:'Aplicamos e curamos a cerâmica, para um brilho profundo e defesa duradoura.',en:'We apply and cure the ceramic coating, for deep gloss and lasting defence.'}},
+  {i:'ent',t:{pt:'Entrega impecável',en:'Flawless handover'},d:{pt:'Uma inspeção final sob luz e a entrega, com instruções de manutenção.',en:'A final inspection under light and the handover, with maintenance instructions.'}}
+];
+const WORK=[
+  {car:'Porsche 911',svc:{pt:'Proteção Cerâmica',en:'Ceramic Protection'},cat:'ceramica',w:360,h:240},
+  {car:'BMW M4',svc:{pt:'Correção de Pintura',en:'Paint Correction'},cat:'detalhe',w:240,h:300},
+  {car:'Mercedes AMG',svc:{pt:'Restauro de Faróis',en:'Headlight Restoration'},cat:'restauro',w:320,h:210},
+  {car:'Audi RS6',svc:{pt:'Detalhe Completo',en:'Full Detail'},cat:'detalhe',w:300,h:300},
+  {car:'Range Rover',svc:{pt:'Cerâmica e Interior',en:'Ceramic and Interior'},cat:'ceramica',w:260,h:340},
+  {car:'Golf GTI',svc:{pt:'Chapa e Pintura',en:'Bodywork'},cat:'restauro',w:340,h:230},
+  {car:'Ferrari Roma',svc:{pt:'Correção e Cerâmica',en:'Correction and Ceramic'},cat:'ceramica',w:380,h:250},
+  {car:'Mini Cooper',svc:{pt:'Detalhe Premium',en:'Premium Detail'},cat:'detalhe',w:230,h:290},
+  {car:'Volvo XC90',svc:{pt:'Restauro Integral',en:'Full Restoration'},cat:'restauro',w:320,h:260}
+];
+const GLABELS={todos:{pt:'Trabalhos',en:'Work'},detalhe:{pt:'Detalhe',en:'Detailing'},ceramica:{pt:'Cerâmica',en:'Ceramic'},restauro:{pt:'Restauro',en:'Restoration'}};
+const FAQ=[
+  {q:{pt:'Quanto tempo dura a proteção cerâmica?',en:'How long does ceramic protection last?'},a:{pt:'Depende do produto e da utilização, mas normalmente entre dois e cinco anos. Na avaliação explicamos as opções e a manutenção recomendada.',en:'It depends on the product and how the car is used, but usually between two and five years. During the assessment we explain the options and the recommended maintenance.'}},
+  {q:{pt:'Recolhem e entregam o carro?',en:'Do you collect and deliver the car?'},a:{pt:'Sim, em toda a Grande Lisboa. Combinamos a recolha e a entrega conforme a sua disponibilidade.',en:'Yes, across all of Greater Lisbon. We arrange collection and delivery around your availability.'}},
+  {q:{pt:'Quanto tempo fica o carro no estúdio?',en:'How long does the car stay at the studio?'},a:{pt:'De algumas horas a vários dias, consoante o serviço. Um detalhe pode demorar um dia e uma correção com cerâmica costuma levar dois a três dias.',en:'From a few hours to several days, depending on the service. A detail can take a day, and a correction with ceramic usually takes two to three days.'}},
+  {q:{pt:'Fazem orçamentos à distância?',en:'Do you give remote quotes?'},a:{pt:'Damos uma estimativa inicial, mas o valor final depende sempre de ver o carro em pessoa, porque cada pintura é diferente.',en:'We give an initial estimate, but the final price always depends on seeing the car in person, because every paint finish is different.'}},
+  {q:{pt:'Trabalham todas as marcas?',en:'Do you work on all makes?'},a:{pt:'Sim, de utilitários a viaturas de coleção. O cuidado e o método são exatamente os mesmos.',en:'Yes, from everyday cars to collector vehicles. The care and the method are exactly the same.'}}
+];
+
+let LANG='pt';
+try{const s=localStorage.getItem('dd_lang');if(s==='pt'||s==='en')LANG=s;}catch(e){}
+
+function applyStatic(){
+  document.documentElement.lang=LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[k])el.innerHTML=I18N[k][LANG];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(I18N[k])el.setAttribute('placeholder',I18N[k][LANG]);});
+  document.getElementById('marqueeTrack').innerHTML=(()=>{const one=MARQUEE[LANG];const seq=[...one,...one];return seq.map(w=>`${w}<em>/</em>`).join('');})();
+}
+function renderServices(){
+  const roll=(word)=>`<h4 class="ctitle">${word}</h4>`;
+  const arrow='<div class="carrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>';
+  document.getElementById('ccgrid').innerHTML=CCARDS.map(c=>`<div class="ccard"><div class="cbg" style="background-image:${c.grad}"></div><div class="cshade"></div><div class="cinner">${arrow}<div>${roll(c.t[LANG])}<p class="cdesc">${c.d[LANG]}</p></div></div></div>`).join('');
+}
+const PIC={aval:'<circle cx="32" cy="32" r="13"/><circle cx="32" cy="32" r="4"/><path d="M32 6v6M32 52v6M6 32h6M52 32h6"/>',prep:'<path d="M32 10c7 10 12 16 12 24a12 12 0 0 1-24 0c0-8 5-14 12-24z"/><path d="M26 34a6 6 0 0 0 6 6"/>',corr:'<circle cx="32" cy="32" r="14"/><circle cx="32" cy="32" r="5"/><path d="M32 4l2 6-2 2-2-2z" fill="currentColor" stroke="none"/><path d="M50 20l-5 3 .5 3 3-.5z" fill="currentColor" stroke="none"/>',prot:'<path d="M32 8l18 7v13c0 12-8 20-18 24-10-4-18-12-18-24V15z"/><path d="M24 31l6 6 12-13"/>',ent:'<circle cx="24" cy="34" r="8"/><path d="M32 34h22M46 34v9M54 34v6"/>'};
+function renderProcess(){
+  document.getElementById('psteps').innerHTML=PSTEPS.map((s,i)=>`<div class="pstep reveal"><div class="pnode">${i+1}.</div><div class="pcard"><div class="pic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${PIC[s.i]}</svg></div><div class="ptx"><h3>${s.t[LANG]}</h3><p>${s.d[LANG]}</p></div></div></div>`).join('');
+  document.querySelectorAll('#psteps .reveal').forEach(el=>io.observe(el));
+}
+const gcnt=()=>document.getElementById('gcnt'),gttl=()=>document.getElementById('gttl');
+let curFilter='todos';
+function grender(f){curFilter=f;const items=f==='todos'?WORK:WORK.filter(w=>w.cat===f);document.getElementById('gcnt').textContent=`(${items.length})`;gttl().childNodes[0].nodeValue=GLABELS[f][LANG];
+  const gstrip=document.getElementById('gstrip');
+  gstrip.innerHTML=items.map(w=>`<div class="gtile" style="width:${w.w}px;height:${w.h}px"><div class="ph">DD</div><div class="cap"><div class="car">${w.car}</div><div class="svc">${w.svc[LANG]}</div></div></div>`).join('');
+  gstrip.querySelectorAll('.gtile').forEach((t,i)=>{t.style.opacity=0;t.style.transform='translateY(18px)';setTimeout(()=>{t.style.transition='.6s cubic-bezier(.2,.7,.2,1)';t.style.opacity=1;t.style.transform='none';},i*50);});}
+function renderFaq(){
+  const faqlist=document.getElementById('faqlist');
+  faqlist.innerHTML=FAQ.map((f,i)=>`<div class="qa${i===0?' open':''}"><div class="q"><h3>${f.q[LANG]}</h3><span class="pm"></span></div><div class="a"><p>${f.a[LANG]}</p></div></div>`).join('');
+  faqlist.querySelectorAll('.qa').forEach(qa=>{const q=qa.querySelector('.q'),a=qa.querySelector('.a');if(qa.classList.contains('open'))a.style.maxHeight=a.scrollHeight+'px';
+    q.addEventListener('click',()=>{const open=qa.classList.contains('open');faqlist.querySelectorAll('.qa').forEach(o=>{o.classList.remove('open');o.querySelector('.a').style.maxHeight=null;});if(!open){qa.classList.add('open');a.style.maxHeight=a.scrollHeight+'px';}});});
+}
+function setLang(l){LANG=l;try{localStorage.setItem('dd_lang',l);}catch(e){}
+  document.querySelectorAll('#langtog button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
+  applyStatic();renderServices();renderProcess();grender(curFilter);renderFaq();
+  if(window.ScrollTrigger)ScrollTrigger.refresh();
+}
+document.getElementById('langtog').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setLang(b.dataset.lang);});
+
+/* torch + nav solidify + reveals */
+const torch=document.getElementById('torch');let tx=innerWidth/2,ty=innerHeight/2,cx=tx,cy=ty;
+addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY});
+(function l(){cx+=(tx-cx)*.08;cy+=(ty-cy)*.08;torch.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;requestAnimationFrame(l)})();
+addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('solid',scrollY>40));
+const io=new IntersectionObserver((es)=>es.forEach((en,i)=>{if(en.isIntersecting){setTimeout(()=>en.target.classList.add('in'),i*70);io.unobserve(en.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* build content in current language */
+document.querySelectorAll('#langtog button').forEach(b=>b.classList.toggle('on',b.dataset.lang===LANG));
+applyStatic();renderServices();renderProcess();renderFaq();
+
+/* GALLERY interactions */
+document.getElementById('gfilter').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('.gfilter button').forEach(x=>x.classList.remove('on'));b.classList.add('on');grender(b.dataset.f);gwx=0;document.getElementById('gstrip').style.transform='translateX(0)';});
+grender('todos');
+const gwrap=document.getElementById('gwrap'),gstrip=document.getElementById('gstrip');let gwx=0,gdown=false,gsx=0,gsw=0;
+function gmax(){return Math.max(0,gstrip.scrollWidth-gwrap.clientWidth)}
+function gap(){gwx=Math.min(0,Math.max(-gmax(),gwx));gstrip.style.transform=`translateX(${gwx}px)`}
+gwrap.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)<Math.abs(e.deltaY)&&Math.abs(e.deltaY)<4)return;e.preventDefault();gwx-=(Math.abs(e.deltaY)>Math.abs(e.deltaX)?e.deltaY:e.deltaX);gap();},{passive:false});
+gwrap.addEventListener('pointerdown',e=>{gdown=true;gsx=e.clientX;gsw=gwx;gwrap.classList.add('drag');gwrap.setPointerCapture(e.pointerId);});
+gwrap.addEventListener('pointermove',e=>{if(!gdown)return;gwx=gsw+(e.clientX-gsx);gap();});
+gwrap.addEventListener('pointerup',()=>{gdown=false;gwrap.classList.remove('drag');});
+
+/* CONTACT counter */
+const msg=document.getElementById('msg'),rem=document.getElementById('rem');msg.addEventListener('input',()=>{rem.textContent=500-msg.value.length;});
+
+/* INTRO — plain, shows once per session */
+(function(){
+  const intro=document.getElementById('intro');
+  const finish=()=>{intro.classList.add('done');document.querySelectorAll('.hero .reveal').forEach((el,i)=>setTimeout(()=>el.classList.add('in'),150+i*140));};
+  // navigation type: 'reload' means a real page refresh; 'navigate'/'back_forward' means moving between pages
+  let nav='navigate';try{const n=performance.getEntriesByType('navigation');if(n&&n[0])nav=n[0].type;}catch(e){}
+  let seen=false;try{seen=sessionStorage.getItem('dd_intro')==='1';}catch(e){}
+  try{sessionStorage.setItem('dd_intro','1');}catch(e){}
+  // play the intro on first visit and on a full refresh; skip it when arriving from another page
+  // (window.__ddSkipIntro is set by the single-file bundle loader on repeat visits to home)
+  if(reduce || window.__ddSkipIntro || (seen && nav!=='reload')){intro.style.transition='none';finish();return;}
+  setTimeout(finish,2400);
+})();
+
+/* HERO — Molten Gold background (raw WebGL2), scroll-driven camera push */
+let heroProgress=0;
+(function molten(){
+  const canvas=document.getElementById('molten');
+  const gl=canvas.getContext('webgl2',{alpha:true,premultipliedAlpha:true,antialias:false});
+  if(!gl){canvas.style.background='radial-gradient(120% 90% at 50% 100%,rgba(201,162,75,.28),transparent 60%),#E4E4E4';return;}
+  gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.clearColor(0,0,0,0);
+  const cfg={uSpeed:.3,uScale:4,uDetail:3,uGlow:1.6,uCoreSize:.1,uSwirl:1,uFold:-.2,uBlackPoint:.05,uBrightness:1.3,uColorMode:0,uGrain:1,uGrainIntensity:.05,uOpacity:1,uMouseStrength:.3,uEnableMouse:1,uLightMode:0,uColor1:[0x24/255,0x1a/255,0x0d/255],uColor2:[0xC9/255,0xA2/255,0x4b/255],uColor3:[0xF3/255,0xE1/255,0xB0/255],uBackgroundColor:[0x06/255,0x06/255,0x05/255]};
+  const vs="#version 300 es\nin vec2 position;void main(){gl_Position=vec4(position,0.0,1.0);}";
+  const fs=`#version 300 es
+precision highp float;
+uniform vec2 iResolution;uniform float iTime;uniform float uSpeed;uniform float uScale;uniform float uDetail;uniform float uGlow;uniform float uCoreSize;uniform float uSwirl;uniform float uFold;uniform float uBlackPoint;uniform float uBrightness;uniform float uColorMode;uniform float uGrain;uniform float uGrainIntensity;uniform float uOpacity;uniform vec2 uMouse;uniform float uMouseStrength;uniform bool uEnableMouse;uniform vec3 uColor1;uniform vec3 uColor2;uniform vec3 uColor3;uniform vec3 uBackgroundColor;uniform bool uLightMode;out vec4 fragColor;
+float hash(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
+void main(){
+  float time=iTime*uSpeed;
+  vec2 p=uScale*((gl_FragCoord.xy-0.5*iResolution.xy)/iResolution.y)-0.5;
+  vec2 drift=vec2(0.0); if(uEnableMouse){drift=(uMouse-0.5)*uMouseStrength*2.0;} p+=drift;
+  vec2 i=p;float c=0.0;
+  float r=length(p+vec2(sin(time),sin(time*0.3+5.0))*0.5);
+  float d=length(p);float rot=d+time+p.x*uSwirl;
+  float cosRot=cos(rot);
+  mat2 warp=mat2(cos(rot-sin(time/5.0)),sin(rot),-sin(cosRot-time),cosRot)*uFold;
+  float glowCore=uGlow*uCoreSize;
+  for(float n=0.0;n<8.0;n++){ if(n>=uDetail)break; p*=warp; float t=r-time/(n+3.0);
+    i-=p+vec2(cos(t-i.x-r)+sin(t+i.y),sin(t-i.y)+cos(t+i.x)+r);
+    c+=glowCore/length(vec2(sin(i.x+t),cos(i.y+t))); }
+  c/=6.0;
+  float intensity=max(c-uBlackPoint,0.0)*uBrightness; float g=clamp(intensity,0.0,1.0);
+  float mid=0.5; if(uColorMode>1.5){mid=0.65;}else if(uColorMode>0.5){mid=0.35;}
+  vec3 col=mix(uColor1,uColor2,smoothstep(0.0,mid,g)); col=mix(col,uColor3,smoothstep(mid,1.0,g));
+  float a=g; if(uGrain>0.5){float gr=hash(gl_FragCoord.xy+iTime);a+=(gr-0.5)*uGrainIntensity;}
+  a=clamp(a,0.0,1.0)*uOpacity; fragColor=vec4(col*a,a);
+}`;
+  const sh=(t,src)=>{const o=gl.createShader(t);gl.shaderSource(o,src);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))console.error(gl.getShaderInfoLog(o));return o;};
+  const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);gl.useProgram(pr);
+  const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(pr,'position');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const U={};['iResolution','iTime','uSpeed','uScale','uDetail','uGlow','uCoreSize','uSwirl','uFold','uBlackPoint','uBrightness','uColorMode','uGrain','uGrainIntensity','uOpacity','uMouse','uMouseStrength','uEnableMouse','uColor1','uColor2','uColor3','uBackgroundColor','uLightMode'].forEach(k=>U[k]=gl.getUniformLocation(pr,k));
+  function setStatics(){gl.uniform1f(U.uSpeed,cfg.uSpeed);gl.uniform1f(U.uScale,cfg.uScale);gl.uniform1f(U.uDetail,cfg.uDetail);gl.uniform1f(U.uGlow,cfg.uGlow);gl.uniform1f(U.uCoreSize,cfg.uCoreSize);gl.uniform1f(U.uSwirl,cfg.uSwirl);gl.uniform1f(U.uFold,cfg.uFold);gl.uniform1f(U.uBlackPoint,cfg.uBlackPoint);gl.uniform1f(U.uBrightness,cfg.uBrightness);gl.uniform1f(U.uColorMode,cfg.uColorMode);gl.uniform1f(U.uGrain,cfg.uGrain);gl.uniform1f(U.uGrainIntensity,cfg.uGrainIntensity);gl.uniform1f(U.uOpacity,cfg.uOpacity);gl.uniform1f(U.uMouseStrength,cfg.uMouseStrength);gl.uniform1i(U.uEnableMouse,cfg.uEnableMouse);gl.uniform1i(U.uLightMode,cfg.uLightMode);gl.uniform3fv(U.uColor1,cfg.uColor1);gl.uniform3fv(U.uColor2,cfg.uColor2);gl.uniform3fv(U.uColor3,cfg.uColor3);gl.uniform3fv(U.uBackgroundColor,cfg.uBackgroundColor);}
+  function resize(){const dpr=Math.min(devicePixelRatio||1,2);const w=Math.floor(innerWidth*dpr),h=Math.floor(innerHeight*dpr);canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);gl.useProgram(pr);gl.uniform2f(U.iResolution,w,h);}
+  addEventListener('resize',resize);resize();setStatics();
+  let mtx=.5,mty=.5,mcx=.5,mcy=.5;
+  addEventListener('mousemove',e=>{mtx=e.clientX/innerWidth;mty=1-e.clientY/innerHeight;});
+  const t0=performance.now();
+  function frame(now){gl.useProgram(pr);
+    cfg.uScale=4-heroProgress*1.7; cfg.uBrightness=1.3+heroProgress*0.6; cfg.uGlow=1.6+heroProgress*0.7;
+    setStatics(); mcx+=.05*(mtx-mcx);mcy+=.05*(mty-mcy); gl.uniform2f(U.uMouse,mcx,mcy); gl.uniform1f(U.iTime,(now-t0)/1000);
+    gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLES,0,3); if(!reduce)requestAnimationFrame(frame);}
+  if(reduce){gl.uniform1f(U.iTime,3);gl.uniform2f(U.uMouse,.5,.5);gl.clear(gl.COLOR_BUFFER_BIT);gl.drawArrays(gl.TRIANGLES,0,3);}else requestAnimationFrame(frame);
+})();
+
+/* HERO — pinned, scroll-scrubbed cinematic experience (GSAP ScrollTrigger) */
+if(window.gsap && window.ScrollTrigger && !reduce){
+  gsap.registerPlugin(ScrollTrigger);
+  const mm=gsap.matchMedia();
+  mm.add({desk:'(min-width:900px)',mob:'(max-width:899px)'},(ctx)=>{
+    const desk=ctx.conditions.desk; const titleScale=desk?2.7:1.9;
+    const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{
+      trigger:'#heroStage',start:'top top',end:desk?'+=165%':'+=115%',scrub:desk?1:.6,pin:'#heroPin',anticipatePin:1,invalidateOnRefresh:true,
+      onUpdate:self=>{heroProgress=self.progress;}}});
+    tl.to('#lBadge',{yPercent:-140,autoAlpha:0,duration:.2},0)
+      .to('#scrollcue',{autoAlpha:0,duration:.12},0)
+      .to('#lSub',{y:70,autoAlpha:0,duration:.24},0.02)
+      .to('#lCta',{y:110,autoAlpha:0,duration:.26},0.04)
+      .to('#lGhost',{autoAlpha:0,duration:.16},0.02)
+      .to('#lTitle',{scale:titleScale,duration:.87},0.08)
+      .to('#lTitle',{filter:'blur(14px)',duration:.4},0.55)
+      .to('#lTitle',{autoAlpha:0,duration:.28},0.67)
+      .to('#heroVign',{opacity:.92,duration:.32},0.7)
+      .to('#molten',{autoAlpha:.12,duration:.24},0.76);
+  });
+} else {
+  const sc=document.getElementById('scrollcue'); if(sc) sc.style.display='none';
+}
+
+/* SMALL ORB */
+(function(){const c=document.getElementById('orb'),x=c.getContext('2d');let W,H,DPR=Math.min(devicePixelRatio||1,2);
+ function sz(){W=c.clientWidth;H=c.clientHeight;c.width=W*DPR;c.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0);}new ResizeObserver(sz).observe(c);sz();
+ let mx=.5,my=.5,cmx=.5,cmy=.5;addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;mx=(e.clientX-r.left)/r.width;my=(e.clientY-r.top)/r.height;});
+ // derive the sphere tone from the page background so the orb matches each theme
+ const _m=getComputedStyle(document.body).backgroundColor.match(/\d+/g)||[6,6,5];
+ const _r=+_m[0],_g=+_m[1],_b=+_m[2];
+ const shade=f=>`rgb(${Math.round(_r*f)},${Math.round(_g*f)},${Math.round(_b*f)})`;
+ const SPH0=shade(.62),SPH8=shade(.78),SPH1=shade(.5);
+ function frame(t){cmx+=(mx-cmx)*.06;cmy+=(my-cmy)*.06;x.clearRect(0,0,W,H);
+  const cx2=W*.5,cy2=H*1.35,R=Math.min(W*.42,H*1.5),time=reduce?0:t*.0005;
+  const ha=Math.atan2(cmy*H-cy2,cmx*W-cx2);const prox=1-Math.min(1,Math.hypot(cmx-.5,cmy-.6)*1.4);
+  const bloom=x.createRadialGradient(cx2,cy2,R*.7,cx2,cy2,R*1.8);bloom.addColorStop(0,`rgba(201,162,75,${.12+prox*.1})`);bloom.addColorStop(.5,'rgba(201,162,75,.04)');bloom.addColorStop(1,'rgba(201,162,75,0)');x.fillStyle=bloom;x.fillRect(0,0,W,H);
+  x.globalCompositeOperation='lighter';const pl=reduce?4:7;
+  for(let i=0;i<pl;i++){const base=-Math.PI/2+(i-pl/2)*.18;const ang=base+Math.sin(time*1.3+i)*.05+(cmx-.5)*.5;const len=R*(1+.2*Math.sin(time*2+i*1.7));const gx=cx2+Math.cos(ang)*len,gy=cy2+Math.sin(ang)*len;const g=x.createLinearGradient(cx2,cy2,gx,gy);const a=.04+.04*Math.sin(time*2+i);g.addColorStop(0,`rgba(231,206,143,${a})`);g.addColorStop(1,'rgba(231,206,143,0)');x.strokeStyle=g;x.lineWidth=R*.08;x.beginPath();x.moveTo(cx2,cy2);x.lineTo(gx,gy);x.stroke();}
+  x.lineWidth=1.8;x.strokeStyle=`rgba(231,206,143,${.45+prox*.3})`;x.shadowColor='rgba(201,162,75,.9)';x.shadowBlur=20+prox*24;x.beginPath();x.arc(cx2,cy2,R,0,Math.PI*2);x.stroke();
+  x.strokeStyle='rgba(255,244,214,.8)';x.shadowBlur=38+prox*30;x.lineWidth=2.4;x.beginPath();x.arc(cx2,cy2,R,ha-.5,ha+.5);x.stroke();x.shadowBlur=0;
+  x.globalCompositeOperation='source-over';const sph=x.createRadialGradient(cx2-R*.3,cy2-R*.3,R*.2,cx2,cy2,R);sph.addColorStop(0,SPH0);sph.addColorStop(.8,SPH8);sph.addColorStop(1,SPH1);x.fillStyle=sph;x.beginPath();x.arc(cx2,cy2,R*.995,0,Math.PI*2);x.fill();
+  if(!reduce)requestAnimationFrame(frame);}
+ reduce?frame(0):requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
