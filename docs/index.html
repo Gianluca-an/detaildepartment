@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department — Colour Options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{--void:#060605;--card:#121010;--line:rgba(201,162,75,.18);--ink:#F2EFE9;--mist:#D9D4CA;--muted:#857F75;--gold:#C9A24B;--gold-lite:#E7CE8F}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--void);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55;min-height:100vh}
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(48px,9vh,90px) clamp(20px,5vw,48px)}
+  .badge{display:inline-flex;flex-direction:column;align-items:center;border:1.5px solid var(--gold);border-radius:.6em;padding:.42em .9em .5em;line-height:1;color:var(--gold);font-size:20px}
+  .badge .l1{font-weight:600;letter-spacing:.06em}
+  .badge .l2{font-weight:500;letter-spacing:.42em;font-size:.38em;margin-top:.42em;padding-left:.42em}
+  .rss{margin-top:16px;font-family:'JetBrains Mono',monospace;letter-spacing:.4em;font-size:.7rem;text-transform:uppercase;color:var(--gold-lite);padding-left:.4em}
+  h1{font-family:Fraunces;font-weight:300;font-size:clamp(2rem,5vw,3.2rem);color:var(--mist);margin-top:34px;line-height:1.05}
+  h1 em{font-style:italic;color:var(--gold)}
+  .lead{margin-top:16px;color:var(--muted);font-weight:300;max-width:52ch}
+  .grid{margin-top:44px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+  .opt{display:block;text-decoration:none;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);transition:.3s;color:inherit}
+  .opt:hover{border-color:rgba(201,162,75,.5);transform:translateY(-4px);box-shadow:0 18px 40px -20px rgba(0,0,0,.7)}
+  .sw{height:120px;position:relative;display:flex;align-items:flex-end;padding:14px}
+  .sw .hex{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;background:rgba(0,0,0,.35);color:#fff;padding:4px 8px;border-radius:4px;backdrop-filter:blur(4px)}
+  .meta{padding:16px 18px 20px}
+  .meta .name{font-family:Fraunces;font-size:1.15rem;color:var(--mist)}
+  .meta .go{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-lite)}
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="badge"><span class="l1">DETAIL</span><span class="l2">DEPARTMENT</span></span>
+  <div class="rss">ROAD · SEA · SKY</div>
+  <h1>Escolha a sua <em>cor.</em><br>Choose your <em>colour.</em></h1>
+  <p class="lead">Seis versões do mesmo site, cada uma numa cor diferente. Abra cada uma e escolha a que prefere. · Six versions of the same website, one per colour. Open each and pick your favourite.</p>
+
+  <div class="grid">
+    <a class="opt" href="charcoal/"><div class="sw" style="background:#060605"><span class="hex">#060605</span></div><div class="meta"><div class="name">Charcoal</div><div class="go">Abrir · Open →</div></div></a>
+    <a class="opt" href="slate/"><div class="sw" style="background:#5D5E60"><span class="hex">#5D5E60</span></div><div class="meta"><div class="name">Slate</div><div class="go">Abrir · Open →</div></div></a>
+    <a class="opt" href="mid/"><div class="sw" style="background:#9A9C99"><span class="hex">#9A9C99</span></div><div class="meta"><div class="name">Mid Gray</div><div class="go">Abrir · Open →</div></div></a>
+    <a class="opt" href="light/"><div class="sw" style="background:#B7B8B3"><span class="hex">#B7B8B3</span></div><div class="meta"><div class="name">Light Gray</div><div class="go">Abrir · Open →</div></div></a>
+    <a class="opt" href="stone/"><div class="sw" style="background:#CDCFCC"><span class="hex">#CDCFCC</span></div><div class="meta"><div class="name">Stone</div><div class="go">Abrir · Open →</div></div></a>
+    <a class="opt" href="white/"><div class="sw" style="background:#E4E4E4"><span class="hex">#E4E4E4</span></div><div class="meta"><div class="name">Near White</div><div class="go">Abrir · Open →</div></div></a>
+  </div>
+
+  <footer>Detail Department · Grande Lisboa · mockup para revisão / mockup for review</footer>
+</div>
+</body>
+</html>

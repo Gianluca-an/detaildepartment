@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Department · Estúdio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@500&family=Sacramento&display=swap" rel="stylesheet">
+<style>
+:root{--void:#5D5E60;--char:#545557;--line:rgba(201,162,75,.16);--ink:#F2EFE9;--mist:#D9D4CA;--muted:#C2C0BB;--gold:#C9A24B;--gold-lite:#E7CE8F;--g:201,162,75}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,5vw,56px);background:rgba(74,75,77,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .brand{font-family:Fraunces;font-size:1.05rem;color:var(--mist)}nav .brand b{color:var(--gold);font-weight:500}
+nav .pills{display:flex;gap:2px;background:rgba(var(--g),.06);border:1px solid var(--line);border-radius:999px;padding:5px}
+nav .pills a{color:var(--mist);text-decoration:none;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 15px;border-radius:999px;transition:.3s}
+nav .pills a.on,nav .pills a:hover{background:rgba(var(--g),.14);color:var(--gold-lite)}
+nav .cta-pill{background:var(--gold);color:#171513;border-radius:999px;padding:11px 20px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:.3s}
+@media(max-width:860px){nav .pills{display:none}}
+/* about hero */
+.ah{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:20px;align-items:center;min-height:calc(100vh - 66px);padding:clamp(40px,6vh,80px) clamp(20px,5vw,56px)}
+@media(min-width:900px){.ah{grid-template-columns:1.05fr 1fr;gap:clamp(30px,4vw,60px)}}
+.al{max-width:520px}
+.al .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-lite);margin-bottom:26px}
+.al h1{font-family:Fraunces;font-weight:300;letter-spacing:-.02em;line-height:1.02;font-size:clamp(2.4rem,5.5vw,4.2rem)}
+.al h1 .a{color:var(--ink)}
+.al h1 .b{display:block;font-style:italic;color:var(--gold)}
+.al .body{margin-top:34px;display:flex;flex-direction:column;gap:18px;max-width:44ch}
+.al .body p{color:var(--muted);font-weight:300;font-size:1.02rem;line-height:1.7}
+.al .connect{margin-top:34px;display:flex;align-items:center;gap:14px}
+.al .connect span{font-size:.92rem;color:var(--mist)}
+.al .connect a{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--gold-lite);transition:.3s}
+.al .connect a:hover{background:var(--gold);border-color:var(--gold);color:#171513}
+.al .connect a svg{width:18px;height:18px}
+.al .sign{margin-top:30px;font-family:'Sacramento',cursive;font-size:clamp(2rem,4vw,2.8rem);color:var(--mist);opacity:.9;line-height:1}
+.al .sign small{display:block;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);opacity:.7;margin-top:4px}
+/* portrait */
+.ar{position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;
+  background:
+   radial-gradient(70% 90% at 62% 40%,rgba(60,54,44,.55),transparent 60%),
+   radial-gradient(120% 120% at 100% 50%,rgba(201,162,75,.10),transparent 55%),
+   linear-gradient(180deg,#0e0c0a,#4A4B4D)}
+.ar::after{content:"";position:absolute;inset:0;box-shadow:inset -40px 0 80px -40px rgba(201,162,75,.18)}
+.ar .lbl{position:absolute;left:18px;bottom:16px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+@media(max-width:900px){.ar{aspect-ratio:3/4;max-height:60vh}}
+footer{border-top:1px solid var(--line)}
+.flegal{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;padding:24px clamp(20px,5vw,56px);font-size:.74rem;font-weight:300;color:var(--muted)}
+.flegal a{color:inherit;text-decoration:none;transition:.3s}.flegal a:hover{color:var(--gold-lite)}
+.flegal nav{display:flex;flex-wrap:wrap;gap:12px 22px;background:none;position:static;padding:0;border:none}
+.tag{position:fixed;left:14px;bottom:14px;z-index:50;background:var(--gold);color:#171513;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 11px;font-weight:600;border-radius:2px}
+.navright{display:flex;align-items:center;gap:12px}
+.langtog{display:flex;gap:3px}
+.langtog button{background:none;border:1px solid var(--line);color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.14em;padding:7px 9px;border-radius:999px;cursor:pointer;transition:.3s}
+.langtog button:hover{color:var(--gold-lite)}
+.langtog button.on{background:rgba(var(--g),.16);color:var(--gold-lite);border-color:rgba(var(--g),.4)}
+.logobadge{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:1.5px solid var(--gold);border-radius:.72em;padding:.42em .74em .5em;line-height:1;color:var(--gold);font-family:Inter,system-ui,sans-serif;font-size:15px}
+.logobadge .l1{font-weight:600;letter-spacing:.05em;font-size:1em}
+.logobadge .l2{font-weight:500;letter-spacing:.42em;font-size:.38em;margin-top:.42em;padding-left:.42em}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="tag">About Page · Direção B</div>
+<nav>
+  <a class="brand" href="index.html" style="text-decoration:none" aria-label="Detail Department"><span class="logobadge"><span class="l1">DETAIL</span><span class="l2">DEPARTMENT</span></span></a>
+  <div class="pills"><a href="servicos.html" data-i18n="nav.servicos">Serviços</a><a href="processo.html" data-i18n="nav.processo">Processo</a><a href="trabalhos.html" data-i18n="nav.trabalhos">Trabalhos</a><a href="sobre.html" class="on" data-i18n="nav.estudio">Estúdio</a><a href="contacto.html" data-i18n="nav.contacto">Contacto</a></div>
+  <div class="navright"><div class="langtog" id="langtog"><button type="button" data-lang="pt" class="on">PT</button><button type="button" data-lang="en">EN</button></div><a href="contacto.html" class="cta-pill" data-i18n="nav.cta">Marcar avaliação</a></div>
+</nav>
+
+<section class="ah">
+  <div class="al">
+    <div class="eyebrow" data-i18n="ab.eyebrow">O Fundador</div>
+    <h1><span class="a" data-i18n="ab.h1a">Olá, sou o [Nome].</span><span class="b" data-i18n="ab.h1b">Prazer em conhecê-lo.</span></h1>
+    <div class="body">
+      <p data-i18n="ab.p1">Há mais de dez anos que trato de carros, mas comecei como entusiasta, na garagem de casa, a passar horas num único painel até ficar perfeito. Foi aí que percebi uma coisa: detalhe não é limpeza, é respeito pela máquina.</p>
+      <p data-i18n="ab.p2">Hoje giro um estúdio de um só homem, na Grande Lisboa, sem pressas, sem atalhos e um carro de cada vez. Só mãos, luz, produtos profissionais e a obsessão de entregar cada viatura melhor do que saiu de fábrica.</p>
+    </div>
+    <div class="connect">
+      <span data-i18n="ab.follow">Siga o estúdio em</span>
+      <a href="https://instagram.com/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+    </div>
+    <div class="sign">Detail Department<small data-i18n="ab.sign">Assinatura e nome real do fundador entram aqui</small></div>
+  </div>
+  <div class="ar"><span class="lbl" data-i18n="ab.portrait">Retrato do fundador · imagem real (P&B)</span></div>
+</section>
+
+<footer>
+  <div class="flegal"><span>© <span id="yr"></span> Detail Department · NIF 000 000 000</span><nav><a href="#" data-i18n="foot.privacy">Privacidade</a><a href="#">Cookies</a><a href="https://www.livroreclamacoes.pt/">Livro de Reclamações</a><a href="#">Instagram</a></nav></div>
+</footer>
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+const I18N={
+  'nav.servicos':{pt:'Serviços',en:'Services'},'nav.processo':{pt:'Processo',en:'Process'},
+  'nav.trabalhos':{pt:'Trabalhos',en:'Work'},'nav.estudio':{pt:'Estúdio',en:'Studio'},
+  'nav.contacto':{pt:'Contacto',en:'Contact'},'nav.cta':{pt:'Marcar avaliação',en:'Book an assessment'},
+  'ab.eyebrow':{pt:'O Fundador',en:'The Founder'},
+  'ab.h1a':{pt:'Olá, sou o [Nome].',en:"Hi, I'm [Name]."},
+  'ab.h1b':{pt:'Prazer em conhecê-lo.',en:'Pleasure to meet you.'},
+  'ab.p1':{pt:'Há mais de dez anos que trato de carros, mas comecei como entusiasta, na garagem de casa, a passar horas num único painel até ficar perfeito. Foi aí que percebi uma coisa: detalhe não é limpeza, é respeito pela máquina.',en:'I have been working on cars for more than ten years, but I started as an enthusiast in the garage at home, spending hours on a single panel until it was perfect. That is when I understood one thing: detailing is not cleaning, it is respect for the car.'},
+  'ab.p2':{pt:'Hoje giro um estúdio de um só homem, na Grande Lisboa, sem pressas, sem atalhos e um carro de cada vez. Só mãos, luz, produtos profissionais e a obsessão de entregar cada viatura melhor do que saiu de fábrica.',en:'Today I run a one-man studio in Greater Lisbon, with no rush, no shortcuts and one car at a time. Just hands, light, professional products and the obsession of delivering every car better than it left the factory.'},
+  'ab.follow':{pt:'Siga o estúdio em',en:'Follow the studio on'},
+  'ab.sign':{pt:'Assinatura e nome real do fundador entram aqui',en:"The founder's signature and real name go here"},
+  'ab.portrait':{pt:'Retrato do fundador · imagem real (P&B)',en:'Founder portrait · real image (B&W)'},
+  'foot.privacy':{pt:'Privacidade',en:'Privacy'}
+};
+let LANG='pt';try{const s=localStorage.getItem('dd_lang');if(s==='pt'||s==='en')LANG=s;}catch(e){}
+function applyI18n(){document.documentElement.lang=LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[k])el.innerHTML=I18N[k][LANG];});
+  document.querySelectorAll('#langtog button').forEach(b=>b.classList.toggle('on',b.dataset.lang===LANG));}
+function setLang(l){LANG=l;try{localStorage.setItem('dd_lang',l);}catch(e){}applyI18n();}
+document.getElementById('langtog').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setLang(b.dataset.lang);});
+applyI18n();
+</script>
+</body>
+</html>
